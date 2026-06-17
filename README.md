@@ -1,5 +1,7 @@
 # Net Doctor
 
+[English](README.md) | [فارسی](README.fa.md) | [العربية](README.ar.md) | [Deutsch](README.de.md)
+
 Net Doctor is a user-friendly Windows network diagnostic and safe repair app. It starts by asking what is broken, then runs a guided diagnosis in plain English.
 
 It is designed for everyday users who need a clear answer to questions like "Why does my internet not work?", without needing to understand DNS, gateways, routes, proxies, VPN adapters, or port tests.
@@ -16,6 +18,10 @@ The current version checks:
 - Windows proxy state
 
 Safe repairs save the previous setting before changing anything, then offer Undo inside the app. The first repair actions cover DNS replacement, WinHTTP proxy reset, and a harmless network refresh for uncertain results.
+
+## Download
+
+Download the latest Windows installer from the [Releases](https://github.com/miladateight/NetDoctor/releases) page.
 
 ## Features
 
@@ -42,6 +48,10 @@ Requires the .NET 8 SDK.
 ```
 
 The installer is written to `artifacts\installer`.
+
+## Repository
+
+GitHub: [miladateight/NetDoctor](https://github.com/miladateight/NetDoctor)
 
 ## License
 

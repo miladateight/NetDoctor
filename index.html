@@ -8,6 +8,8 @@
       name="description"
       content="NetDoctor is a Windows network diagnostics and safe repair tool by Milad Ateight."
     />
+    <link rel="icon" type="image/png" href="./at8-logo.png" />
+    <link rel="apple-touch-icon" href="./at8-logo.png" />
     <title>NetDoctor | Network Diagnostics by AT8</title>
     <style>
       :root {
@@ -24,6 +26,8 @@
         --green: #34d399;
         --gold: #facc15;
         --red: #f43f5e;
+        --brand-gold: #f5c400;
+        --brand-red: #ef1111;
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
@@ -81,20 +85,20 @@
       .topbar {
         position: fixed;
         top: 16px;
-        left: clamp(14px, 4vw, 48px);
-        right: clamp(14px, 4vw, 48px);
+        left: clamp(14px, 3vw, 34px);
+        right: clamp(14px, 3vw, 34px);
         z-index: 20;
-        display: flex;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
         align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        min-height: 68px;
+        gap: 18px;
         padding: 10px 12px;
         border: 1px solid var(--line);
         border-radius: 999px;
-        background: rgba(5, 10, 24, 0.78);
-        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+        background: rgba(2, 8, 18, 0.76);
+        box-shadow: 0 22px 72px rgba(0, 0, 0, 0.34), 0 0 46px rgba(56, 189, 248, 0.08);
         backdrop-filter: blur(20px);
+        direction: ltr;
       }
 
       .brand,
@@ -110,18 +114,48 @@
 
       .brand {
         gap: 10px;
-        font-weight: 900;
+        font-weight: 800;
+        justify-self: start;
+        min-width: 0;
       }
 
       .brand-mark {
         display: grid;
         place-items: center;
         width: 46px;
+        height: 46px;
         aspect-ratio: 1;
+        padding: 4px;
         border-radius: 50%;
-        color: #041018;
-        background: linear-gradient(145deg, #ecfeff, var(--cyan) 58%, var(--green));
-        box-shadow: 0 0 38px rgba(34, 211, 238, 0.28);
+        background:
+          radial-gradient(circle at 40% 28%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.74) 58%, rgba(245, 196, 0, 0.2)),
+          rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 34px rgba(245, 196, 0, 0.22), 0 0 44px rgba(239, 17, 17, 0.08);
+        overflow: hidden;
+      }
+
+      .brand-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.24));
+      }
+
+      .brand-text {
+        display: grid;
+        gap: 0;
+        line-height: 1.08;
+      }
+
+      .brand-text strong {
+        font-size: 1rem;
+      }
+
+      .brand-text small {
+        color: var(--brand-gold);
+        font-family: "Cascadia Code", Consolas, monospace;
+        font-size: 0.72rem;
+        font-weight: 800;
       }
 
       .brand small {
@@ -132,12 +166,17 @@
 
       .nav {
         gap: 8px;
+        justify-content: center;
       }
 
       .header-tools {
+        display: contents;
+      }
+
+      .nav,
+      .lang-switch {
         display: flex;
         align-items: center;
-        gap: 10px;
       }
 
       .nav a {
@@ -154,12 +193,12 @@
       }
 
       .lang-switch {
-        display: flex;
         gap: 4px;
+        min-width: 0;
         padding: 4px;
         border: 1px solid rgba(125, 211, 252, 0.16);
         border-radius: 999px;
-        background: rgba(15, 23, 42, 0.68);
+        background: rgba(15, 23, 42, 0.74);
         direction: ltr;
       }
 
@@ -171,12 +210,17 @@
         color: var(--soft);
         background: transparent;
         cursor: pointer;
+        text-align: center;
       }
 
       .lang-switch button.active,
       .lang-switch button:hover {
         color: white;
-        background: rgba(34, 211, 238, 0.14);
+        background: rgba(56, 189, 248, 0.12);
+      }
+
+      .lang-switch button.active {
+        box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.34);
       }
 
       .hero {
@@ -591,36 +635,41 @@
           display: none;
         }
 
-        .header-tools {
-          margin-left: auto;
+        .lang-switch {
+          justify-self: end;
         }
       }
 
       @media (max-width: 680px) {
         .topbar {
           position: absolute;
+          inset-inline: 14px;
+          width: auto;
+          grid-template-columns: 1fr;
           align-items: stretch;
-          flex-direction: column;
-          max-width: calc(100vw - 28px);
           overflow: hidden;
           border-radius: 18px;
         }
 
-        .header-tools,
         .lang-switch {
-          width: 100%;
+          width: calc(100% - 28px);
         }
 
-        .header-tools {
-          margin-left: 0;
+        .brand {
+          justify-content: flex-start;
         }
 
         .lang-switch {
+          display: flex;
+          flex-wrap: wrap;
+          justify-self: start;
+          direction: ltr;
           overflow: hidden;
         }
 
         .lang-switch button {
-          flex: 1 1 0;
+          flex: 1 1 calc(50% - 4px);
+          max-width: calc(50% - 2px);
           min-width: 0;
           padding-inline: 4px;
           overflow: hidden;
@@ -630,7 +679,7 @@
         }
 
         .hero {
-          padding-top: 184px;
+          padding-top: 224px;
         }
 
         .hero > div {
@@ -686,18 +735,20 @@
       <div class="grid-field"></div>
       <header class="topbar">
         <a class="brand" href="https://ateight.xyz/">
-          <span class="brand-mark">ND</span>
-          <span>
-            NetDoctor
-            <small data-i18n="brandSub">by Milad Ateight / AT8</small>
+          <span class="brand-mark">
+            <img src="./at8-logo.png" alt="" aria-hidden="true" />
+          </span>
+          <span class="brand-text">
+            <strong>Milad</strong>
+            <small>AT8</small>
           </span>
         </a>
         <div class="header-tools">
           <nav class="nav" aria-label="Page navigation">
-            <a href="#features" data-i18n="navFeatures">Features</a>
-            <a href="#flow" data-i18n="navFlow">Diagnosis flow</a>
-            <a href="#download" data-i18n="navDownload">Download</a>
-            <a href="https://github.com/miladateight/NetDoctor">GitHub</a>
+            <a href="https://ateight.xyz/" data-i18n="navHome">Home</a>
+            <a href="https://ateight.xyz/#about" data-i18n="navAbout">About Me</a>
+            <a href="https://ateight.xyz/#projects" data-i18n="navProjects">Projects</a>
+            <a href="https://ateight.xyz/#contact" data-i18n="navContact">Contact Me</a>
           </nav>
           <div class="lang-switch" aria-label="Language switcher">
             <button type="button" class="active" data-lang="en" data-full="English" data-short="EN">English</button>
@@ -718,11 +769,11 @@
             options without burying the user in network jargon.
           </p>
           <div class="actions">
-            <a class="button primary" data-i18n="downloadButton" href="https://github.com/miladateight/NetDoctor/releases">
-              Get Net Doctor
+            <a class="button primary" data-i18n="downloadButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe">
+              Download v0.1.0
             </a>
-            <a class="button" data-i18n="releaseButton" href="https://github.com/miladateight/NetDoctor/releases">
-              Releases
+            <a class="button" data-i18n="releaseButton" href="https://github.com/miladateight/NetDoctor/releases/tag/v0.1.0">
+              Release notes
             </a>
             <a class="button" data-i18n="homeButton" href="https://ateight.xyz/">
               AT8 home
@@ -837,17 +888,20 @@
         <div class="download-panel">
           <article class="download-card">
             <p class="eyebrow pill" data-i18n="downloadKicker">Download</p>
-            <h2 data-i18n="downloadHeading">Get Net Doctor</h2>
+            <h2>NetDoctor v0.1.0</h2>
             <p data-i18n="downloadLead">
-              Net Doctor is commercial software with a monthly license. Download the installer from
-              GitHub Releases, then activate it with a license key. Contact us to purchase a license.
+              Initial public pre-release for Windows. Download the installer from GitHub Releases,
+              verify the checksum if needed, and follow future updates from the same repository.
             </p>
             <div class="download-row">
-              <a class="button primary" data-i18n="installerButton" href="https://github.com/miladateight/NetDoctor/releases">
-                Download from Releases
+              <a class="button primary" data-i18n="installerButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe">
+                Download installer
               </a>
-              <a class="button" data-i18n="buyButton" href="mailto:ateight088@gmail.com?subject=Net%20Doctor%20license">
-                Buy a license
+              <a class="button" href="https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe.sha256">
+                SHA256
+              </a>
+              <a class="button" data-i18n="sourceButton" href="https://github.com/miladateight/NetDoctor">
+                Source code
               </a>
             </div>
           </article>
@@ -884,14 +938,18 @@
           dir: "ltr",
           title: "NetDoctor | Network Diagnostics by AT8",
           brandSub: "by Milad Ateight / AT8",
+          navHome: "Home",
+          navAbout: "About Me",
+          navProjects: "Projects",
+          navContact: "Contact Me",
           navFeatures: "Features",
           navFlow: "Diagnosis flow",
           navDownload: "Download",
           heroKicker: "Windows Network Diagnostics",
           heroTitle: "Find the network fault before touching the settings.",
           heroLead: "NetDoctor is a guided Windows tool for diagnosing DNS, gateway, proxy, latency, packet loss, VPN-like adapters, local access, international access, and safe repair options without burying the user in network jargon.",
-          downloadButton: "Get Net Doctor",
-          releaseButton: "Releases",
+          downloadButton: "Download v0.1.0",
+          releaseButton: "Release notes",
           homeButton: "AT8 home",
           deviceStatus: "status: scanning",
           deviceAdapter: "Adapter",
@@ -917,8 +975,8 @@
           feature4Body: "Turns raw checks into a summary that explains what probably failed and where to look next.",
           feature5Title: "Safe repair",
           feature5Body: "Repair actions save previous settings first and expose undo where a reversible fix is available.",
-          feature6Title: "Licensed & ready",
-          feature6Body: "Ships as a Windows setup file with a built-in activation screen; unlock it with a monthly license key.",
+          feature6Title: "Windows installer",
+          feature6Body: "The release ships as a Windows setup file so users can install the app without building from source.",
           flowKicker: "Flow",
           flowTitle: "Problem first, repair second.",
           step1: "step 1",
@@ -933,11 +991,9 @@
           step4: "step 4",
           flow4Title: "Offer safe fixes",
           flow4Body: "When a reversible fix exists, NetDoctor prepares it with a saved previous state and an undo path.",
-          downloadKicker: "Get it",
-          downloadHeading: "Get Net Doctor",
-          downloadLead: "Net Doctor is commercial software with a monthly license. Download the installer from GitHub Releases, then activate it with your license key. Contact us to purchase a license.",
-          installerButton: "Download from Releases",
-          buyButton: "Buy a license",
+          downloadKicker: "Download",
+          downloadLead: "Initial public pre-release for Windows. Download the installer from GitHub Releases, verify the checksum if needed, and follow future updates from the same repository.",
+          installerButton: "Download installer",
           sourceButton: "Source code",
           metricVersion: "Version",
           metricPlatform: "Platform",
@@ -952,14 +1008,18 @@
           dir: "rtl",
           title: "نت دکتر | عیب یابی شبکه توسط AT8",
           brandSub: "ساخته میلاد Ateight / AT8",
+          navHome: "خانه",
+          navAbout: "درباره من",
+          navProjects: "پروژه ها",
+          navContact: "تماس با من",
           navFeatures: "قابلیت ها",
           navFlow: "روند عیب یابی",
           navDownload: "دانلود",
           heroKicker: "عیب یابی شبکه در ویندوز",
           heroTitle: "قبل از تغییر تنظیمات، خطای شبکه را پیدا کن.",
           heroLead: "NetDoctor یک ابزار راهنما برای ویندوز است که DNS، Gateway، Proxy، تاخیر، Packet Loss، آداپتورهای شبیه VPN، دسترسی داخلی، دسترسی بین المللی و مسیرهای تعمیر امن را بررسی می کند؛ بدون این که کاربر را زیر اصطلاحات پیچیده شبکه دفن کند.",
-          downloadButton: "دریافت نِت‌دکتر",
-          releaseButton: "نسخه‌ها",
+          downloadButton: "دانلود v0.1.0",
+          releaseButton: "یادداشت انتشار",
           homeButton: "خانه AT8",
           deviceStatus: "وضعیت: در حال بررسی",
           deviceAdapter: "آداپتور",
@@ -985,8 +1045,8 @@
           feature4Body: "خروجی خام را به خلاصه ای تبدیل می کند که توضیح می دهد احتمالاً کدام بخش خراب شده و قدم بعدی چیست.",
           feature5Title: "تعمیر امن",
           feature5Body: "قبل از اعمال تعمیر، تنظیم قبلی ذخیره می شود و هرجا تعمیر قابل برگشت باشد مسیر Undo وجود دارد.",
-          feature6Title: "لایسنس‌دار و آماده",
-          feature6Body: "به شکل فایل Setup ویندوز با صفحه‌ی فعال‌سازی داخلی ارائه می‌شود؛ با یک کلید لایسنس ماهانه فعالش کن.",
+          feature6Title: "نصب کننده ویندوز",
+          feature6Body: "نسخه منتشرشده به شکل فایل Setup ویندوز ارائه شده تا کاربر بدون build کردن سورس بتواند برنامه را نصب کند.",
           flowKicker: "روند کار",
           flowTitle: "اول مشکل، بعد تعمیر.",
           step1: "مرحله ۱",
@@ -1001,11 +1061,9 @@
           step4: "مرحله ۴",
           flow4Title: "پیشنهاد تعمیر امن",
           flow4Body: "اگر یک تعمیر قابل برگشت وجود داشته باشد، NetDoctor آن را با وضعیت قبلی ذخیره شده و مسیر Undo آماده می کند.",
-          downloadKicker: "دریافت",
-          downloadHeading: "دریافت نِت‌دکتر",
-          downloadLead: "نِت‌دکتر نرم‌افزار تجاری با لایسنس ماهانه است. نصب‌کننده را از GitHub Releases دانلود کن، سپس با کلید لایسنس فعالش کن. برای خرید لایسنس با ما تماس بگیر.",
-          installerButton: "دانلود از Releases",
-          buyButton: "خرید لایسنس",
+          downloadKicker: "دانلود",
+          downloadLead: "این نسخه، اولین پیش انتشار عمومی برای ویندوز است. نصب کننده را از GitHub Releases دانلود کنید، در صورت نیاز checksum را بررسی کنید و آپدیت های بعدی را از همین ریپو دنبال کنید.",
+          installerButton: "دانلود نصب کننده",
           sourceButton: "سورس کد",
           metricVersion: "نسخه",
           metricPlatform: "پلتفرم",
@@ -1020,14 +1078,18 @@
           dir: "rtl",
           title: "NetDoctor | تشخيص الشبكة بواسطة AT8",
           brandSub: "بواسطة Milad Ateight / AT8",
+          navHome: "الرئيسية",
+          navAbout: "من أنا",
+          navProjects: "المشاريع",
+          navContact: "تواصل معي",
           navFeatures: "الميزات",
           navFlow: "مسار التشخيص",
           navDownload: "تحميل",
           heroKicker: "تشخيص الشبكة في ويندوز",
           heroTitle: "اعرف عطل الشبكة قبل تغيير الإعدادات.",
           heroLead: "NetDoctor أداة إرشادية لويندوز تفحص DNS والبوابة والوكيل والتأخير وفقدان الحزم والمحولات الشبيهة ب VPN والوصول المحلي والدولي وخيارات الإصلاح الآمن، من دون إغراق المستخدم بمصطلحات الشبكات.",
-          downloadButton: "احصل على Net Doctor",
-          releaseButton: "الإصدارات",
+          downloadButton: "تحميل v0.1.0",
+          releaseButton: "ملاحظات الإصدار",
           homeButton: "صفحة AT8",
           deviceStatus: "الحالة: فحص",
           deviceAdapter: "المحول",
@@ -1053,8 +1115,8 @@
           feature4Body: "يحول الفحوصات الخام إلى ملخص يشرح الجزء المحتمل تعطله والخطوة التالية.",
           feature5Title: "إصلاح آمن",
           feature5Body: "تحفظ إجراءات الإصلاح الإعداد السابق أولا وتعرض التراجع عندما يكون الإصلاح قابلا للعكس.",
-          feature6Title: "مرخّص وجاهز",
-          feature6Body: "يأتي كملف إعداد لويندوز مع شاشة تفعيل مدمجة؛ فعّله بمفتاح ترخيص شهري.",
+          feature6Title: "مثبت ويندوز",
+          feature6Body: "يأتي الإصدار كملف إعداد لويندوز حتى يستطيع المستخدم تثبيت التطبيق من دون بناء المصدر.",
           flowKicker: "المسار",
           flowTitle: "المشكلة أولا، ثم الإصلاح.",
           step1: "الخطوة 1",
@@ -1069,11 +1131,9 @@
           step4: "الخطوة 4",
           flow4Title: "اقتراح إصلاح آمن",
           flow4Body: "عندما يوجد إصلاح قابل للتراجع، يجهزه NetDoctor مع حفظ الحالة السابقة ومسار التراجع.",
-          downloadKicker: "احصل عليه",
-          downloadHeading: "احصل على Net Doctor",
-          downloadLead: "Net Doctor برنامج تجاري بترخيص شهري. حمّل المثبت من GitHub Releases ثم فعّله بمفتاح الترخيص. تواصل معنا لشراء ترخيص.",
-          installerButton: "التنزيل من Releases",
-          buyButton: "شراء ترخيص",
+          downloadKicker: "تحميل",
+          downloadLead: "هذا أول إصدار تجريبي عام لويندوز. حمّل المثبت من GitHub Releases وتحقق من checksum عند الحاجة وتابع التحديثات القادمة من نفس المستودع.",
+          installerButton: "تحميل المثبت",
           sourceButton: "الكود المصدري",
           metricVersion: "الإصدار",
           metricPlatform: "النظام",
@@ -1088,14 +1148,18 @@
           dir: "ltr",
           title: "NetDoctor | Netzwerkdiagnose von AT8",
           brandSub: "von Milad Ateight / AT8",
+          navHome: "Home",
+          navAbout: "About Me",
+          navProjects: "Projects",
+          navContact: "Contact Me",
           navFeatures: "Funktionen",
           navFlow: "Diagnoseablauf",
           navDownload: "Download",
           heroKicker: "Windows Netzwerkdiagnose",
           heroTitle: "Finde den Netzwerkfehler, bevor du Einstellungen änderst.",
           heroLead: "NetDoctor ist ein geführtes Windows-Tool zur Diagnose von DNS, Gateway, Proxy, Latenz, Paketverlust, VPN-ähnlichen Adaptern, lokalem Zugriff, internationalem Zugriff und sicheren Reparaturwegen, ohne Nutzer mit Netzwerkjargon zu überladen.",
-          downloadButton: "Net Doctor holen",
-          releaseButton: "Releases",
+          downloadButton: "Download v0.1.0",
+          releaseButton: "Release Notes",
           homeButton: "AT8 Home",
           deviceStatus: "status: scan läuft",
           deviceAdapter: "Adapter",
@@ -1121,8 +1185,8 @@
           feature4Body: "Wandelt Rohprüfungen in eine Zusammenfassung um, die erklärt, was wahrscheinlich defekt ist und wo man weiter sucht.",
           feature5Title: "Sichere Reparatur",
           feature5Body: "Reparaturen speichern zuerst die vorherige Einstellung und bieten Undo, wenn der Fix umkehrbar ist.",
-          feature6Title: "Lizenziert & bereit",
-          feature6Body: "Wird als Windows-Setup mit integriertem Aktivierungsbildschirm geliefert; mit einem monatlichen Lizenzschlüssel freischalten.",
+          feature6Title: "Windows-Installer",
+          feature6Body: "Das Release wird als Windows-Setup ausgeliefert, damit Nutzer die App ohne Build aus dem Quellcode installieren können.",
           flowKicker: "Ablauf",
           flowTitle: "Erst das Problem, dann die Reparatur.",
           step1: "Schritt 1",
@@ -1137,11 +1201,9 @@
           step4: "Schritt 4",
           flow4Title: "Sichere Fixes anbieten",
           flow4Body: "Wenn ein umkehrbarer Fix existiert, bereitet NetDoctor ihn mit gespeichertem Vorzustand und Undo-Pfad vor.",
-          downloadKicker: "Holen",
-          downloadHeading: "Net Doctor holen",
-          downloadLead: "Net Doctor ist kommerzielle Software mit monatlicher Lizenz. Lade den Installer aus GitHub Releases herunter und aktiviere ihn mit deinem Lizenzschlüssel. Kontaktiere uns für den Kauf einer Lizenz.",
-          installerButton: "Aus Releases laden",
-          buyButton: "Lizenz kaufen",
+          downloadKicker: "Download",
+          downloadLead: "Erste öffentliche Vorabversion für Windows. Lade den Installer aus GitHub Releases herunter, prüfe bei Bedarf die Prüfsumme und folge kommenden Updates im selben Repository.",
+          installerButton: "Installer herunterladen",
           sourceButton: "Quellcode",
           metricVersion: "Version",
           metricPlatform: "Plattform",

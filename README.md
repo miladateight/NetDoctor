@@ -21,7 +21,12 @@ Safe repairs save the previous setting before changing anything, then offer Undo
 
 ## Download
 
-Download the latest Windows installer from the [Releases](https://github.com/miladateight/NetDoctor/releases) page.
+Project page: [ateight.xyz/NetDoctor](https://ateight.xyz/NetDoctor/)
+
+Download the current Windows installer:
+[NetDoctorSetup-0.1.0.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe)
+
+All release files are also available from the [Releases](https://github.com/miladateight/NetDoctor/releases) page.
 
 ## Features
 

@@ -1,0 +1,1187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050816" />
+    <meta
+      name="description"
+      content="NetDoctor is a Windows network diagnostics and safe repair tool by Milad Ateight."
+    />
+    <title>NetDoctor | Network Diagnostics by AT8</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #050816;
+        --panel: rgba(12, 19, 36, 0.72);
+        --panel-strong: rgba(14, 23, 42, 0.9);
+        --line: rgba(125, 211, 252, 0.2);
+        --line-strong: rgba(125, 211, 252, 0.42);
+        --text: #f8fafc;
+        --soft: rgba(226, 232, 240, 0.82);
+        --muted: rgba(203, 213, 225, 0.66);
+        --cyan: #22d3ee;
+        --green: #34d399;
+        --gold: #facc15;
+        --red: #f43f5e;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background:
+          radial-gradient(circle at 18% 12%, rgba(34, 211, 238, 0.14), transparent 29%),
+          radial-gradient(circle at 82% 6%, rgba(52, 211, 153, 0.12), transparent 30%),
+          radial-gradient(circle at 60% 84%, rgba(250, 204, 21, 0.09), transparent 34%),
+          linear-gradient(145deg, #040615 0%, #07111f 46%, #050816 100%);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      .page {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .grid-field {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        background:
+          linear-gradient(90deg, rgba(125, 211, 252, 0.055) 1px, transparent 1px),
+          linear-gradient(rgba(125, 211, 252, 0.04) 1px, transparent 1px),
+          linear-gradient(180deg, transparent 0, rgba(5, 8, 22, 0.94) 88%);
+        background-size: 74px 74px, 74px 74px, auto;
+        animation: gridDrift 20s ease-in-out infinite alternate;
+      }
+
+      .topbar {
+        position: fixed;
+        top: 16px;
+        left: clamp(14px, 4vw, 48px);
+        right: clamp(14px, 4vw, 48px);
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 68px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(5, 10, 24, 0.78);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+        backdrop-filter: blur(20px);
+      }
+
+      .brand,
+      .nav,
+      .actions,
+      .pill,
+      .metric,
+      .check,
+      .download-row {
+        display: flex;
+        align-items: center;
+      }
+
+      .brand {
+        gap: 10px;
+        font-weight: 900;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        color: #041018;
+        background: linear-gradient(145deg, #ecfeff, var(--cyan) 58%, var(--green));
+        box-shadow: 0 0 38px rgba(34, 211, 238, 0.28);
+      }
+
+      .brand small {
+        display: block;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .nav {
+        gap: 8px;
+      }
+
+      .header-tools {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav a {
+        min-height: 38px;
+        padding: 0 13px;
+        border-radius: 999px;
+        color: var(--soft);
+        transition: background 180ms ease, color 180ms ease;
+      }
+
+      .nav a:hover {
+        color: white;
+        background: rgba(34, 211, 238, 0.12);
+      }
+
+      .lang-switch {
+        display: flex;
+        gap: 4px;
+        padding: 4px;
+        border: 1px solid rgba(125, 211, 252, 0.16);
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.68);
+        direction: ltr;
+      }
+
+      .lang-switch button {
+        min-height: 34px;
+        padding: 0 10px;
+        border: 0;
+        border-radius: 999px;
+        color: var(--soft);
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .lang-switch button.active,
+      .lang-switch button:hover {
+        color: white;
+        background: rgba(34, 211, 238, 0.14);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.94fr) minmax(380px, 0.78fr);
+        align-items: center;
+        gap: clamp(34px, 5vw, 80px);
+        min-height: 100svh;
+        padding: 132px clamp(20px, 5vw, 82px) 78px;
+        overflow-x: clip;
+      }
+
+      .eyebrow {
+        gap: 9px;
+        margin-bottom: 18px;
+        color: var(--cyan);
+        font-size: 0.88rem;
+        font-weight: 900;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 820px;
+        margin-bottom: 24px;
+        font-size: clamp(2.55rem, 6.4vw, 6.9rem);
+        line-height: 0.95;
+        letter-spacing: 0;
+        overflow-wrap: break-word;
+      }
+
+      .hero-lead {
+        max-width: 760px;
+        color: var(--soft);
+        font-size: clamp(1.06rem, 1.35vw, 1.26rem);
+        line-height: 1.85;
+        overflow-wrap: break-word;
+      }
+
+      .actions {
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 50px;
+        padding: 0 18px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.68);
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        border-color: var(--line-strong);
+      }
+
+      .button.primary {
+        border-color: rgba(52, 211, 153, 0.38);
+        color: #03110d;
+        background: linear-gradient(135deg, #ecfeff, var(--green) 58%, var(--cyan));
+        box-shadow: 0 22px 70px rgba(52, 211, 153, 0.18);
+        font-weight: 900;
+      }
+
+      .hero-stage {
+        position: relative;
+        min-height: clamp(500px, 58vw, 720px);
+        perspective: 1300px;
+        transform-style: preserve-3d;
+      }
+
+      .diagnostic-core {
+        position: absolute;
+        inset: 9%;
+        display: grid;
+        place-items: center;
+        transform-style: preserve-3d;
+      }
+
+      .device {
+        position: relative;
+        z-index: 5;
+        display: grid;
+        align-content: start;
+        gap: 14px;
+        width: min(420px, 78vw);
+        min-height: 300px;
+        padding: 22px;
+        border: 1px solid rgba(125, 211, 252, 0.3);
+        border-radius: 8px;
+        background:
+          linear-gradient(145deg, rgba(34, 211, 238, 0.18), rgba(255, 255, 255, 0.035) 44%, rgba(52, 211, 153, 0.12)),
+          var(--panel-strong);
+        box-shadow: 0 34px 100px rgba(0, 0, 0, 0.42), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        transform: rotateX(10deg) rotateY(-14deg) translateZ(58px);
+        animation: deviceFloat 8s cubic-bezier(0.42, 0, 0.2, 1) infinite;
+      }
+
+      .device-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-family: "Cascadia Code", Consolas, monospace;
+        font-size: 0.82rem;
+      }
+
+      .terminal-line {
+        display: grid;
+        gap: 7px;
+        padding: 13px;
+        border: 1px solid rgba(125, 211, 252, 0.16);
+        border-radius: 8px;
+        background: rgba(2, 6, 23, 0.54);
+      }
+
+      .terminal-line strong {
+        color: #dcfce7;
+      }
+
+      .terminal-line span {
+        color: var(--muted);
+        font-family: "Cascadia Code", Consolas, monospace;
+        font-size: 0.82rem;
+      }
+
+      .orbit {
+        position: absolute;
+        inset: 8%;
+        border: 1px solid rgba(34, 211, 238, 0.3);
+        border-radius: 50%;
+        transform-style: preserve-3d;
+        animation: orbitSpin 14s linear infinite;
+      }
+
+      .orbit:nth-child(2) {
+        inset: 15%;
+        border-color: rgba(52, 211, 153, 0.32);
+        transform: rotateX(70deg);
+        animation-duration: 11s;
+        animation-direction: reverse;
+      }
+
+      .orbit:nth-child(3) {
+        inset: 2%;
+        border-color: rgba(250, 204, 21, 0.24);
+        transform: rotateY(72deg) rotateZ(18deg);
+        animation-duration: 18s;
+      }
+
+      .floating-chip {
+        position: absolute;
+        z-index: 8;
+        display: inline-flex;
+        align-items: center;
+        min-height: 42px;
+        padding: 0 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--soft);
+        background: rgba(8, 15, 30, 0.8);
+        box-shadow: 0 18px 52px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(16px);
+        animation: panelFloat 7s ease-in-out infinite;
+      }
+
+      .chip-1 {
+        top: 18%;
+        left: 0;
+      }
+
+      .chip-2 {
+        top: 20%;
+        right: 0;
+        animation-delay: -2s;
+      }
+
+      .chip-3 {
+        left: 5%;
+        bottom: 20%;
+        animation-delay: -3.6s;
+      }
+
+      .chip-4 {
+        right: 4%;
+        bottom: 18%;
+        animation-delay: -4.8s;
+      }
+
+      .section {
+        padding: 84px clamp(20px, 5vw, 82px);
+        background: linear-gradient(180deg, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.985));
+      }
+
+      .section-heading {
+        max-width: 840px;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        margin-bottom: 14px;
+        font-size: clamp(2.15rem, 4.8vw, 5.2rem);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .section-heading p {
+        color: var(--soft);
+        font-size: 1.08rem;
+        line-height: 1.8;
+      }
+
+      .feature-grid,
+      .flow-grid,
+      .download-panel {
+        display: grid;
+        gap: 14px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .feature-card,
+      .flow-card,
+      .download-card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: linear-gradient(145deg, rgba(34, 211, 238, 0.1), rgba(255, 255, 255, 0.025) 48%, rgba(52, 211, 153, 0.08)), var(--panel);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+      }
+
+      .feature-card {
+        min-height: 225px;
+        padding: 22px;
+      }
+
+      .feature-card span,
+      .flow-card span,
+      .download-meta {
+        color: var(--gold);
+        font-family: "Cascadia Code", Consolas, monospace;
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .feature-card h3,
+      .flow-card h3 {
+        margin-bottom: 12px;
+        font-size: 1.35rem;
+      }
+
+      .feature-card p,
+      .flow-card p,
+      .download-card p {
+        color: var(--muted);
+        line-height: 1.74;
+      }
+
+      .flow-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .flow-card {
+        min-height: 250px;
+        padding: 22px;
+      }
+
+      .download-panel {
+        grid-template-columns: minmax(0, 0.82fr) minmax(300px, 0.42fr);
+        align-items: stretch;
+      }
+
+      .download-card {
+        padding: 26px;
+      }
+
+      .download-row {
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .metric-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .metric {
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px;
+        border: 1px solid rgba(125, 211, 252, 0.14);
+        border-radius: 8px;
+        background: rgba(15, 23, 42, 0.5);
+      }
+
+      .metric small {
+        color: var(--muted);
+      }
+
+      .check {
+        gap: 8px;
+        color: #dcfce7;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 24px clamp(20px, 5vw, 82px) 42px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        background: rgba(5, 8, 22, 0.99);
+      }
+
+      .rtl .hero > div:first-child,
+      .rtl .section-heading,
+      .rtl .feature-card,
+      .rtl .flow-card,
+      .rtl .download-card {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .rtl .actions,
+      .rtl .download-row {
+        justify-content: flex-start;
+      }
+
+      .rtl .hero {
+        direction: ltr;
+      }
+
+      @keyframes gridDrift {
+        from {
+          background-position: 0 0, 0 0, center;
+        }
+
+        to {
+          background-position: 34px 22px, -28px 18px, center;
+        }
+      }
+
+      @keyframes orbitSpin {
+        from {
+          rotate: 0deg;
+        }
+
+        to {
+          rotate: 360deg;
+        }
+      }
+
+      @keyframes deviceFloat {
+        0%,
+        100% {
+          transform: rotateX(10deg) rotateY(-14deg) translate3d(0, 0, 58px);
+        }
+
+        50% {
+          transform: rotateX(13deg) rotateY(10deg) translate3d(0, -14px, 76px);
+        }
+      }
+
+      @keyframes panelFloat {
+        0%,
+        100% {
+          transform: translate3d(0, 0, 32px);
+        }
+
+        50% {
+          transform: translate3d(0, -9px, 54px);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      @media (max-width: 1080px) {
+        .hero,
+        .download-panel {
+          grid-template-columns: 1fr;
+        }
+
+        .feature-grid,
+        .flow-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .header-tools {
+          margin-left: auto;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .topbar {
+          position: absolute;
+          align-items: stretch;
+          flex-direction: column;
+          max-width: calc(100vw - 28px);
+          overflow: hidden;
+          border-radius: 18px;
+        }
+
+        .header-tools,
+        .lang-switch {
+          width: 100%;
+        }
+
+        .header-tools {
+          margin-left: 0;
+        }
+
+        .lang-switch {
+          overflow: hidden;
+        }
+
+        .lang-switch button {
+          flex: 1 1 0;
+          min-width: 0;
+          padding-inline: 4px;
+          overflow: hidden;
+          font-size: 0.72rem;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .hero {
+          padding-top: 184px;
+        }
+
+        .hero > div {
+          min-width: 0;
+          width: min(326px, calc(100vw - 64px));
+          max-width: min(326px, calc(100vw - 64px));
+        }
+
+        h1 {
+          width: 100%;
+          max-width: min(326px, calc(100vw - 64px));
+          font-size: clamp(2rem, 9vw, 2.62rem);
+          line-height: 1.04;
+        }
+
+        .hero-lead {
+          max-width: min(326px, calc(100vw - 64px));
+          font-size: 1rem;
+          line-height: 1.68;
+        }
+
+        .hero-stage {
+          width: min(326px, calc(100vw - 64px));
+          min-height: 470px;
+        }
+
+        .floating-chip {
+          display: none;
+        }
+
+        .device {
+          width: min(340px, 92vw);
+          min-height: 280px;
+        }
+
+        .feature-grid,
+        .flow-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .footer {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="grid-field"></div>
+      <header class="topbar">
+        <a class="brand" href="https://ateight.xyz/">
+          <span class="brand-mark">ND</span>
+          <span>
+            NetDoctor
+            <small data-i18n="brandSub">by Milad Ateight / AT8</small>
+          </span>
+        </a>
+        <div class="header-tools">
+          <nav class="nav" aria-label="Page navigation">
+            <a href="#features" data-i18n="navFeatures">Features</a>
+            <a href="#flow" data-i18n="navFlow">Diagnosis flow</a>
+            <a href="#download" data-i18n="navDownload">Download</a>
+            <a href="https://github.com/miladateight/NetDoctor">GitHub</a>
+          </nav>
+          <div class="lang-switch" aria-label="Language switcher">
+            <button type="button" class="active" data-lang="en" data-full="English" data-short="EN">English</button>
+            <button type="button" data-lang="fa" data-full="فارسی" data-short="FA">فارسی</button>
+            <button type="button" data-lang="ar" data-full="العربية" data-short="AR">العربية</button>
+            <button type="button" data-lang="de" data-full="Deutsch" data-short="DE">Deutsch</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow pill" data-i18n="heroKicker">Windows Network Diagnostics</p>
+          <h1 data-i18n="heroTitle">Find the network fault before touching the settings.</h1>
+          <p class="hero-lead" data-i18n="heroLead">
+            NetDoctor is a guided Windows tool for diagnosing DNS, gateway, proxy, latency,
+            packet loss, VPN-like adapters, local access, international access, and safe repair
+            options without burying the user in network jargon.
+          </p>
+          <div class="actions">
+            <a class="button primary" data-i18n="downloadButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe">
+              Download v0.1.0
+            </a>
+            <a class="button" data-i18n="releaseButton" href="https://github.com/miladateight/NetDoctor/releases/tag/v0.1.0">
+              Release notes
+            </a>
+            <a class="button" data-i18n="homeButton" href="https://ateight.xyz/">
+              AT8 home
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stage" aria-hidden="true">
+          <div class="diagnostic-core">
+            <span class="orbit"></span>
+            <span class="orbit"></span>
+            <span class="orbit"></span>
+            <div class="device">
+              <div class="device-top">
+                <span>netdoctor.exe</span>
+                <span data-i18n="deviceStatus">status: scanning</span>
+              </div>
+              <div class="terminal-line">
+                <strong data-i18n="deviceAdapter">Adapter</strong>
+                <span data-i18n="deviceAdapterLine">Ethernet / gateway / dns / proxy</span>
+              </div>
+              <div class="terminal-line">
+                <strong data-i18n="deviceConnectivity">Connectivity</strong>
+                <span data-i18n="deviceConnectivityLine">local route ok / international route testing</span>
+              </div>
+              <div class="terminal-line">
+                <strong data-i18n="deviceFix">Safe Fix</strong>
+                <span data-i18n="deviceFixLine">reversible repair path prepared</span>
+              </div>
+            </div>
+          </div>
+          <span class="floating-chip chip-1" data-i18n="chipDns">DNS resolution</span>
+          <span class="floating-chip chip-2" data-i18n="chipLoss">Packet loss</span>
+          <span class="floating-chip chip-3" data-i18n="chipProxy">Proxy state</span>
+          <span class="floating-chip chip-4" data-i18n="chipUndo">Undo support</span>
+        </div>
+      </section>
+
+      <section id="features" class="section">
+        <div class="section-heading">
+          <p class="eyebrow pill" data-i18n="featuresKicker">What it checks</p>
+          <h2 data-i18n="featuresTitle">Clear diagnostics for messy network problems.</h2>
+          <p data-i18n="featuresLead">
+            NetDoctor starts from the user-visible problem and builds a plain-language report
+            from the network layers that usually break first.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span>01</span>
+            <h3 data-i18n="feature1Title">Adapter and gateway</h3>
+            <p data-i18n="feature1Body">Reads active adapter state, gateway availability, DNS configuration, and common route symptoms.</p>
+          </article>
+          <article class="feature-card">
+            <span>02</span>
+            <h3 data-i18n="feature2Title">DNS and reachability</h3>
+            <p data-i18n="feature2Body">Tests DNS resolution, local access, international access, TCP port reachability, latency, and packet loss.</p>
+          </article>
+          <article class="feature-card">
+            <span>03</span>
+            <h3 data-i18n="feature3Title">Proxy and VPN clues</h3>
+            <p data-i18n="feature3Body">Detects Windows proxy state and VPN-like adapters that can quietly change the user's path to the internet.</p>
+          </article>
+          <article class="feature-card">
+            <span>04</span>
+            <h3 data-i18n="feature4Title">Human diagnosis</h3>
+            <p data-i18n="feature4Body">Turns raw checks into a summary that explains what probably failed and where to look next.</p>
+          </article>
+          <article class="feature-card">
+            <span>05</span>
+            <h3 data-i18n="feature5Title">Safe repair</h3>
+            <p data-i18n="feature5Body">Repair actions save previous settings first and expose undo where a reversible fix is available.</p>
+          </article>
+          <article class="feature-card">
+            <span>06</span>
+            <h3 data-i18n="feature6Title">Windows installer</h3>
+            <p data-i18n="feature6Body">The release ships as a Windows setup file so users can install the app without building from source.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="flow" class="section">
+        <div class="section-heading">
+          <p class="eyebrow pill" data-i18n="flowKicker">Flow</p>
+          <h2 data-i18n="flowTitle">Problem first, repair second.</h2>
+        </div>
+        <div class="flow-grid">
+          <article class="flow-card">
+            <span data-i18n="step1">step 1</span>
+            <h3 data-i18n="flow1Title">Ask what is broken</h3>
+            <p data-i18n="flow1Body">The app starts from the symptom the user actually sees instead of dumping a technical checklist.</p>
+          </article>
+          <article class="flow-card">
+            <span data-i18n="step2">step 2</span>
+            <h3 data-i18n="flow2Title">Run layered checks</h3>
+            <p data-i18n="flow2Body">It checks adapter, route, DNS, latency, ports, proxy, VPN-like adapters, and access paths.</p>
+          </article>
+          <article class="flow-card">
+            <span data-i18n="step3">step 3</span>
+            <h3 data-i18n="flow3Title">Explain the result</h3>
+            <p data-i18n="flow3Body">The output is written for a normal user while still preserving useful signals for a technical operator.</p>
+          </article>
+          <article class="flow-card">
+            <span data-i18n="step4">step 4</span>
+            <h3 data-i18n="flow4Title">Offer safe fixes</h3>
+            <p data-i18n="flow4Body">When a reversible fix exists, NetDoctor prepares it with a saved previous state and an undo path.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="download" class="section">
+        <div class="download-panel">
+          <article class="download-card">
+            <p class="eyebrow pill" data-i18n="downloadKicker">Download</p>
+            <h2>NetDoctor v0.1.0</h2>
+            <p data-i18n="downloadLead">
+              Initial public pre-release for Windows. Download the installer from GitHub Releases,
+              verify the checksum if needed, and follow future updates from the same repository.
+            </p>
+            <div class="download-row">
+              <a class="button primary" data-i18n="installerButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe">
+                Download installer
+              </a>
+              <a class="button" href="https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe.sha256">
+                SHA256
+              </a>
+              <a class="button" data-i18n="sourceButton" href="https://github.com/miladateight/NetDoctor">
+                Source code
+              </a>
+            </div>
+          </article>
+          <aside class="download-card metric-list">
+            <div class="metric">
+              <strong data-i18n="metricVersion">Version</strong>
+              <small>v0.1.0</small>
+            </div>
+            <div class="metric">
+              <strong data-i18n="metricPlatform">Platform</strong>
+              <small data-i18n="metricWindows">Windows</small>
+            </div>
+            <div class="metric">
+              <strong data-i18n="metricRuntime">Runtime</strong>
+              <small>.NET 8</small>
+            </div>
+            <div class="metric">
+              <strong data-i18n="metricInstaller">Installer</strong>
+              <small>NetDoctorSetup-0.1.0.exe</small>
+            </div>
+            <div class="check" data-i18n="downloadNote">Safe repair actions include undo where reversible.</div>
+          </aside>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span data-i18n="footerLeft">NetDoctor by Milad Ateight</span>
+        <span data-i18n="footerRight">Project page: ateight.xyz/NetDoctor</span>
+      </footer>
+    </main>
+    <script>
+      const copy = {
+        en: {
+          dir: "ltr",
+          title: "NetDoctor | Network Diagnostics by AT8",
+          brandSub: "by Milad Ateight / AT8",
+          navFeatures: "Features",
+          navFlow: "Diagnosis flow",
+          navDownload: "Download",
+          heroKicker: "Windows Network Diagnostics",
+          heroTitle: "Find the network fault before touching the settings.",
+          heroLead: "NetDoctor is a guided Windows tool for diagnosing DNS, gateway, proxy, latency, packet loss, VPN-like adapters, local access, international access, and safe repair options without burying the user in network jargon.",
+          downloadButton: "Download v0.1.0",
+          releaseButton: "Release notes",
+          homeButton: "AT8 home",
+          deviceStatus: "status: scanning",
+          deviceAdapter: "Adapter",
+          deviceAdapterLine: "Ethernet / gateway / dns / proxy",
+          deviceConnectivity: "Connectivity",
+          deviceConnectivityLine: "local route ok / international route testing",
+          deviceFix: "Safe Fix",
+          deviceFixLine: "reversible repair path prepared",
+          chipDns: "DNS resolution",
+          chipLoss: "Packet loss",
+          chipProxy: "Proxy state",
+          chipUndo: "Undo support",
+          featuresKicker: "What it checks",
+          featuresTitle: "Clear diagnostics for messy network problems.",
+          featuresLead: "NetDoctor starts from the user-visible problem and builds a plain-language report from the network layers that usually break first.",
+          feature1Title: "Adapter and gateway",
+          feature1Body: "Reads active adapter state, gateway availability, DNS configuration, and common route symptoms.",
+          feature2Title: "DNS and reachability",
+          feature2Body: "Tests DNS resolution, local access, international access, TCP port reachability, latency, and packet loss.",
+          feature3Title: "Proxy and VPN clues",
+          feature3Body: "Detects Windows proxy state and VPN-like adapters that can quietly change the user's path to the internet.",
+          feature4Title: "Human diagnosis",
+          feature4Body: "Turns raw checks into a summary that explains what probably failed and where to look next.",
+          feature5Title: "Safe repair",
+          feature5Body: "Repair actions save previous settings first and expose undo where a reversible fix is available.",
+          feature6Title: "Windows installer",
+          feature6Body: "The release ships as a Windows setup file so users can install the app without building from source.",
+          flowKicker: "Flow",
+          flowTitle: "Problem first, repair second.",
+          step1: "step 1",
+          flow1Title: "Ask what is broken",
+          flow1Body: "The app starts from the symptom the user actually sees instead of dumping a technical checklist.",
+          step2: "step 2",
+          flow2Title: "Run layered checks",
+          flow2Body: "It checks adapter, route, DNS, latency, ports, proxy, VPN-like adapters, and access paths.",
+          step3: "step 3",
+          flow3Title: "Explain the result",
+          flow3Body: "The output is written for a normal user while still preserving useful signals for a technical operator.",
+          step4: "step 4",
+          flow4Title: "Offer safe fixes",
+          flow4Body: "When a reversible fix exists, NetDoctor prepares it with a saved previous state and an undo path.",
+          downloadKicker: "Download",
+          downloadLead: "Initial public pre-release for Windows. Download the installer from GitHub Releases, verify the checksum if needed, and follow future updates from the same repository.",
+          installerButton: "Download installer",
+          sourceButton: "Source code",
+          metricVersion: "Version",
+          metricPlatform: "Platform",
+          metricWindows: "Windows",
+          metricRuntime: "Runtime",
+          metricInstaller: "Installer",
+          downloadNote: "Safe repair actions include undo where reversible.",
+          footerLeft: "NetDoctor by Milad Ateight",
+          footerRight: "Project page: ateight.xyz/NetDoctor"
+        },
+        fa: {
+          dir: "rtl",
+          title: "نت دکتر | عیب یابی شبکه توسط AT8",
+          brandSub: "ساخته میلاد Ateight / AT8",
+          navFeatures: "قابلیت ها",
+          navFlow: "روند عیب یابی",
+          navDownload: "دانلود",
+          heroKicker: "عیب یابی شبکه در ویندوز",
+          heroTitle: "قبل از تغییر تنظیمات، خطای شبکه را پیدا کن.",
+          heroLead: "NetDoctor یک ابزار راهنما برای ویندوز است که DNS، Gateway، Proxy، تاخیر، Packet Loss، آداپتورهای شبیه VPN، دسترسی داخلی، دسترسی بین المللی و مسیرهای تعمیر امن را بررسی می کند؛ بدون این که کاربر را زیر اصطلاحات پیچیده شبکه دفن کند.",
+          downloadButton: "دانلود v0.1.0",
+          releaseButton: "یادداشت انتشار",
+          homeButton: "خانه AT8",
+          deviceStatus: "وضعیت: در حال بررسی",
+          deviceAdapter: "آداپتور",
+          deviceAdapterLine: "اترنت / گیت وی / DNS / پروکسی",
+          deviceConnectivity: "اتصال",
+          deviceConnectivityLine: "مسیر داخلی سالم / مسیر بین المللی در حال تست",
+          deviceFix: "تعمیر امن",
+          deviceFixLine: "مسیر تعمیر قابل برگشت آماده است",
+          chipDns: "بررسی DNS",
+          chipLoss: "Packet Loss",
+          chipProxy: "وضعیت پروکسی",
+          chipUndo: "پشتیبانی Undo",
+          featuresKicker: "چه چیزهایی بررسی می شود",
+          featuresTitle: "عیب یابی شفاف برای مشکل های شلوغ شبکه.",
+          featuresLead: "NetDoctor از مشکلی شروع می کند که کاربر واقعاً می بیند و بعد از لایه های معمول خرابی شبکه یک گزارش قابل فهم می سازد.",
+          feature1Title: "آداپتور و گیت وی",
+          feature1Body: "وضعیت آداپتور فعال، دسترسی گیت وی، تنظیمات DNS و نشانه های رایج مسیر شبکه را می خواند.",
+          feature2Title: "DNS و دسترسی",
+          feature2Body: "Resolving DNS، دسترسی داخلی، دسترسی بین المللی، پورت های TCP، تاخیر و Packet Loss را تست می کند.",
+          feature3Title: "نشانه های پروکسی و VPN",
+          feature3Body: "وضعیت پروکسی ویندوز و آداپتورهای شبیه VPN را تشخیص می دهد؛ همان چیزهایی که گاهی مسیر اینترنت را بی صدا عوض می کنند.",
+          feature4Title: "تشخیص قابل فهم",
+          feature4Body: "خروجی خام را به خلاصه ای تبدیل می کند که توضیح می دهد احتمالاً کدام بخش خراب شده و قدم بعدی چیست.",
+          feature5Title: "تعمیر امن",
+          feature5Body: "قبل از اعمال تعمیر، تنظیم قبلی ذخیره می شود و هرجا تعمیر قابل برگشت باشد مسیر Undo وجود دارد.",
+          feature6Title: "نصب کننده ویندوز",
+          feature6Body: "نسخه منتشرشده به شکل فایل Setup ویندوز ارائه شده تا کاربر بدون build کردن سورس بتواند برنامه را نصب کند.",
+          flowKicker: "روند کار",
+          flowTitle: "اول مشکل، بعد تعمیر.",
+          step1: "مرحله ۱",
+          flow1Title: "پرسیدن مشکل واقعی",
+          flow1Body: "برنامه از همان نشانه ای شروع می کند که کاربر می بیند، نه از یک چک لیست خشک فنی.",
+          step2: "مرحله ۲",
+          flow2Title: "بررسی لایه ای",
+          flow2Body: "آداپتور، مسیر، DNS، تاخیر، پورت ها، پروکسی، آداپتورهای شبیه VPN و مسیرهای دسترسی بررسی می شوند.",
+          step3: "مرحله ۳",
+          flow3Title: "توضیح نتیجه",
+          flow3Body: "خروجی برای کاربر عادی قابل فهم است و در عین حال سیگنال های لازم را برای اپراتور فنی نگه می دارد.",
+          step4: "مرحله ۴",
+          flow4Title: "پیشنهاد تعمیر امن",
+          flow4Body: "اگر یک تعمیر قابل برگشت وجود داشته باشد، NetDoctor آن را با وضعیت قبلی ذخیره شده و مسیر Undo آماده می کند.",
+          downloadKicker: "دانلود",
+          downloadLead: "این نسخه، اولین پیش انتشار عمومی برای ویندوز است. نصب کننده را از GitHub Releases دانلود کنید، در صورت نیاز checksum را بررسی کنید و آپدیت های بعدی را از همین ریپو دنبال کنید.",
+          installerButton: "دانلود نصب کننده",
+          sourceButton: "سورس کد",
+          metricVersion: "نسخه",
+          metricPlatform: "پلتفرم",
+          metricWindows: "ویندوز",
+          metricRuntime: "ران تایم",
+          metricInstaller: "نصب کننده",
+          downloadNote: "تعمیرهای امن در موارد قابل برگشت، Undo دارند.",
+          footerLeft: "NetDoctor ساخته میلاد Ateight",
+          footerRight: "صفحه پروژه: ateight.xyz/NetDoctor"
+        },
+        ar: {
+          dir: "rtl",
+          title: "NetDoctor | تشخيص الشبكة بواسطة AT8",
+          brandSub: "بواسطة Milad Ateight / AT8",
+          navFeatures: "الميزات",
+          navFlow: "مسار التشخيص",
+          navDownload: "تحميل",
+          heroKicker: "تشخيص الشبكة في ويندوز",
+          heroTitle: "اعرف عطل الشبكة قبل تغيير الإعدادات.",
+          heroLead: "NetDoctor أداة إرشادية لويندوز تفحص DNS والبوابة والوكيل والتأخير وفقدان الحزم والمحولات الشبيهة ب VPN والوصول المحلي والدولي وخيارات الإصلاح الآمن، من دون إغراق المستخدم بمصطلحات الشبكات.",
+          downloadButton: "تحميل v0.1.0",
+          releaseButton: "ملاحظات الإصدار",
+          homeButton: "صفحة AT8",
+          deviceStatus: "الحالة: فحص",
+          deviceAdapter: "المحول",
+          deviceAdapterLine: "Ethernet / البوابة / DNS / الوكيل",
+          deviceConnectivity: "الاتصال",
+          deviceConnectivityLine: "المسار المحلي جيد / اختبار المسار الدولي",
+          deviceFix: "إصلاح آمن",
+          deviceFixLine: "مسار إصلاح قابل للتراجع جاهز",
+          chipDns: "حل DNS",
+          chipLoss: "فقدان الحزم",
+          chipProxy: "حالة الوكيل",
+          chipUndo: "دعم التراجع",
+          featuresKicker: "ماذا يفحص",
+          featuresTitle: "تشخيص واضح لمشكلات الشبكة المعقدة.",
+          featuresLead: "يبدأ NetDoctor من المشكلة التي يراها المستخدم ثم يبني تقريرا مفهوما من طبقات الشبكة التي تتعطل غالبا.",
+          feature1Title: "المحول والبوابة",
+          feature1Body: "يقرأ حالة المحول النشط وتوفر البوابة وإعدادات DNS وأعراض المسار الشائعة.",
+          feature2Title: "DNS والوصول",
+          feature2Body: "يفحص حل DNS والوصول المحلي والدولي ومنافذ TCP والتأخير وفقدان الحزم.",
+          feature3Title: "دلائل الوكيل و VPN",
+          feature3Body: "يكشف حالة وكيل ويندوز والمحولات الشبيهة ب VPN التي قد تغير مسار الإنترنت بهدوء.",
+          feature4Title: "تشخيص مفهوم",
+          feature4Body: "يحول الفحوصات الخام إلى ملخص يشرح الجزء المحتمل تعطله والخطوة التالية.",
+          feature5Title: "إصلاح آمن",
+          feature5Body: "تحفظ إجراءات الإصلاح الإعداد السابق أولا وتعرض التراجع عندما يكون الإصلاح قابلا للعكس.",
+          feature6Title: "مثبت ويندوز",
+          feature6Body: "يأتي الإصدار كملف إعداد لويندوز حتى يستطيع المستخدم تثبيت التطبيق من دون بناء المصدر.",
+          flowKicker: "المسار",
+          flowTitle: "المشكلة أولا، ثم الإصلاح.",
+          step1: "الخطوة 1",
+          flow1Title: "اسأل ما الذي تعطل",
+          flow1Body: "يبدأ التطبيق من العرض الذي يراه المستخدم بدلا من عرض قائمة تقنية جافة.",
+          step2: "الخطوة 2",
+          flow2Title: "إجراء فحوصات طبقية",
+          flow2Body: "يفحص المحول والمسار وDNS والتأخير والمنافذ والوكيل والمحولات الشبيهة ب VPN ومسارات الوصول.",
+          step3: "الخطوة 3",
+          flow3Title: "شرح النتيجة",
+          flow3Body: "النتيجة مكتوبة للمستخدم العادي مع الحفاظ على إشارات مفيدة للمشغل التقني.",
+          step4: "الخطوة 4",
+          flow4Title: "اقتراح إصلاح آمن",
+          flow4Body: "عندما يوجد إصلاح قابل للتراجع، يجهزه NetDoctor مع حفظ الحالة السابقة ومسار التراجع.",
+          downloadKicker: "تحميل",
+          downloadLead: "هذا أول إصدار تجريبي عام لويندوز. حمّل المثبت من GitHub Releases وتحقق من checksum عند الحاجة وتابع التحديثات القادمة من نفس المستودع.",
+          installerButton: "تحميل المثبت",
+          sourceButton: "الكود المصدري",
+          metricVersion: "الإصدار",
+          metricPlatform: "النظام",
+          metricWindows: "ويندوز",
+          metricRuntime: "بيئة التشغيل",
+          metricInstaller: "المثبت",
+          downloadNote: "إجراءات الإصلاح الآمن تتضمن التراجع عندما يكون ذلك ممكنا.",
+          footerLeft: "NetDoctor بواسطة Milad Ateight",
+          footerRight: "صفحة المشروع: ateight.xyz/NetDoctor"
+        },
+        de: {
+          dir: "ltr",
+          title: "NetDoctor | Netzwerkdiagnose von AT8",
+          brandSub: "von Milad Ateight / AT8",
+          navFeatures: "Funktionen",
+          navFlow: "Diagnoseablauf",
+          navDownload: "Download",
+          heroKicker: "Windows Netzwerkdiagnose",
+          heroTitle: "Finde den Netzwerkfehler, bevor du Einstellungen änderst.",
+          heroLead: "NetDoctor ist ein geführtes Windows-Tool zur Diagnose von DNS, Gateway, Proxy, Latenz, Paketverlust, VPN-ähnlichen Adaptern, lokalem Zugriff, internationalem Zugriff und sicheren Reparaturwegen, ohne Nutzer mit Netzwerkjargon zu überladen.",
+          downloadButton: "Download v0.1.0",
+          releaseButton: "Release Notes",
+          homeButton: "AT8 Home",
+          deviceStatus: "status: scan läuft",
+          deviceAdapter: "Adapter",
+          deviceAdapterLine: "Ethernet / Gateway / DNS / Proxy",
+          deviceConnectivity: "Verbindung",
+          deviceConnectivityLine: "lokale Route ok / internationale Route im Test",
+          deviceFix: "Sichere Reparatur",
+          deviceFixLine: "umkehrbarer Reparaturpfad vorbereitet",
+          chipDns: "DNS-Auflösung",
+          chipLoss: "Paketverlust",
+          chipProxy: "Proxy-Status",
+          chipUndo: "Undo-Unterstützung",
+          featuresKicker: "Was geprüft wird",
+          featuresTitle: "Klare Diagnose für unübersichtliche Netzwerkprobleme.",
+          featuresLead: "NetDoctor beginnt beim sichtbaren Problem und erstellt aus den typischen Netzwerkschichten einen verständlichen Bericht.",
+          feature1Title: "Adapter und Gateway",
+          feature1Body: "Liest aktiven Adapterstatus, Gateway-Erreichbarkeit, DNS-Konfiguration und typische Routing-Symptome.",
+          feature2Title: "DNS und Erreichbarkeit",
+          feature2Body: "Prüft DNS-Auflösung, lokalen Zugriff, internationalen Zugriff, TCP-Ports, Latenz und Paketverlust.",
+          feature3Title: "Proxy- und VPN-Hinweise",
+          feature3Body: "Erkennt Windows-Proxy-Zustand und VPN-ähnliche Adapter, die den Internetpfad unbemerkt verändern können.",
+          feature4Title: "Menschliche Diagnose",
+          feature4Body: "Wandelt Rohprüfungen in eine Zusammenfassung um, die erklärt, was wahrscheinlich defekt ist und wo man weiter sucht.",
+          feature5Title: "Sichere Reparatur",
+          feature5Body: "Reparaturen speichern zuerst die vorherige Einstellung und bieten Undo, wenn der Fix umkehrbar ist.",
+          feature6Title: "Windows-Installer",
+          feature6Body: "Das Release wird als Windows-Setup ausgeliefert, damit Nutzer die App ohne Build aus dem Quellcode installieren können.",
+          flowKicker: "Ablauf",
+          flowTitle: "Erst das Problem, dann die Reparatur.",
+          step1: "Schritt 1",
+          flow1Title: "Fragen, was kaputt ist",
+          flow1Body: "Die App startet mit dem Symptom, das der Nutzer wirklich sieht, statt eine technische Checkliste auszuspucken.",
+          step2: "Schritt 2",
+          flow2Title: "Schichtweise prüfen",
+          flow2Body: "Sie prüft Adapter, Route, DNS, Latenz, Ports, Proxy, VPN-ähnliche Adapter und Zugriffspfade.",
+          step3: "Schritt 3",
+          flow3Title: "Ergebnis erklären",
+          flow3Body: "Die Ausgabe ist für normale Nutzer verständlich und behält nützliche Signale für technische Betreiber.",
+          step4: "Schritt 4",
+          flow4Title: "Sichere Fixes anbieten",
+          flow4Body: "Wenn ein umkehrbarer Fix existiert, bereitet NetDoctor ihn mit gespeichertem Vorzustand und Undo-Pfad vor.",
+          downloadKicker: "Download",
+          downloadLead: "Erste öffentliche Vorabversion für Windows. Lade den Installer aus GitHub Releases herunter, prüfe bei Bedarf die Prüfsumme und folge kommenden Updates im selben Repository.",
+          installerButton: "Installer herunterladen",
+          sourceButton: "Quellcode",
+          metricVersion: "Version",
+          metricPlatform: "Plattform",
+          metricWindows: "Windows",
+          metricRuntime: "Runtime",
+          metricInstaller: "Installer",
+          downloadNote: "Sichere Reparaturen enthalten Undo, wenn sie umkehrbar sind.",
+          footerLeft: "NetDoctor von Milad Ateight",
+          footerRight: "Projektseite: ateight.xyz/NetDoctor"
+        }
+      };
+
+      const languageButtons = document.querySelectorAll("[data-lang]");
+      const translatedNodes = document.querySelectorAll("[data-i18n]");
+
+      function setLanguage(language) {
+        const dictionary = copy[language] || copy.en;
+        document.documentElement.lang = language;
+        document.documentElement.dir = dictionary.dir;
+        document.body.classList.toggle("rtl", dictionary.dir === "rtl");
+        document.title = dictionary.title;
+        translatedNodes.forEach((node) => {
+          const key = node.dataset.i18n;
+          if (dictionary[key]) node.textContent = dictionary[key];
+        });
+        languageButtons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.lang === language);
+        });
+      }
+
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.lang));
+      });
+
+      function syncLanguageButtonLabels() {
+        const short = window.matchMedia("(max-width: 680px)").matches;
+        languageButtons.forEach((button) => {
+          button.textContent = short ? button.dataset.short : button.dataset.full;
+        });
+      }
+
+      const initialLanguage = new URLSearchParams(window.location.search).get("lang") || "en";
+      syncLanguageButtonLabels();
+      setLanguage(initialLanguage);
+      window.addEventListener("resize", syncLanguageButtonLabels);
+    </script>
+  </body>
+</html>

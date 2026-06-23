@@ -1,63 +1,85 @@
+<div align="center">
+
+<img src="assets/netdoctor-icon-512.png" alt="Net Doctor" width="120" />
+
 # Net Doctor
 
-[English](README.md) | [فارسی](README.fa.md) | [العربية](README.ar.md) | [Deutsch](README.de.md)
+**A smart Windows network doctor that tells you — in plain language — why your internet is broken, and fixes it safely.**
 
-Net Doctor is a user-friendly Windows network diagnostic and safe repair app. It starts by asking what is broken, then runs a guided diagnosis in plain English.
+[English](README.md) · [فارسی](README.fa.md)
 
-It is designed for everyday users who need a clear answer to questions like "Why does my internet not work?", without needing to understand DNS, gateways, routes, proxies, VPN adapters, or port tests.
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0a1622)](#system-requirements)
+[![Edition](https://img.shields.io/badge/edition-Iran%20%2B%20International-1fa49a)](#editions)
+[![License](https://img.shields.io/badge/license-Commercial-c83645)](LICENSE)
 
-The current version checks:
+</div>
 
-- Active adapter, gateway and DNS settings
-- Country-local internet access based on Windows region/time zone
-- International internet access
-- DNS resolution
-- Latency and packet loss
-- TCP port reachability
-- VPN-like adapters
-- Windows proxy state
+---
 
-Safe repairs save the previous setting before changing anything, then offer Undo inside the app. The first repair actions cover DNS replacement, WinHTTP proxy reset, and a harmless network refresh for uncertain results.
+Net Doctor is a commercial Windows app for everyday users who just want to know **"why isn't my internet working?"** — without understanding DNS, gateways, routes, proxies, VPN adapters or port tests.
 
-## Download
+You pick the problem you're facing; Net Doctor runs a guided diagnosis, tells you in clear language **where the fault is**, and offers **safe, reversible repairs**.
 
-Project page: [ateight.xyz/NetDoctor](https://ateight.xyz/NetDoctor/)
+> Net Doctor is paid software with a monthly license. This repository contains the product description and screenshots only — not the source code.
 
-Download the current Windows installer:
-[NetDoctorSetup-0.1.0.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe)
+🌐 **Project page:** [ateight.xyz/NetDoctor](https://ateight.xyz/NetDoctor/) · 📦 **Downloads:** [Releases](https://github.com/miladateight/NetDoctor/releases) (a valid license is required to use the app)
 
-All release files are also available from the [Releases](https://github.com/miladateight/NetDoctor/releases) page.
+## Screenshots
 
-## Features
+<div align="center">
+<img src="assets/screenshots/start.png" alt="Choose your problem" width="49%" />
+<img src="assets/screenshots/dashboard.png" alt="Diagnosis dashboard" width="49%" />
+</div>
 
-- English graphical Windows interface
-- Problem-first flow before diagnosis starts
-- Plain-language diagnosis summary
-- Country-local vs international connectivity checks
-- DNS, packet loss, latency, TCP port and VPN status checks
-- Safe Fix action with undo support where a reversible fix is available
-- Inno Setup installer package script
+## Why Net Doctor
 
-## Build
+In many networks — especially in Iran — "is the internet up?" is the wrong question. The real questions are:
 
-Requires the .NET 8 SDK.
+- Is **local/internal** internet reachable?
+- Is **international** internet reachable?
+- Is the fault in **DNS**, **VPN**, **proxy**, the **gateway/modem**, or the **ISP**?
 
-```powershell
-.\scripts\publish-win-x64.ps1 -SelfContained
-```
+Net Doctor answers exactly these, then proposes a one-click fix you can undo.
 
-## Installer
+## Key features
 
-```powershell
-.\scripts\package-installer.ps1
-```
+- 🩺 **Problem-first flow** — start from your symptom, not from technical menus.
+- 🌐 **Internal vs international verdict** — clearly says what works and what doesn't.
+- 🔎 **Multi-resolver DNS diagnosis** — compares your system DNS against multiple public resolvers (including Iranian DNS such as Shecan, Electro and Begzar) to pinpoint whether DNS is really the problem.
+- 📶 **Full checks** — adapter, gateway, DNS, connection quality (latency & packet loss), TCP port reachability, VPN adapters and Windows proxy.
+- 🛠️ **Fix Safely** — switch DNS (with presets), reset a stale proxy, or refresh the network — always saving the previous setting first, with **Undo** built in.
+- ⚙️ **Advanced repair** — full network-stack reset (Winsock / TCP-IP) behind a clear warning, for the toughest cases.
+- 🧾 **Plain-language report** — a human summary plus a technical log for advanced users.
 
-The installer is written to `artifacts\installer`.
+## Editions
 
-## Repository
+| | Net Doctor | Net Doctor — Iran Edition |
+|---|---|---|
+| Language | English | Persian (فارسی), right-to-left |
+| Local targets | Country auto-detected | Tuned for Iranian sites & DNS |
+| Best for | Worldwide users | Users in Iran |
 
-GitHub: [miladateight/NetDoctor](https://github.com/miladateight/NetDoctor)
+## How licensing works
+
+Net Doctor is licensed on a **monthly** basis:
+
+1. Purchase a license (contact below).
+2. You receive a personal license key.
+3. Paste it into the activation screen on first launch.
+4. The app stays active for the licensed period; renew monthly to continue.
+
+Each license is bound to its edition and is personal & non-transferable.
+
+## System requirements
+
+- Windows 10 or Windows 11 (64-bit)
+- Administrator permission is requested only when applying a repair
+
+## Get a license / contact
+
+- 📧 **ateight088@gmail.com**
+- Releases & downloads: the **[Releases](https://github.com/miladateight/NetDoctor/releases)** page
 
 ## License
 
-MIT
+© 2026 Milad AT8 — All rights reserved. Net Doctor is proprietary, commercial software. See [LICENSE](LICENSE).

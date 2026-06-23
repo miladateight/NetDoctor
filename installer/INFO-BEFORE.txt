@@ -1,9 +1,0 @@
-Net Doctor helps diagnose common Windows network problems in plain language.
-
-It asks what is broken, then checks the active adapter, gateway, DNS,
-country-local internet access, international internet access, latency,
-packet loss, TCP port access, VPN adapters, and Windows proxy state.
-
-Fix Safely stores the previous setting before making reversible DNS or
-proxy repairs. For uncertain results, it can also run a harmless network
-refresh and repeat the diagnosis.

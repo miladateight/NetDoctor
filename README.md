@@ -22,7 +22,7 @@ You pick the problem you're facing; Net Doctor runs a guided diagnosis, tells yo
 
 > Net Doctor is paid software with a monthly license. This repository contains the product description and screenshots only — not the source code.
 
-🌐 **Project page:** [ateight.xyz/NetDoctor](https://ateight.xyz/NetDoctor/) · 📦 **Downloads:** [Iran portable release](https://github.com/miladateight/NetDoctor/releases/tag/v0.1.0-iran) · [All releases](https://github.com/miladateight/NetDoctor/releases) (a valid license is required to use the app)
+🌐 **Project page:** [ateight.xyz/NetDoctor](https://ateight.xyz/NetDoctor/) · 📦 **Downloads:** [Iran installer v0.2.0](https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorIranSetup-0.2.0.exe) · [Global installer v0.2.0](https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorSetup-0.2.0.exe) · [All releases](https://github.com/miladateight/NetDoctor/releases) (a valid license is required to use the app)
 
 ## Screenshots
 
@@ -78,7 +78,7 @@ Each license is bound to its edition and is personal & non-transferable.
 ## Get a license / contact
 
 - 📧 **ateight088@gmail.com**
-- Releases & downloads: **[Net Doctor Iran v0.1.0](https://github.com/miladateight/NetDoctor/releases/tag/v0.1.0-iran)** and the **[Releases](https://github.com/miladateight/NetDoctor/releases)** page
+- Releases & downloads: **[Iran installer v0.2.0](https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorIranSetup-0.2.0.exe)**, **[Global installer v0.2.0](https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorSetup-0.2.0.exe)** and the **[Releases](https://github.com/miladateight/NetDoctor/releases)** page
 
 ## License
 

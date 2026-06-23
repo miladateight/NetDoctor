@@ -82,7 +82,7 @@
 ## تهیه‌ی لایسنس / تماس
 
 - 📧 **ateight088@gmail.com**
-- دانلود و نسخه‌ها: صفحه‌ی **[Releases](https://github.com/miladateight/NetDoctor/releases)**
+- دانلود و نسخه‌ها: **[نصب‌کننده ایران v0.2.0](https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorIranSetup-0.2.0.exe)**، **[نصب‌کننده گلوبال v0.2.0](https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorSetup-0.2.0.exe)** و صفحه‌ی **[Releases](https://github.com/miladateight/NetDoctor/releases)**
 
 ## کپی‌رایت
 

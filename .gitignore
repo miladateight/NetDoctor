@@ -16,3 +16,6 @@ TestResults/
 # License signing keys — NEVER commit these.
 licensing-keys/
 *.private-key
+
+# Local build tools (downloaded, not project source).
+.tools/

@@ -67,12 +67,12 @@
 
 نِت‌دکتر به‌صورت **ماهانه** لایسنس می‌شود:
 
-۱. لایسنس را تهیه کن (تماس در پایین).
-۲. یک کلید لایسنس شخصی دریافت می‌کنی.
+۱. لایسنس را تهیه کن (تماس در پایین) و شناسه‌ی دستگاه (Machine ID) که در صفحه‌ی فعال‌سازی برنامه نشان داده می‌شود را ارسال کن.
+۲. یک کلید لایسنس شخصی، مخصوص همان یک کامپیوتر، دریافت می‌کنی.
 ۳. آن را در صفحه‌ی فعال‌سازی هنگام اولین اجرا وارد کن.
 ۴. برنامه تا پایان دوره فعال می‌ماند؛ برای ادامه، ماهانه تمدید کن.
 
-هر لایسنس مخصوص نسخه‌ی خودش، شخصی و غیرقابل‌انتقال است.
+هر لایسنس مخصوص نسخه‌ی خودش و یک کامپیوتر مشخص، شخصی و غیرقابل‌انتقال است.
 
 ## پیش‌نیازها
 
@@ -82,7 +82,7 @@
 ## تهیه‌ی لایسنس / تماس
 
 - 📧 **ateight088@gmail.com**
-- دانلود و نسخه‌ها: **[نصب‌کننده ایران v0.2.0](https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorIranSetup-0.2.0.exe)**، **[نصب‌کننده گلوبال v0.2.0](https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorSetup-0.2.0.exe)** و صفحه‌ی **[Releases](https://github.com/miladateight/NetDoctor/releases)**
+- دانلود و نسخه‌ها: **[نصب‌کننده ایران v0.2.1](https://github.com/miladateight/NetDoctor/releases/download/v0.2.1/NetDoctorIranSetup-0.2.1.exe)**، **[نصب‌کننده گلوبال v0.2.1](https://github.com/miladateight/NetDoctor/releases/download/v0.2.1/NetDoctorSetup-0.2.1.exe)** و صفحه‌ی **[Releases](https://github.com/miladateight/NetDoctor/releases)**
 
 ## کپی‌رایت
 

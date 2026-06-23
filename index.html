@@ -8,6 +8,8 @@
       name="description"
       content="NetDoctor is a Windows network diagnostics and safe repair tool by Milad Ateight."
     />
+    <link rel="icon" type="image/png" href="./at8-logo.png" />
+    <link rel="apple-touch-icon" href="./at8-logo.png" />
     <title>NetDoctor | Network Diagnostics by AT8</title>
     <style>
       :root {
@@ -24,6 +26,8 @@
         --green: #34d399;
         --gold: #facc15;
         --red: #f43f5e;
+        --brand-gold: #f5c400;
+        --brand-red: #ef1111;
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
@@ -81,20 +85,20 @@
       .topbar {
         position: fixed;
         top: 16px;
-        left: clamp(14px, 4vw, 48px);
-        right: clamp(14px, 4vw, 48px);
+        left: clamp(14px, 3vw, 34px);
+        right: clamp(14px, 3vw, 34px);
         z-index: 20;
-        display: flex;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
         align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        min-height: 68px;
+        gap: 18px;
         padding: 10px 12px;
         border: 1px solid var(--line);
         border-radius: 999px;
-        background: rgba(5, 10, 24, 0.78);
-        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+        background: rgba(2, 8, 18, 0.76);
+        box-shadow: 0 22px 72px rgba(0, 0, 0, 0.34), 0 0 46px rgba(56, 189, 248, 0.08);
         backdrop-filter: blur(20px);
+        direction: ltr;
       }
 
       .brand,
@@ -110,18 +114,48 @@
 
       .brand {
         gap: 10px;
-        font-weight: 900;
+        font-weight: 800;
+        justify-self: start;
+        min-width: 0;
       }
 
       .brand-mark {
         display: grid;
         place-items: center;
         width: 46px;
+        height: 46px;
         aspect-ratio: 1;
+        padding: 4px;
         border-radius: 50%;
-        color: #041018;
-        background: linear-gradient(145deg, #ecfeff, var(--cyan) 58%, var(--green));
-        box-shadow: 0 0 38px rgba(34, 211, 238, 0.28);
+        background:
+          radial-gradient(circle at 40% 28%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.74) 58%, rgba(245, 196, 0, 0.2)),
+          rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 34px rgba(245, 196, 0, 0.22), 0 0 44px rgba(239, 17, 17, 0.08);
+        overflow: hidden;
+      }
+
+      .brand-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.24));
+      }
+
+      .brand-text {
+        display: grid;
+        gap: 0;
+        line-height: 1.08;
+      }
+
+      .brand-text strong {
+        font-size: 1rem;
+      }
+
+      .brand-text small {
+        color: var(--brand-gold);
+        font-family: "Cascadia Code", Consolas, monospace;
+        font-size: 0.72rem;
+        font-weight: 800;
       }
 
       .brand small {
@@ -132,12 +166,17 @@
 
       .nav {
         gap: 8px;
+        justify-content: center;
       }
 
       .header-tools {
+        display: contents;
+      }
+
+      .nav,
+      .lang-switch {
         display: flex;
         align-items: center;
-        gap: 10px;
       }
 
       .nav a {
@@ -154,12 +193,12 @@
       }
 
       .lang-switch {
-        display: flex;
         gap: 4px;
+        min-width: 0;
         padding: 4px;
         border: 1px solid rgba(125, 211, 252, 0.16);
         border-radius: 999px;
-        background: rgba(15, 23, 42, 0.68);
+        background: rgba(15, 23, 42, 0.74);
         direction: ltr;
       }
 
@@ -171,12 +210,17 @@
         color: var(--soft);
         background: transparent;
         cursor: pointer;
+        text-align: center;
       }
 
       .lang-switch button.active,
       .lang-switch button:hover {
         color: white;
-        background: rgba(34, 211, 238, 0.14);
+        background: rgba(56, 189, 248, 0.12);
+      }
+
+      .lang-switch button.active {
+        box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.34);
       }
 
       .hero {
@@ -591,36 +635,41 @@
           display: none;
         }
 
-        .header-tools {
-          margin-left: auto;
+        .lang-switch {
+          justify-self: end;
         }
       }
 
       @media (max-width: 680px) {
         .topbar {
           position: absolute;
+          inset-inline: 14px;
+          width: auto;
+          grid-template-columns: 1fr;
           align-items: stretch;
-          flex-direction: column;
-          max-width: calc(100vw - 28px);
           overflow: hidden;
           border-radius: 18px;
         }
 
-        .header-tools,
         .lang-switch {
-          width: 100%;
+          width: calc(100% - 28px);
         }
 
-        .header-tools {
-          margin-left: 0;
+        .brand {
+          justify-content: flex-start;
         }
 
         .lang-switch {
+          display: flex;
+          flex-wrap: wrap;
+          justify-self: start;
+          direction: ltr;
           overflow: hidden;
         }
 
         .lang-switch button {
-          flex: 1 1 0;
+          flex: 1 1 calc(50% - 4px);
+          max-width: calc(50% - 2px);
           min-width: 0;
           padding-inline: 4px;
           overflow: hidden;
@@ -630,7 +679,7 @@
         }
 
         .hero {
-          padding-top: 184px;
+          padding-top: 224px;
         }
 
         .hero > div {
@@ -686,18 +735,20 @@
       <div class="grid-field"></div>
       <header class="topbar">
         <a class="brand" href="https://ateight.xyz/">
-          <span class="brand-mark">ND</span>
-          <span>
-            NetDoctor
-            <small data-i18n="brandSub">by Milad Ateight / AT8</small>
+          <span class="brand-mark">
+            <img src="./at8-logo.png" alt="" aria-hidden="true" />
+          </span>
+          <span class="brand-text">
+            <strong>Milad</strong>
+            <small>AT8</small>
           </span>
         </a>
         <div class="header-tools">
           <nav class="nav" aria-label="Page navigation">
-            <a href="#features" data-i18n="navFeatures">Features</a>
-            <a href="#flow" data-i18n="navFlow">Diagnosis flow</a>
-            <a href="#download" data-i18n="navDownload">Download</a>
-            <a href="https://github.com/miladateight/NetDoctor">GitHub</a>
+            <a href="https://ateight.xyz/" data-i18n="navHome">Home</a>
+            <a href="https://ateight.xyz/#about" data-i18n="navAbout">About Me</a>
+            <a href="https://ateight.xyz/#projects" data-i18n="navProjects">Projects</a>
+            <a href="https://ateight.xyz/#contact" data-i18n="navContact">Contact Me</a>
           </nav>
           <div class="lang-switch" aria-label="Language switcher">
             <button type="button" class="active" data-lang="en" data-full="English" data-short="EN">English</button>
@@ -718,10 +769,10 @@
             options without burying the user in network jargon.
           </p>
           <div class="actions">
-            <a class="button primary" data-i18n="downloadButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe">
-              Download v0.1.0
+            <a class="button primary" data-i18n="downloadButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorIranSetup-0.2.0.exe">
+              Download Iran Setup v0.2.0
             </a>
-            <a class="button" data-i18n="releaseButton" href="https://github.com/miladateight/NetDoctor/releases/tag/v0.1.0">
+            <a class="button" data-i18n="releaseButton" href="https://github.com/miladateight/NetDoctor/releases/tag/v0.2.0">
               Release notes
             </a>
             <a class="button" data-i18n="homeButton" href="https://ateight.xyz/">
@@ -837,27 +888,27 @@
         <div class="download-panel">
           <article class="download-card">
             <p class="eyebrow pill" data-i18n="downloadKicker">Download</p>
-            <h2>NetDoctor v0.1.0</h2>
+            <h2>NetDoctor v0.2.0</h2>
             <p data-i18n="downloadLead">
-              Initial public pre-release for Windows. Download the installer from GitHub Releases,
+              Iran and International Windows setup installers are ready. Download the installer from GitHub Releases,
               verify the checksum if needed, and follow future updates from the same repository.
             </p>
             <div class="download-row">
-              <a class="button primary" data-i18n="installerButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe">
-                Download installer
+              <a class="button primary" data-i18n="installerButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorIranSetup-0.2.0.exe">
+                Download Iran Setup
               </a>
-              <a class="button" href="https://github.com/miladateight/NetDoctor/releases/download/v0.1.0/NetDoctorSetup-0.1.0.exe.sha256">
+              <a class="button" href="https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorIranSetup-0.2.0.exe.sha256">
                 SHA256
               </a>
-              <a class="button" data-i18n="sourceButton" href="https://github.com/miladateight/NetDoctor">
-                Source code
+              <a class="button" data-i18n="sourceButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.2.0/NetDoctorSetup-0.2.0.exe">
+                Download Global Setup
               </a>
             </div>
           </article>
           <aside class="download-card metric-list">
             <div class="metric">
               <strong data-i18n="metricVersion">Version</strong>
-              <small>v0.1.0</small>
+              <small>v0.2.0</small>
             </div>
             <div class="metric">
               <strong data-i18n="metricPlatform">Platform</strong>
@@ -868,8 +919,8 @@
               <small>.NET 8</small>
             </div>
             <div class="metric">
-              <strong data-i18n="metricInstaller">Installer</strong>
-              <small>NetDoctorSetup-0.1.0.exe</small>
+              <strong data-i18n="metricInstaller">Package</strong>
+              <small>NetDoctorIranSetup-0.2.0.exe / NetDoctorSetup-0.2.0.exe</small>
             </div>
             <div class="check" data-i18n="downloadNote">Safe repair actions include undo where reversible.</div>
           </aside>
@@ -887,13 +938,17 @@
           dir: "ltr",
           title: "NetDoctor | Network Diagnostics by AT8",
           brandSub: "by Milad Ateight / AT8",
+          navHome: "Home",
+          navAbout: "About Me",
+          navProjects: "Projects",
+          navContact: "Contact Me",
           navFeatures: "Features",
           navFlow: "Diagnosis flow",
           navDownload: "Download",
           heroKicker: "Windows Network Diagnostics",
           heroTitle: "Find the network fault before touching the settings.",
           heroLead: "NetDoctor is a guided Windows tool for diagnosing DNS, gateway, proxy, latency, packet loss, VPN-like adapters, local access, international access, and safe repair options without burying the user in network jargon.",
-          downloadButton: "Download v0.1.0",
+          downloadButton: "Download Iran Setup v0.2.0",
           releaseButton: "Release notes",
           homeButton: "AT8 home",
           deviceStatus: "status: scanning",
@@ -937,14 +992,14 @@
           flow4Title: "Offer safe fixes",
           flow4Body: "When a reversible fix exists, NetDoctor prepares it with a saved previous state and an undo path.",
           downloadKicker: "Download",
-          downloadLead: "Initial public pre-release for Windows. Download the installer from GitHub Releases, verify the checksum if needed, and follow future updates from the same repository.",
-          installerButton: "Download installer",
-          sourceButton: "Source code",
+          downloadLead: "Iran and International Windows setup installers are ready. Download the installer from GitHub Releases, verify the checksum if needed, and follow future updates from the same repository.",
+          installerButton: "Download Iran Setup",
+          sourceButton: "Download Global Setup",
           metricVersion: "Version",
           metricPlatform: "Platform",
           metricWindows: "Windows",
           metricRuntime: "Runtime",
-          metricInstaller: "Installer",
+          metricInstaller: "Package",
           downloadNote: "Safe repair actions include undo where reversible.",
           footerLeft: "NetDoctor by Milad Ateight",
           footerRight: "Project page: ateight.xyz/NetDoctor"
@@ -953,13 +1008,17 @@
           dir: "rtl",
           title: "نت دکتر | عیب یابی شبکه توسط AT8",
           brandSub: "ساخته میلاد Ateight / AT8",
+          navHome: "خانه",
+          navAbout: "درباره من",
+          navProjects: "پروژه ها",
+          navContact: "تماس با من",
           navFeatures: "قابلیت ها",
           navFlow: "روند عیب یابی",
           navDownload: "دانلود",
           heroKicker: "عیب یابی شبکه در ویندوز",
           heroTitle: "قبل از تغییر تنظیمات، خطای شبکه را پیدا کن.",
           heroLead: "NetDoctor یک ابزار راهنما برای ویندوز است که DNS، Gateway، Proxy، تاخیر، Packet Loss، آداپتورهای شبیه VPN، دسترسی داخلی، دسترسی بین المللی و مسیرهای تعمیر امن را بررسی می کند؛ بدون این که کاربر را زیر اصطلاحات پیچیده شبکه دفن کند.",
-          downloadButton: "دانلود v0.1.0",
+          downloadButton: "دانلود نصب‌کننده ایران v0.2.0",
           releaseButton: "یادداشت انتشار",
           homeButton: "خانه AT8",
           deviceStatus: "وضعیت: در حال بررسی",
@@ -986,7 +1045,7 @@
           feature4Body: "خروجی خام را به خلاصه ای تبدیل می کند که توضیح می دهد احتمالاً کدام بخش خراب شده و قدم بعدی چیست.",
           feature5Title: "تعمیر امن",
           feature5Body: "قبل از اعمال تعمیر، تنظیم قبلی ذخیره می شود و هرجا تعمیر قابل برگشت باشد مسیر Undo وجود دارد.",
-          feature6Title: "نصب کننده ویندوز",
+          feature6Title: "بسته ویندوز",
           feature6Body: "نسخه منتشرشده به شکل فایل Setup ویندوز ارائه شده تا کاربر بدون build کردن سورس بتواند برنامه را نصب کند.",
           flowKicker: "روند کار",
           flowTitle: "اول مشکل، بعد تعمیر.",
@@ -1003,14 +1062,14 @@
           flow4Title: "پیشنهاد تعمیر امن",
           flow4Body: "اگر یک تعمیر قابل برگشت وجود داشته باشد، NetDoctor آن را با وضعیت قبلی ذخیره شده و مسیر Undo آماده می کند.",
           downloadKicker: "دانلود",
-          downloadLead: "این نسخه، اولین پیش انتشار عمومی برای ویندوز است. نصب کننده را از GitHub Releases دانلود کنید، در صورت نیاز checksum را بررسی کنید و آپدیت های بعدی را از همین ریپو دنبال کنید.",
-          installerButton: "دانلود نصب کننده",
-          sourceButton: "سورس کد",
+          downloadLead: "نصب‌کننده‌های ویندوز برای نسخه ایران و گلوبال آماده‌اند. فایل نصب را از GitHub Releases دانلود کنید، در صورت نیاز checksum را بررسی کنید و آپدیت‌های بعدی را از همین ریپو دنبال کنید.",
+          installerButton: "دانلود نصب‌کننده ایران",
+          sourceButton: "دانلود نسخه گلوبال",
           metricVersion: "نسخه",
           metricPlatform: "پلتفرم",
           metricWindows: "ویندوز",
           metricRuntime: "ران تایم",
-          metricInstaller: "نصب کننده",
+          metricInstaller: "بسته",
           downloadNote: "تعمیرهای امن در موارد قابل برگشت، Undo دارند.",
           footerLeft: "NetDoctor ساخته میلاد Ateight",
           footerRight: "صفحه پروژه: ateight.xyz/NetDoctor"
@@ -1019,13 +1078,17 @@
           dir: "rtl",
           title: "NetDoctor | تشخيص الشبكة بواسطة AT8",
           brandSub: "بواسطة Milad Ateight / AT8",
+          navHome: "الرئيسية",
+          navAbout: "من أنا",
+          navProjects: "المشاريع",
+          navContact: "تواصل معي",
           navFeatures: "الميزات",
           navFlow: "مسار التشخيص",
           navDownload: "تحميل",
           heroKicker: "تشخيص الشبكة في ويندوز",
           heroTitle: "اعرف عطل الشبكة قبل تغيير الإعدادات.",
           heroLead: "NetDoctor أداة إرشادية لويندوز تفحص DNS والبوابة والوكيل والتأخير وفقدان الحزم والمحولات الشبيهة ب VPN والوصول المحلي والدولي وخيارات الإصلاح الآمن، من دون إغراق المستخدم بمصطلحات الشبكات.",
-          downloadButton: "تحميل v0.1.0",
+          downloadButton: "تحميل مثبت إيران v0.2.0",
           releaseButton: "ملاحظات الإصدار",
           homeButton: "صفحة AT8",
           deviceStatus: "الحالة: فحص",
@@ -1069,14 +1132,14 @@
           flow4Title: "اقتراح إصلاح آمن",
           flow4Body: "عندما يوجد إصلاح قابل للتراجع، يجهزه NetDoctor مع حفظ الحالة السابقة ومسار التراجع.",
           downloadKicker: "تحميل",
-          downloadLead: "هذا أول إصدار تجريبي عام لويندوز. حمّل المثبت من GitHub Releases وتحقق من checksum عند الحاجة وتابع التحديثات القادمة من نفس المستودع.",
-          installerButton: "تحميل المثبت",
-          sourceButton: "الكود المصدري",
+          downloadLead: "مثبتا ويندوز لنسخة إيران والنسخة العالمية جاهزان. حمّل المثبت من GitHub Releases وتحقق من checksum عند الحاجة وتابع التحديثات القادمة من نفس المستودع.",
+          installerButton: "تحميل مثبت إيران",
+          sourceButton: "تحميل النسخة العالمية",
           metricVersion: "الإصدار",
           metricPlatform: "النظام",
           metricWindows: "ويندوز",
           metricRuntime: "بيئة التشغيل",
-          metricInstaller: "المثبت",
+          metricInstaller: "الحزمة",
           downloadNote: "إجراءات الإصلاح الآمن تتضمن التراجع عندما يكون ذلك ممكنا.",
           footerLeft: "NetDoctor بواسطة Milad Ateight",
           footerRight: "صفحة المشروع: ateight.xyz/NetDoctor"
@@ -1085,13 +1148,17 @@
           dir: "ltr",
           title: "NetDoctor | Netzwerkdiagnose von AT8",
           brandSub: "von Milad Ateight / AT8",
+          navHome: "Home",
+          navAbout: "About Me",
+          navProjects: "Projects",
+          navContact: "Contact Me",
           navFeatures: "Funktionen",
           navFlow: "Diagnoseablauf",
           navDownload: "Download",
           heroKicker: "Windows Netzwerkdiagnose",
           heroTitle: "Finde den Netzwerkfehler, bevor du Einstellungen änderst.",
           heroLead: "NetDoctor ist ein geführtes Windows-Tool zur Diagnose von DNS, Gateway, Proxy, Latenz, Paketverlust, VPN-ähnlichen Adaptern, lokalem Zugriff, internationalem Zugriff und sicheren Reparaturwegen, ohne Nutzer mit Netzwerkjargon zu überladen.",
-          downloadButton: "Download v0.1.0",
+          downloadButton: "Download Iran Setup v0.2.0",
           releaseButton: "Release Notes",
           homeButton: "AT8 Home",
           deviceStatus: "status: scan läuft",
@@ -1135,14 +1202,14 @@
           flow4Title: "Sichere Fixes anbieten",
           flow4Body: "Wenn ein umkehrbarer Fix existiert, bereitet NetDoctor ihn mit gespeichertem Vorzustand und Undo-Pfad vor.",
           downloadKicker: "Download",
-          downloadLead: "Erste öffentliche Vorabversion für Windows. Lade den Installer aus GitHub Releases herunter, prüfe bei Bedarf die Prüfsumme und folge kommenden Updates im selben Repository.",
-          installerButton: "Installer herunterladen",
-          sourceButton: "Quellcode",
+          downloadLead: "Windows-Setup-Dateien für die Iran Edition und die internationale Edition sind bereit. Lade den Installer aus GitHub Releases herunter, prüfe bei Bedarf die Prüfsumme und folge kommenden Updates im selben Repository.",
+          installerButton: "Iran Setup herunterladen",
+          sourceButton: "Global Setup herunterladen",
           metricVersion: "Version",
           metricPlatform: "Plattform",
           metricWindows: "Windows",
           metricRuntime: "Runtime",
-          metricInstaller: "Installer",
+          metricInstaller: "Package",
           downloadNote: "Sichere Reparaturen enthalten Undo, wenn sie umkehrbar sind.",
           footerLeft: "NetDoctor von Milad Ateight",
           footerRight: "Projektseite: ateight.xyz/NetDoctor"

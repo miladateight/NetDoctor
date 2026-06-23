@@ -12,3 +12,7 @@ artifacts/
 
 TestResults/
 *.log
+
+# License signing keys — NEVER commit these.
+licensing-keys/
+*.private-key

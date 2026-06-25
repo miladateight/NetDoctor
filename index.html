@@ -538,12 +538,24 @@
 
       .footer {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         gap: 16px;
         padding: 24px clamp(20px, 5vw, 82px) 42px;
         border-top: 1px solid var(--line);
         color: var(--muted);
         background: rgba(5, 8, 22, 0.99);
+      }
+
+      .footer-projects {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .footer-projects a:hover {
+        color: var(--text);
       }
 
       .rtl .hero > div:first-child,
@@ -958,6 +970,11 @@
 
       <footer class="footer">
         <span data-i18n="footerLeft">NetDoctor by Milad Ateight</span>
+        <nav class="footer-projects" aria-label="Other AT8 projects">
+          <a href="https://ateight.xyz/KeyFix/" data-i18n="projKeyFix">KeyFix</a>
+          <a href="https://ateight.xyz/hybrid-web-mail-infrastructure/" data-i18n="projHwmi">Hybrid Web &amp; Mail</a>
+          <a href="https://ateight.xyz/instagram-youtube-soundcloud-downloader/" data-i18n="projDownloader">Telegram Downloader</a>
+        </nav>
         <span data-i18n="footerRight">Project page: ateight.xyz/NetDoctor</span>
       </footer>
     </main>
@@ -1038,7 +1055,11 @@
           licenseEmailLabel: "Email",
           licenseNote: "Each license is personal, edition-bound, and renews monthly.",
           footerLeft: "NetDoctor by Milad Ateight",
-          footerRight: "Project page: ateight.xyz/NetDoctor"
+          footerRight: "Project page: ateight.xyz/NetDoctor",
+          projNetDoctor: "NetDoctor",
+          projKeyFix: "KeyFix",
+          projHwmi: "Hybrid Web & Mail",
+          projDownloader: "Telegram Downloader"
         },
         fa: {
           dir: "rtl",
@@ -1115,7 +1136,11 @@
           licenseEmailLabel: "ایمیل",
           licenseNote: "هر لایسنس شخصی، مخصوص یک نسخه و ماهانه قابل تمدید است.",
           footerLeft: "NetDoctor ساخته میلاد Ateight",
-          footerRight: "صفحه پروژه: ateight.xyz/NetDoctor"
+          footerRight: "صفحه پروژه: ateight.xyz/NetDoctor",
+          projNetDoctor: "نت‌دکتر",
+          projKeyFix: "کی‌فیکس",
+          projHwmi: "وب و ایمیل ترکیبی",
+          projDownloader: "دانلودر تلگرام"
         },
         ar: {
           dir: "rtl",
@@ -1192,7 +1217,11 @@
           licenseEmailLabel: "البريد الإلكتروني",
           licenseNote: "كل ترخيص شخصي، مرتبط بنسخة واحدة، ويتم تجديده شهريا.",
           footerLeft: "NetDoctor بواسطة Milad Ateight",
-          footerRight: "صفحة المشروع: ateight.xyz/NetDoctor"
+          footerRight: "صفحة المشروع: ateight.xyz/NetDoctor",
+          projNetDoctor: "نت دكتور",
+          projKeyFix: "كي فيكس",
+          projHwmi: "البنية الهجينة للويب والبريد",
+          projDownloader: "بوت تيليجرام للتحميل"
         },
         de: {
           dir: "ltr",
@@ -1269,7 +1298,11 @@
           licenseEmailLabel: "E-Mail",
           licenseNote: "Jede Lizenz ist persönlich, an eine Edition gebunden und wird monatlich erneuert.",
           footerLeft: "NetDoctor von Milad Ateight",
-          footerRight: "Projektseite: ateight.xyz/NetDoctor"
+          footerRight: "Projektseite: ateight.xyz/NetDoctor",
+          projNetDoctor: "NetDoctor",
+          projKeyFix: "KeyFix",
+          projHwmi: "Hybrid Web & Mail",
+          projDownloader: "Telegram-Downloader"
         }
       };
 

@@ -81,6 +81,9 @@
 
 ## تهیه‌ی لایسنس / تماس
 
+برای خرید لایسنس، در تلگرام به **[@MiladAteight](https://t.me/MiladAteight)** پیام بده — سریع‌ترین راه تماس با من است؛ قیمت نسخه‌ی مورد نظرت را می‌گویم و کلید لایسنس شخصی‌ات را برایت صادر می‌کنم.
+
+- 💬 **تلگرام:** [@MiladAteight](https://t.me/MiladAteight)
 - 📧 **ateight088@gmail.com**
 - دانلود و نسخه‌ها: **[نصب‌کننده ایران v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorIranSetup-0.3.0.exe)**، **[نصب‌کننده گلوبال v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorSetup-0.3.0.exe)** و صفحه‌ی **[Releases](https://github.com/miladateight/NetDoctor/releases)**
 

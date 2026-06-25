@@ -77,6 +77,9 @@ Each license is bound to its edition and to a single computer, and is personal &
 
 ## Get a license / contact
 
+To buy a license, message **[@MiladAteight](https://t.me/MiladAteight) on Telegram** — that's the fastest way to reach me, get your price for the edition you need, and receive your personal license key.
+
+- 💬 **Telegram:** [@MiladAteight](https://t.me/MiladAteight)
 - 📧 **ateight088@gmail.com**
 - Releases & downloads: **[Iran installer v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorIranSetup-0.3.0.exe)**, **[Global installer v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorSetup-0.3.0.exe)** and the **[Releases](https://github.com/miladateight/NetDoctor/releases)** page
 

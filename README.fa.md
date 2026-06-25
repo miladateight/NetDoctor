@@ -29,8 +29,8 @@
 </div>
 
 <div align="center">
-<img src="assets/screenshots/start.png" alt="انتخاب مشکل" width="49%" />
-<img src="assets/screenshots/dashboard.png" alt="داشبورد عیب‌یابی" width="49%" />
+<img src="assets/screenshots/start-iran.png" alt="انتخاب مشکل" width="49%" />
+<img src="assets/screenshots/dashboard-iran.png" alt="داشبورد عیب‌یابی" width="49%" />
 </div>
 
 <div dir="rtl">
@@ -82,7 +82,7 @@
 ## تهیه‌ی لایسنس / تماس
 
 - 📧 **ateight088@gmail.com**
-- دانلود و نسخه‌ها: **[نصب‌کننده ایران v0.2.1](https://github.com/miladateight/NetDoctor/releases/download/v0.2.1/NetDoctorIranSetup-0.2.1.exe)**، **[نصب‌کننده گلوبال v0.2.1](https://github.com/miladateight/NetDoctor/releases/download/v0.2.1/NetDoctorSetup-0.2.1.exe)** و صفحه‌ی **[Releases](https://github.com/miladateight/NetDoctor/releases)**
+- دانلود و نسخه‌ها: **[نصب‌کننده ایران v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorIranSetup-0.3.0.exe)**، **[نصب‌کننده گلوبال v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorSetup-0.3.0.exe)** و صفحه‌ی **[Releases](https://github.com/miladateight/NetDoctor/releases)**
 
 ## کپی‌رایت
 

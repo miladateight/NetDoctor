@@ -3,1473 +3,432 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#050816" />
+    <meta name="theme-color" content="#05070d" />
     <meta
       name="description"
-      content="NetDoctor is a Windows network diagnostics and safe repair tool by Milad Ateight."
+      content="NetDoctor is a Windows app that explains in plain language why your internet is broken and offers safe, reversible fixes — with an Iran-tuned edition."
     />
     <link rel="icon" type="image/png" href="./at8-logo.png" />
     <link rel="apple-touch-icon" href="./at8-logo.png" />
     <title>NetDoctor | Network Diagnostics by AT8</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="https://ateight.xyz/at8-kit.css" />
     <style>
-      :root {
-        color-scheme: dark;
-        --bg: #050816;
-        --panel: rgba(12, 19, 36, 0.72);
-        --panel-strong: rgba(14, 23, 42, 0.9);
-        --line: rgba(125, 211, 252, 0.2);
-        --line-strong: rgba(125, 211, 252, 0.42);
-        --text: #f8fafc;
-        --soft: rgba(226, 232, 240, 0.82);
-        --muted: rgba(203, 213, 225, 0.66);
-        --cyan: #22d3ee;
-        --green: #34d399;
-        --gold: #facc15;
-        --red: #f43f5e;
-        --brand-gold: #f5c400;
-        --brand-red: #ef1111;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        min-width: 320px;
-        min-height: 100vh;
-        overflow-x: hidden;
-        background:
-          radial-gradient(circle at 18% 12%, rgba(34, 211, 238, 0.14), transparent 29%),
-          radial-gradient(circle at 82% 6%, rgba(52, 211, 153, 0.12), transparent 30%),
-          radial-gradient(circle at 60% 84%, rgba(250, 204, 21, 0.09), transparent 34%),
-          linear-gradient(145deg, #040615 0%, #07111f 46%, #050816 100%);
-        color: var(--text);
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      h1,
-      h2,
-      h3,
-      p {
-        margin-top: 0;
-      }
-
-      .page {
-        position: relative;
-        isolation: isolate;
-      }
-
-      .grid-field {
-        position: fixed;
-        inset: 0;
-        z-index: -2;
-        pointer-events: none;
-        background:
-          linear-gradient(90deg, rgba(125, 211, 252, 0.055) 1px, transparent 1px),
-          linear-gradient(rgba(125, 211, 252, 0.04) 1px, transparent 1px),
-          linear-gradient(180deg, transparent 0, rgba(5, 8, 22, 0.94) 88%);
-        background-size: 74px 74px, 74px 74px, auto;
-        animation: gridDrift 20s ease-in-out infinite alternate;
-      }
-
-      .topbar {
-        position: fixed;
-        top: 16px;
-        left: clamp(14px, 3vw, 34px);
-        right: clamp(14px, 3vw, 34px);
-        z-index: 20;
+      .nd-shots {
         display: grid;
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
-        gap: 18px;
-        padding: 10px 12px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: rgba(2, 8, 18, 0.76);
-        box-shadow: 0 22px 72px rgba(0, 0, 0, 0.34), 0 0 46px rgba(56, 189, 248, 0.08);
-        backdrop-filter: blur(20px);
-        direction: ltr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
       }
 
-      .brand,
-      .nav,
-      .actions,
-      .pill,
-      .metric,
-      .check,
-      .download-row {
-        display: flex;
-        align-items: center;
-      }
-
-      .brand {
-        gap: 10px;
-        font-weight: 800;
-        justify-self: start;
-        min-width: 0;
-      }
-
-      .brand-mark {
-        display: grid;
-        place-items: center;
-        width: 46px;
-        height: 46px;
-        aspect-ratio: 1;
-        padding: 4px;
-        border-radius: 50%;
-        background:
-          radial-gradient(circle at 40% 28%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.74) 58%, rgba(245, 196, 0, 0.2)),
-          rgba(255, 255, 255, 0.9);
-        box-shadow: 0 0 34px rgba(245, 196, 0, 0.22), 0 0 44px rgba(239, 17, 17, 0.08);
-        overflow: hidden;
-      }
-
-      .brand-mark img {
+      .nd-shots img {
         width: 100%;
-        height: 100%;
-        object-fit: contain;
-        filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.24));
-      }
-
-      .brand-text {
-        display: grid;
-        gap: 0;
-        line-height: 1.08;
-      }
-
-      .brand-text strong {
-        font-size: 1rem;
-      }
-
-      .brand-text small {
-        color: var(--brand-gold);
-        font-family: "Cascadia Code", Consolas, monospace;
-        font-size: 0.72rem;
-        font-weight: 800;
-      }
-
-      .brand small {
+        border: 1px solid var(--at8-line);
+        border-radius: var(--at8-radius);
+        box-shadow: var(--at8-shadow);
         display: block;
-        color: var(--muted);
-        font-weight: 700;
       }
 
-      .nav {
-        gap: 8px;
-        justify-content: center;
-      }
-
-      .header-tools {
-        display: contents;
-      }
-
-      .nav,
-      .lang-switch {
-        display: flex;
-        align-items: center;
-      }
-
-      .nav a {
-        min-height: 38px;
-        padding: 0 13px;
-        border-radius: 999px;
-        color: var(--soft);
-        transition: background 180ms ease, color 180ms ease;
-      }
-
-      .nav a:hover {
-        color: white;
-        background: rgba(34, 211, 238, 0.12);
-      }
-
-      .project-menu {
-        position: relative;
-      }
-
-      .project-menu-panel {
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 50%;
-        z-index: 30;
-        display: grid;
-        gap: 6px;
-        width: min(360px, calc(100vw - 40px));
-        padding: 10px;
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        background: rgba(3, 10, 19, 0.96);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(20px);
-        opacity: 0;
-        visibility: hidden;
-        transform: translate(-50%, 6px);
-        transition: opacity 150ms ease, transform 150ms ease, visibility 150ms ease;
-      }
-
-      .project-menu:hover .project-menu-panel,
-      .project-menu:focus-within .project-menu-panel {
-        opacity: 1;
-        visibility: visible;
-        transform: translate(-50%, 0);
-      }
-
-      .project-menu-intro {
-        padding: 9px;
-        border-bottom: 1px solid var(--line);
-        color: var(--text);
-      }
-
-      .project-menu-intro small,
-      .project-menu-panel a small {
-        display: block;
-        margin-top: 2px;
-        color: var(--muted);
-        font-size: 0.76rem;
-        line-height: 1.35;
-      }
-
-      .project-menu-panel a {
-        display: grid;
-        min-height: 50px;
-        padding: 9px 11px;
-        border: 1px solid rgba(125, 211, 252, 0.12);
-        border-radius: 8px;
-        background: rgba(15, 23, 42, 0.42);
-        transition: border-color 150ms ease, background 150ms ease;
-      }
-
-      .project-menu-panel a:hover {
-        border-color: var(--line-strong);
-        background: rgba(34, 211, 238, 0.1);
-      }
-
-      .lang-switch {
-        gap: 4px;
-        min-width: 0;
-        padding: 4px;
-        border: 1px solid rgba(125, 211, 252, 0.16);
-        border-radius: 999px;
-        background: rgba(15, 23, 42, 0.74);
-        direction: ltr;
-      }
-
-      .lang-switch button {
-        min-height: 34px;
-        padding: 0 10px;
-        border: 0;
-        border-radius: 999px;
-        color: var(--soft);
-        background: transparent;
-        cursor: pointer;
-        text-align: center;
-      }
-
-      .lang-switch button.active,
-      .lang-switch button:hover {
-        color: white;
-        background: rgba(56, 189, 248, 0.12);
-      }
-
-      .lang-switch button.active {
-        box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.34);
-      }
-
-      .hero {
-        display: grid;
-        grid-template-columns: minmax(0, 0.94fr) minmax(380px, 0.78fr);
-        align-items: center;
-        gap: clamp(34px, 5vw, 80px);
-        min-height: 100svh;
-        padding: 132px clamp(20px, 5vw, 82px) 78px;
-        overflow-x: clip;
-      }
-
-      .eyebrow {
-        gap: 9px;
-        margin-bottom: 18px;
-        color: var(--cyan);
-        font-size: 0.88rem;
-        font-weight: 900;
-        letter-spacing: 0;
-        text-transform: uppercase;
-      }
-
-      h1 {
-        max-width: 820px;
-        margin-bottom: 24px;
-        font-size: clamp(2.55rem, 6.4vw, 6.9rem);
-        line-height: 0.95;
-        letter-spacing: 0;
-        overflow-wrap: break-word;
-      }
-
-      .hero-lead {
-        max-width: 760px;
-        color: var(--soft);
-        font-size: clamp(1.06rem, 1.35vw, 1.26rem);
-        line-height: 1.85;
-        overflow-wrap: break-word;
-      }
-
-      .actions {
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 28px;
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        min-height: 50px;
-        padding: 0 18px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: rgba(15, 23, 42, 0.68);
-        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
-      }
-
-      .button:hover {
-        transform: translateY(-2px);
-        border-color: var(--line-strong);
-      }
-
-      .button.primary {
-        border-color: rgba(52, 211, 153, 0.38);
-        color: #03110d;
-        background: linear-gradient(135deg, #ecfeff, var(--green) 58%, var(--cyan));
-        box-shadow: 0 22px 70px rgba(52, 211, 153, 0.18);
-        font-weight: 900;
-      }
-
-      .hero-stage {
-        position: relative;
-        min-height: clamp(500px, 58vw, 720px);
-        perspective: 1300px;
-        transform-style: preserve-3d;
-      }
-
-      .diagnostic-core {
-        position: absolute;
-        inset: 9%;
-        display: grid;
-        place-items: center;
-        transform-style: preserve-3d;
-      }
-
-      .device {
-        position: relative;
-        z-index: 5;
-        display: grid;
-        align-content: start;
-        gap: 14px;
-        width: min(420px, 78vw);
-        min-height: 300px;
-        padding: 22px;
-        border: 1px solid rgba(125, 211, 252, 0.3);
-        border-radius: 8px;
-        background:
-          linear-gradient(145deg, rgba(34, 211, 238, 0.18), rgba(255, 255, 255, 0.035) 44%, rgba(52, 211, 153, 0.12)),
-          var(--panel-strong);
-        box-shadow: 0 34px 100px rgba(0, 0, 0, 0.42), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-        transform: rotateX(10deg) rotateY(-14deg) translateZ(58px);
-        animation: deviceFloat 8s cubic-bezier(0.42, 0, 0.2, 1) infinite;
-      }
-
-      .device-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        color: var(--muted);
-        font-family: "Cascadia Code", Consolas, monospace;
-        font-size: 0.82rem;
-      }
-
-      .terminal-line {
-        display: grid;
-        gap: 7px;
-        padding: 13px;
-        border: 1px solid rgba(125, 211, 252, 0.16);
-        border-radius: 8px;
-        background: rgba(2, 6, 23, 0.54);
-      }
-
-      .terminal-line strong {
-        color: #dcfce7;
-      }
-
-      .terminal-line span {
-        color: var(--muted);
-        font-family: "Cascadia Code", Consolas, monospace;
-        font-size: 0.82rem;
-      }
-
-      .orbit {
-        position: absolute;
-        inset: 8%;
-        border: 1px solid rgba(34, 211, 238, 0.3);
-        border-radius: 50%;
-        transform-style: preserve-3d;
-        animation: orbitSpin 14s linear infinite;
-      }
-
-      .orbit:nth-child(2) {
-        inset: 15%;
-        border-color: rgba(52, 211, 153, 0.32);
-        transform: rotateX(70deg);
-        animation-duration: 11s;
-        animation-direction: reverse;
-      }
-
-      .orbit:nth-child(3) {
-        inset: 2%;
-        border-color: rgba(250, 204, 21, 0.24);
-        transform: rotateY(72deg) rotateZ(18deg);
-        animation-duration: 18s;
-      }
-
-      .floating-chip {
-        position: absolute;
-        z-index: 8;
-        display: inline-flex;
-        align-items: center;
-        min-height: 42px;
-        padding: 0 13px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        color: var(--soft);
-        background: rgba(8, 15, 30, 0.8);
-        box-shadow: 0 18px 52px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(16px);
-        animation: panelFloat 7s ease-in-out infinite;
-      }
-
-      .chip-1 {
-        top: 18%;
-        left: 0;
-      }
-
-      .chip-2 {
-        top: 20%;
-        right: 0;
-        animation-delay: -2s;
-      }
-
-      .chip-3 {
-        left: 5%;
-        bottom: 20%;
-        animation-delay: -3.6s;
-      }
-
-      .chip-4 {
-        right: 4%;
-        bottom: 18%;
-        animation-delay: -4.8s;
-      }
-
-      .section {
-        padding: 84px clamp(20px, 5vw, 82px);
-        background: linear-gradient(180deg, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.985));
-      }
-
-      .section-heading {
-        max-width: 840px;
-        margin-bottom: 30px;
-      }
-
-      h2 {
-        margin-bottom: 14px;
-        font-size: clamp(2.15rem, 4.8vw, 5.2rem);
-        line-height: 1;
-        letter-spacing: 0;
-      }
-
-      .section-heading p {
-        color: var(--soft);
-        font-size: 1.08rem;
-        line-height: 1.8;
-      }
-
-      .feature-grid,
-      .flow-grid,
-      .download-panel {
-        display: grid;
-        gap: 14px;
-      }
-
-      .feature-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .feature-card,
-      .flow-card,
-      .download-card {
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: linear-gradient(145deg, rgba(34, 211, 238, 0.1), rgba(255, 255, 255, 0.025) 48%, rgba(52, 211, 153, 0.08)), var(--panel);
-        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
-      }
-
-      .feature-card {
-        min-height: 225px;
-        padding: 22px;
-      }
-
-      .feature-card span,
-      .flow-card span,
-      .download-meta {
-        color: var(--gold);
-        font-family: "Cascadia Code", Consolas, monospace;
-        font-size: 0.8rem;
-        font-weight: 800;
-      }
-
-      .feature-card h3,
-      .flow-card h3 {
-        margin-bottom: 12px;
-        font-size: 1.35rem;
-      }
-
-      .feature-card p,
-      .flow-card p,
-      .download-card p {
-        color: var(--muted);
-        line-height: 1.74;
-      }
-
-      .flow-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .flow-card {
-        min-height: 250px;
-        padding: 22px;
-      }
-
-      .download-panel {
-        grid-template-columns: minmax(0, 0.82fr) minmax(300px, 0.42fr);
-        align-items: stretch;
-      }
-
-      .download-card {
-        padding: 26px;
-      }
-
-      .download-row {
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 22px;
-      }
-
-      .metric-list {
-        display: grid;
-        gap: 10px;
-      }
-
-      .metric {
-        justify-content: space-between;
-        gap: 12px;
-        padding: 14px;
-        border: 1px solid rgba(125, 211, 252, 0.14);
-        border-radius: 8px;
-        background: rgba(15, 23, 42, 0.5);
-      }
-
-      .metric small {
-        color: var(--muted);
-      }
-
-      .check {
-        gap: 8px;
-        color: #dcfce7;
-      }
-
-      .footer {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 24px clamp(20px, 5vw, 82px) 42px;
-        border-top: 1px solid var(--line);
-        color: var(--muted);
-        background: rgba(5, 8, 22, 0.99);
-      }
-
-      .footer-projects {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 14px;
-      }
-
-      .footer-projects a:hover {
-        color: var(--text);
-      }
-
-      .rtl .hero > div:first-child,
-      .rtl .section-heading,
-      .rtl .feature-card,
-      .rtl .flow-card,
-      .rtl .download-card {
-        direction: rtl;
-        text-align: right;
-      }
-
-      .rtl .actions,
-      .rtl .download-row {
-        justify-content: flex-start;
-      }
-
-      .rtl .hero {
-        direction: ltr;
-      }
-
-      @keyframes gridDrift {
-        from {
-          background-position: 0 0, 0 0, center;
-        }
-
-        to {
-          background-position: 34px 22px, -28px 18px, center;
-        }
-      }
-
-      @keyframes orbitSpin {
-        from {
-          rotate: 0deg;
-        }
-
-        to {
-          rotate: 360deg;
-        }
-      }
-
-      @keyframes deviceFloat {
-        0%,
-        100% {
-          transform: rotateX(10deg) rotateY(-14deg) translate3d(0, 0, 58px);
-        }
-
-        50% {
-          transform: rotateX(13deg) rotateY(10deg) translate3d(0, -14px, 76px);
-        }
-      }
-
-      @keyframes panelFloat {
-        0%,
-        100% {
-          transform: translate3d(0, 0, 32px);
-        }
-
-        50% {
-          transform: translate3d(0, -9px, 54px);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-        }
-      }
-
-      @media (max-width: 1080px) {
-        .hero,
-        .download-panel {
+      @media (max-width: 720px) {
+        .nd-shots {
           grid-template-columns: 1fr;
-        }
-
-        .feature-grid,
-        .flow-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .nav {
-          flex-wrap: nowrap;
-          max-width: 100%;
-          overflow-x: auto;
-          justify-content: flex-start;
-        }
-
-        .nav a {
-          flex-shrink: 0;
-          white-space: nowrap;
-        }
-
-        .nav::-webkit-scrollbar {
-          display: none;
-        }
-
-        .project-menu-panel {
-          left: 0;
-          transform: translateY(6px);
-        }
-
-        .project-menu:hover .project-menu-panel,
-        .project-menu:focus-within .project-menu-panel {
-          transform: translateY(0);
-        }
-
-        .lang-switch {
-          justify-self: end;
-        }
-      }
-
-      @media (max-width: 680px) {
-        .topbar {
-          position: absolute;
-          inset-inline: 14px;
-          width: auto;
-          grid-template-columns: 1fr;
-          align-items: stretch;
-          overflow: hidden;
-          border-radius: 18px;
-        }
-
-        .lang-switch {
-          width: calc(100% - 28px);
-        }
-
-        .brand {
-          justify-content: flex-start;
-        }
-
-        .lang-switch {
-          display: flex;
-          flex-wrap: wrap;
-          justify-self: start;
-          direction: ltr;
-          overflow: hidden;
-        }
-
-        .lang-switch button {
-          flex: 1 1 calc(50% - 4px);
-          max-width: calc(50% - 2px);
-          min-width: 0;
-          padding-inline: 4px;
-          overflow: hidden;
-          font-size: 0.72rem;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        .hero {
-          padding-top: 224px;
-        }
-
-        .hero > div {
-          min-width: 0;
-          width: min(326px, calc(100vw - 64px));
-          max-width: min(326px, calc(100vw - 64px));
-        }
-
-        h1 {
-          width: 100%;
-          max-width: min(326px, calc(100vw - 64px));
-          font-size: clamp(2rem, 9vw, 2.62rem);
-          line-height: 1.04;
-        }
-
-        .hero-lead {
-          max-width: min(326px, calc(100vw - 64px));
-          font-size: 1rem;
-          line-height: 1.68;
-        }
-
-        .hero-stage {
-          width: min(326px, calc(100vw - 64px));
-          min-height: 470px;
-        }
-
-        .floating-chip {
-          display: none;
-        }
-
-        .device {
-          width: min(340px, 92vw);
-          min-height: 280px;
-        }
-
-        .feature-grid,
-        .flow-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .button {
-          width: 100%;
-        }
-
-        .footer {
-          flex-direction: column;
         }
       }
     </style>
   </head>
-  <body>
-    <main class="page">
-      <div class="grid-field"></div>
-      <header class="topbar">
-        <a class="brand" href="https://ateight.xyz/">
-          <span class="brand-mark">
-            <img src="./at8-logo.png" alt="" aria-hidden="true" />
-          </span>
-          <span class="brand-text">
-            <strong>Milad</strong>
-            <small>AT8</small>
-          </span>
-        </a>
-        <div class="header-tools">
-          <nav class="nav" aria-label="Page navigation">
-            <a href="https://ateight.xyz/" data-i18n="navHome">Home</a>
-            <a href="https://ateight.xyz/#about" data-i18n="navAbout">About Me</a>
-            <div class="project-menu">
-              <a href="https://ateight.xyz/#projects" data-i18n="navProjects">Projects</a>
-              <div class="project-menu-panel">
-                <div class="project-menu-intro">
-                  <strong data-i18n="navMenuTitle">Projects</strong>
-                  <small data-i18n="navMenuLead">Live project pages and source repositories.</small>
-                </div>
-                <a href="https://ateight.xyz/KeyFix/">
-                  <span>KeyFix</span>
-                  <small data-i18n="navMenuKeyfix">Privacy-first Windows utility</small>
-                </a>
-                <a href="https://ateight.xyz/NetDoctor/">
-                  <span>NetDoctor</span>
-                  <small data-i18n="navMenuNetdoctor">Network diagnosis and safe repair</small>
-                </a>
-                <a href="https://ateight.xyz/hybrid-web-mail-infrastructure/">
-                  <span>Hybrid Web &amp; Mail Infrastructure</span>
-                  <small data-i18n="navMenuHwmi">Production case study</small>
-                </a>
-                <a href="https://ateight.xyz/instagram-youtube-soundcloud-downloader/">
-                  <span>Media Downloader Bot</span>
-                  <small data-i18n="navMenuDownloader">Telegram automation</small>
-                </a>
-              </div>
-            </div>
-            <a href="https://ateight.xyz/#contact" data-i18n="navContact">Contact Me</a>
-          </nav>
-          <div class="lang-switch" aria-label="Language switcher">
-            <button type="button" class="active" data-lang="en" data-full="English" data-short="EN">English</button>
-            <button type="button" data-lang="fa" data-full="فارسی" data-short="FA">فارسی</button>
-            <button type="button" data-lang="ar" data-full="العربية" data-short="AR">العربية</button>
-            <button type="button" data-lang="de" data-full="Deutsch" data-short="DE">Deutsch</button>
+  <body class="at8-page" data-at8-accent="netdoctor">
+    <div class="at8-page-bg" aria-hidden="true"></div>
+    <div id="at8-header"></div>
+
+    <section class="at8-project-hero at8-shell" data-at8-reveal>
+      <p class="at8-eyebrow" data-i18n="heroKicker">NetDoctor · AT8 project</p>
+      <h1 data-i18n="heroTitle">Know exactly why your internet is broken</h1>
+      <p class="at8-lead" data-i18n="heroLead">
+        A Windows app for people who just want to know "why isn't my internet working?" — without understanding DNS,
+        gateways, proxies, or VPN adapters. Pick the problem, get a guided diagnosis, and a safe, reversible fix.
+      </p>
+      <div class="at8-status-row">
+        <span class="at8-status-chip" data-i18n="statusWin">Windows 10 / 11</span>
+        <span class="at8-status-chip" data-i18n="statusLicense">Monthly license, Iran + Global editions</span>
+        <span class="at8-status-chip" data-i18n="statusVersion">Latest release: v0.3.0</span>
+      </div>
+      <div class="at8-cta-row">
+        <a class="at8-btn at8-btn-primary" data-at8-magnetic="12" href="https://t.me/MiladAteight" data-i18n="ctaLicense">Get a license on Telegram</a>
+        <a class="at8-btn at8-btn-ghost" data-at8-magnetic="8" href="https://github.com/miladateight/NetDoctor/releases" data-i18n="ctaReleases">See releases</a>
+      </div>
+    </section>
+
+    <section class="at8-section at8-shell" data-at8-reveal>
+      <div class="at8-split">
+        <div class="at8-split-card">
+          <h3 data-i18n="problemTitle">The problem</h3>
+          <p data-i18n="problemBody">
+            "Is the internet up?" is often the wrong question — especially in Iran. The real questions are whether
+            local/internal access works, whether international access works, and whether the fault is DNS, VPN,
+            proxy, the gateway, or the ISP. Most people can't tell which one it is.
+          </p>
+        </div>
+        <div class="at8-split-card">
+          <h3 data-i18n="solutionTitle">What NetDoctor does</h3>
+          <ul>
+            <li data-i18n="solutionPoint1">Starts from your symptom, not a technical menu.</li>
+            <li data-i18n="solutionPoint2">Gives a clear internal-vs-international verdict.</li>
+            <li data-i18n="solutionPoint3">Compares your DNS against multiple resolvers, including Iranian ones.</li>
+            <li data-i18n="solutionPoint4">Proposes a one-click fix you can always undo.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="at8-section at8-shell" data-at8-reveal>
+      <p class="at8-eyebrow" data-i18n="featuresKicker">Features</p>
+      <h2 data-i18n="featuresTitle">What you get</h2>
+      <div class="at8-card-grid">
+        <article class="at8-feature-card">
+          <h3 data-i18n="feature1Title">Problem-first flow</h3>
+          <p data-i18n="feature1Body">Start from your symptom, not from technical menus.</p>
+        </article>
+        <article class="at8-feature-card">
+          <h3 data-i18n="feature2Title">Internal vs. international</h3>
+          <p data-i18n="feature2Body">A clear verdict on what works and what doesn't, separated by scope.</p>
+        </article>
+        <article class="at8-feature-card">
+          <h3 data-i18n="feature3Title">Multi-resolver DNS diagnosis</h3>
+          <p data-i18n="feature3Body">Compares your system DNS against multiple public resolvers, including Shecan, Electro, and Begzar.</p>
+        </article>
+        <article class="at8-feature-card">
+          <h3 data-i18n="feature4Title">Full checks</h3>
+          <p data-i18n="feature4Body">Adapter, gateway, DNS, latency and packet loss, TCP port reachability, VPN adapters, and Windows proxy.</p>
+        </article>
+        <article class="at8-feature-card">
+          <h3 data-i18n="feature5Title">Fix safely</h3>
+          <p data-i18n="feature5Body">Switch DNS, reset a stale proxy, or refresh the network — always saving the previous setting first, with Undo.</p>
+        </article>
+        <article class="at8-feature-card">
+          <h3 data-i18n="feature6Title">Advanced repair</h3>
+          <p data-i18n="feature6Body">A full Winsock / TCP-IP stack reset behind a clear warning, for the toughest cases.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="at8-section at8-shell" data-at8-reveal>
+      <p class="at8-eyebrow" data-i18n="shotsKicker">Screenshots</p>
+      <h2 data-i18n="shotsTitle">Inside NetDoctor</h2>
+      <div class="nd-shots">
+        <img src="assets/screenshots/start.png" alt="NetDoctor — choose your problem" loading="lazy" />
+        <img src="assets/screenshots/dashboard.png" alt="NetDoctor — diagnosis dashboard" loading="lazy" />
+      </div>
+    </section>
+
+    <section class="at8-section at8-shell" data-at8-reveal>
+      <p class="at8-eyebrow" data-i18n="editionsKicker">Editions</p>
+      <h2 data-i18n="editionsTitle">Two editions, one engine</h2>
+      <div class="at8-split">
+        <div class="at8-split-card">
+          <h3 data-i18n="edition1Title">NetDoctor</h3>
+          <p data-i18n="edition1Body">English interface, country auto-detected, built for users anywhere in the world.</p>
+        </div>
+        <div class="at8-split-card">
+          <h3 data-i18n="edition2Title">NetDoctor — Iran Edition</h3>
+          <p data-i18n="edition2Body">Persian (فارسی) right-to-left interface, tuned for Iranian sites, ISPs, and DNS resolvers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="at8-section at8-shell" data-at8-reveal>
+      <p class="at8-eyebrow" data-i18n="howKicker">How licensing works</p>
+      <h2 data-i18n="howTitle">From request to activation</h2>
+      <div class="at8-steps">
+        <div class="at8-step">
+          <span>01</span>
+          <div>
+            <h3 data-i18n="step1Title">Message me on Telegram</h3>
+            <p data-i18n="step1Body">Send the Machine ID shown on the app's activation screen and tell me which edition you need.</p>
           </div>
         </div>
-      </header>
+        <div class="at8-step">
+          <span>02</span>
+          <div>
+            <h3 data-i18n="step2Title">Receive your license key</h3>
+            <p data-i18n="step2Body">A personal key is issued for that one computer, bound to its edition.</p>
+          </div>
+        </div>
+        <div class="at8-step">
+          <span>03</span>
+          <div>
+            <h3 data-i18n="step3Title">Activate and renew</h3>
+            <p data-i18n="step3Body">Paste the key on first launch. The app stays active for the licensed period; renew monthly to continue.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section class="hero">
+    <section class="at8-section at8-shell" data-at8-reveal>
+      <p class="at8-eyebrow" data-i18n="stackKicker">Tech stack</p>
+      <h2 data-i18n="stackTitle">Built with</h2>
+      <div class="at8-stack-row">
+        <span class="at8-stack-chip">.NET 8</span>
+        <span class="at8-stack-chip">Windows Diagnostics APIs</span>
+        <span class="at8-stack-chip">Winsock / TCP-IP</span>
+        <span class="at8-stack-chip">Windows 10 / 11</span>
+      </div>
+    </section>
+
+    <section class="at8-section at8-shell" data-at8-reveal>
+      <div class="at8-cta-banner">
         <div>
-          <p class="eyebrow pill" data-i18n="heroKicker">Windows Network Diagnostics</p>
-          <h1 data-i18n="heroTitle">Find the network fault before touching the settings.</h1>
-          <p class="hero-lead" data-i18n="heroLead">
-            NetDoctor is a guided Windows tool for diagnosing DNS, gateway, proxy, latency,
-            packet loss, VPN-like adapters, local access, international access, and safe repair
-            options without burying the user in network jargon.
-          </p>
-          <div class="actions">
-            <a class="button primary" data-i18n="downloadButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorIranSetup-0.3.0.exe">
-              Download Iran Setup v0.3.0
-            </a>
-            <a class="button" data-i18n="releaseButton" href="https://github.com/miladateight/NetDoctor/releases/tag/v0.3.0">
-              Release notes
-            </a>
-            <a class="button" data-i18n="homeButton" href="https://ateight.xyz/">
-              AT8 home
-            </a>
-          </div>
+          <h2 data-i18n="ctaBannerTitle">Ready to find out what's actually wrong?</h2>
+          <p data-i18n="ctaBannerBody">Message me on Telegram for a license, or check the releases page for installers.</p>
         </div>
+        <div class="at8-cta-row">
+          <a class="at8-btn at8-btn-primary" href="https://t.me/MiladAteight" data-i18n="ctaLicense">Get a license on Telegram</a>
+          <a class="at8-btn at8-btn-ghost" href="https://github.com/miladateight/NetDoctor/releases" data-i18n="ctaReleases">See releases</a>
+        </div>
+      </div>
+    </section>
 
-        <div class="hero-stage" aria-hidden="true">
-          <div class="diagnostic-core">
-            <span class="orbit"></span>
-            <span class="orbit"></span>
-            <span class="orbit"></span>
-            <div class="device">
-              <div class="device-top">
-                <span>netdoctor.exe</span>
-                <span data-i18n="deviceStatus">status: scanning</span>
-              </div>
-              <div class="terminal-line">
-                <strong data-i18n="deviceAdapter">Adapter</strong>
-                <span data-i18n="deviceAdapterLine">Ethernet / gateway / dns / proxy</span>
-              </div>
-              <div class="terminal-line">
-                <strong data-i18n="deviceConnectivity">Connectivity</strong>
-                <span data-i18n="deviceConnectivityLine">local route ok / international route testing</span>
-              </div>
-              <div class="terminal-line">
-                <strong data-i18n="deviceFix">Safe Fix</strong>
-                <span data-i18n="deviceFixLine">reversible repair path prepared</span>
-              </div>
-            </div>
-          </div>
-          <span class="floating-chip chip-1" data-i18n="chipDns">DNS resolution</span>
-          <span class="floating-chip chip-2" data-i18n="chipLoss">Packet loss</span>
-          <span class="floating-chip chip-3" data-i18n="chipProxy">Proxy state</span>
-          <span class="floating-chip chip-4" data-i18n="chipUndo">Undo support</span>
-        </div>
-      </section>
+    <section class="at8-section at8-shell" data-at8-reveal>
+      <p class="at8-eyebrow" data-i18n="relatedKicker">Related projects</p>
+      <h2 data-i18n="relatedTitle">More from this site</h2>
+      <div class="at8-related-grid" data-at8-related="netdoctor"></div>
+    </section>
 
-      <section id="features" class="section">
-        <div class="section-heading">
-          <p class="eyebrow pill" data-i18n="featuresKicker">What it checks</p>
-          <h2 data-i18n="featuresTitle">Clear diagnostics for messy network problems.</h2>
-          <p data-i18n="featuresLead">
-            NetDoctor starts from the user-visible problem and builds a plain-language report
-            from the network layers that usually break first.
-          </p>
-        </div>
-        <div class="feature-grid">
-          <article class="feature-card">
-            <span>01</span>
-            <h3 data-i18n="feature1Title">Adapter and gateway</h3>
-            <p data-i18n="feature1Body">Reads active adapter state, gateway availability, DNS configuration, and common route symptoms.</p>
-          </article>
-          <article class="feature-card">
-            <span>02</span>
-            <h3 data-i18n="feature2Title">DNS and reachability</h3>
-            <p data-i18n="feature2Body">Tests DNS resolution, local access, international access, TCP port reachability, latency, and packet loss.</p>
-          </article>
-          <article class="feature-card">
-            <span>03</span>
-            <h3 data-i18n="feature3Title">Proxy and VPN clues</h3>
-            <p data-i18n="feature3Body">Detects Windows proxy state and VPN-like adapters that can quietly change the user's path to the internet.</p>
-          </article>
-          <article class="feature-card">
-            <span>04</span>
-            <h3 data-i18n="feature4Title">Human diagnosis</h3>
-            <p data-i18n="feature4Body">Turns raw checks into a summary that explains what probably failed and where to look next.</p>
-          </article>
-          <article class="feature-card">
-            <span>05</span>
-            <h3 data-i18n="feature5Title">Safe repair</h3>
-            <p data-i18n="feature5Body">Repair actions save previous settings first and expose undo where a reversible fix is available.</p>
-          </article>
-          <article class="feature-card">
-            <span>06</span>
-            <h3 data-i18n="feature6Title">Windows installer</h3>
-            <p data-i18n="feature6Body">The release ships as a Windows setup file so users can install the app without building from source.</p>
-          </article>
-        </div>
-      </section>
+    <div id="at8-footer"></div>
 
-      <section id="flow" class="section">
-        <div class="section-heading">
-          <p class="eyebrow pill" data-i18n="flowKicker">Flow</p>
-          <h2 data-i18n="flowTitle">Problem first, repair second.</h2>
-        </div>
-        <div class="flow-grid">
-          <article class="flow-card">
-            <span data-i18n="step1">step 1</span>
-            <h3 data-i18n="flow1Title">Ask what is broken</h3>
-            <p data-i18n="flow1Body">The app starts from the symptom the user actually sees instead of dumping a technical checklist.</p>
-          </article>
-          <article class="flow-card">
-            <span data-i18n="step2">step 2</span>
-            <h3 data-i18n="flow2Title">Run layered checks</h3>
-            <p data-i18n="flow2Body">It checks adapter, route, DNS, latency, ports, proxy, VPN-like adapters, and access paths.</p>
-          </article>
-          <article class="flow-card">
-            <span data-i18n="step3">step 3</span>
-            <h3 data-i18n="flow3Title">Explain the result</h3>
-            <p data-i18n="flow3Body">The output is written for a normal user while still preserving useful signals for a technical operator.</p>
-          </article>
-          <article class="flow-card">
-            <span data-i18n="step4">step 4</span>
-            <h3 data-i18n="flow4Title">Offer safe fixes</h3>
-            <p data-i18n="flow4Body">When a reversible fix exists, NetDoctor prepares it with a saved previous state and an undo path.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="download" class="section">
-        <div class="download-panel">
-          <article class="download-card">
-            <p class="eyebrow pill" data-i18n="downloadKicker">Download</p>
-            <h2>NetDoctor v0.3.0</h2>
-            <p data-i18n="downloadLead">
-              Iran and International Windows setup installers are ready. Download the installer from GitHub Releases,
-              verify the checksum if needed, and follow future updates from the same repository.
-            </p>
-            <div class="download-row">
-              <a class="button primary" data-i18n="installerButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorIranSetup-0.3.0.exe">
-                Download Iran Setup
-              </a>
-              <a class="button" href="https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorIranSetup-0.3.0.exe.sha256">
-                SHA256
-              </a>
-              <a class="button" data-i18n="sourceButton" href="https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorSetup-0.3.0.exe">
-                Download Global Setup
-              </a>
-            </div>
-          </article>
-          <aside class="download-card metric-list">
-            <div class="metric">
-              <strong data-i18n="metricVersion">Version</strong>
-              <small>v0.3.0</small>
-            </div>
-            <div class="metric">
-              <strong data-i18n="metricPlatform">Platform</strong>
-              <small data-i18n="metricWindows">Windows</small>
-            </div>
-            <div class="metric">
-              <strong data-i18n="metricRuntime">Runtime</strong>
-              <small>.NET 8</small>
-            </div>
-            <div class="metric">
-              <strong data-i18n="metricInstaller">Package</strong>
-              <small>NetDoctorIranSetup-0.3.0.exe / NetDoctorSetup-0.3.0.exe</small>
-            </div>
-            <div class="check" data-i18n="downloadNote">Safe repair actions include undo where reversible.</div>
-          </aside>
-        </div>
-      </section>
-
-      <section id="license" class="section">
-        <div class="download-panel">
-          <article class="download-card">
-            <p class="eyebrow pill" data-i18n="licenseKicker">Get a license</p>
-            <h2 data-i18n="licenseTitle">Buy a license on Telegram.</h2>
-            <p data-i18n="licenseLead">
-              Message @MiladAteight on Telegram to get pricing for your edition and receive your
-              personal license key. It's the fastest way to reach me.
-            </p>
-            <div class="download-row">
-              <a class="button primary" data-i18n="licenseButton" href="https://t.me/MiladAteight" target="_blank" rel="noopener">
-                Message @MiladAteight on Telegram
-              </a>
-            </div>
-          </article>
-          <aside class="download-card metric-list">
-            <div class="metric">
-              <strong data-i18n="licenseContactLabel">Contact</strong>
-              <small>@MiladAteight</small>
-            </div>
-            <div class="metric">
-              <strong data-i18n="licenseEmailLabel">Email</strong>
-              <small>ateight088@gmail.com</small>
-            </div>
-            <div class="check" data-i18n="licenseNote">Each license is personal, edition-bound, and renews monthly.</div>
-          </aside>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <span data-i18n="footerLeft">NetDoctor by Milad Ateight</span>
-        <nav class="footer-projects" aria-label="Other AT8 projects">
-          <a href="https://ateight.xyz/KeyFix/" data-i18n="projKeyFix">KeyFix</a>
-          <a href="https://ateight.xyz/hybrid-web-mail-infrastructure/" data-i18n="projHwmi">Hybrid Web &amp; Mail</a>
-          <a href="https://ateight.xyz/instagram-youtube-soundcloud-downloader/" data-i18n="projDownloader">Telegram Downloader</a>
-        </nav>
-        <span data-i18n="footerRight">Project page: ateight.xyz/NetDoctor</span>
-      </footer>
-    </main>
     <script>
-      const copy = {
+      window.AT8_PAGE_TITLE = {
+        en: "NetDoctor | Network Diagnostics by AT8",
+        fa: "NetDoctor | عیب‌یابی شبکه از AT8",
+        ar: "NetDoctor | تشخيص الشبكة من AT8",
+        de: "NetDoctor | Netzwerkdiagnose von AT8"
+      };
+      window.AT8_PAGE_COPY = {
         en: {
-          dir: "ltr",
-          title: "NetDoctor | Network Diagnostics by AT8",
-          brandSub: "by Milad Ateight / AT8",
-          navHome: "Home",
-          navAbout: "About Me",
-          navProjects: "Projects",
-          navContact: "Contact Me",
-          navMenuTitle: "Projects",
-          navMenuLead: "Live project pages and source repositories.",
-          navMenuKeyfix: "Privacy-first Windows utility",
-          navMenuNetdoctor: "Network diagnosis and safe repair",
-          navMenuHwmi: "Production case study",
-          navMenuDownloader: "Telegram automation",
-          navFeatures: "Features",
-          navFlow: "Diagnosis flow",
-          navDownload: "Download",
-          heroKicker: "Windows Network Diagnostics",
-          heroTitle: "Find the network fault before touching the settings.",
-          heroLead: "NetDoctor is a guided Windows tool for diagnosing DNS, gateway, proxy, latency, packet loss, VPN-like adapters, local access, international access, and safe repair options without burying the user in network jargon.",
-          downloadButton: "Download Iran Setup v0.3.0",
-          releaseButton: "Release notes",
-          homeButton: "AT8 home",
-          deviceStatus: "status: scanning",
-          deviceAdapter: "Adapter",
-          deviceAdapterLine: "Ethernet / gateway / dns / proxy",
-          deviceConnectivity: "Connectivity",
-          deviceConnectivityLine: "local route ok / international route testing",
-          deviceFix: "Safe Fix",
-          deviceFixLine: "reversible repair path prepared",
-          chipDns: "DNS resolution",
-          chipLoss: "Packet loss",
-          chipProxy: "Proxy state",
-          chipUndo: "Undo support",
-          featuresKicker: "What it checks",
-          featuresTitle: "Clear diagnostics for messy network problems.",
-          featuresLead: "NetDoctor starts from the user-visible problem and builds a plain-language report from the network layers that usually break first.",
-          feature1Title: "Adapter and gateway",
-          feature1Body: "Reads active adapter state, gateway availability, DNS configuration, and common route symptoms.",
-          feature2Title: "DNS and reachability",
-          feature2Body: "Tests DNS resolution, local access, international access, TCP port reachability, latency, packet loss, and Hosts-file tampering.",
-          feature3Title: "Proxy and VPN clues",
-          feature3Body: "Detects Windows proxy state and VPN-like adapters that can quietly change the user's path to the internet.",
-          feature4Title: "Human diagnosis",
-          feature4Body: "Turns raw checks into a summary that explains what probably failed and where to look next.",
-          feature5Title: "Safe repair",
-          feature5Body: "Repair actions save previous settings first and expose undo where a reversible fix is available.",
-          feature6Title: "Windows installer",
-          feature6Body: "The release ships as a Windows setup file so users can install the app without building from source.",
-          flowKicker: "Flow",
-          flowTitle: "Problem first, repair second.",
-          step1: "step 1",
-          flow1Title: "Ask what is broken",
-          flow1Body: "The app starts from the symptom the user actually sees instead of dumping a technical checklist.",
-          step2: "step 2",
-          flow2Title: "Run layered checks",
-          flow2Body: "It checks adapter, route, DNS, latency, ports, proxy, VPN-like adapters, and access paths.",
-          step3: "step 3",
-          flow3Title: "Explain the result",
-          flow3Body: "The output is written for a normal user while still preserving useful signals for a technical operator.",
-          step4: "step 4",
-          flow4Title: "Offer safe fixes",
-          flow4Body: "When a reversible fix exists, NetDoctor prepares it with a saved previous state and an undo path.",
-          downloadKicker: "Download",
-          downloadLead: "Iran and International Windows setup installers are ready. Download the installer from GitHub Releases, verify the checksum if needed, and follow future updates from the same repository.",
-          installerButton: "Download Iran Setup",
-          sourceButton: "Download Global Setup",
-          metricVersion: "Version",
-          metricPlatform: "Platform",
-          metricWindows: "Windows",
-          metricRuntime: "Runtime",
-          metricInstaller: "Package",
-          downloadNote: "Safe repair actions include undo where reversible.",
-          licenseKicker: "Get a license",
-          licenseTitle: "Buy a license on Telegram.",
-          licenseLead: "Message @MiladAteight on Telegram to get pricing for your edition and receive your personal license key. It's the fastest way to reach me.",
-          licenseButton: "Message @MiladAteight on Telegram",
-          licenseContactLabel: "Contact",
-          licenseEmailLabel: "Email",
-          licenseNote: "Each license is personal, edition-bound, and renews monthly.",
-          footerLeft: "NetDoctor by Milad Ateight",
-          footerRight: "Project page: ateight.xyz/NetDoctor",
-          projNetDoctor: "NetDoctor",
-          projKeyFix: "KeyFix",
-          projHwmi: "Hybrid Web & Mail",
-          projDownloader: "Telegram Downloader"
+          heroKicker: "NetDoctor · AT8 project",
+          heroTitle: "Know exactly why your internet is broken",
+          heroLead:
+            "A Windows app for people who just want to know \"why isn't my internet working?\" — without understanding DNS, gateways, proxies, or VPN adapters. Pick the problem, get a guided diagnosis, and a safe, reversible fix.",
+          statusWin: "Windows 10 / 11",
+          statusLicense: "Monthly license, Iran + Global editions",
+          statusVersion: "Latest release: v0.3.0",
+          ctaLicense: "Get a license on Telegram",
+          ctaReleases: "See releases",
+          problemTitle: "The problem",
+          problemBody:
+            "\"Is the internet up?\" is often the wrong question — especially in Iran. The real questions are whether local/internal access works, whether international access works, and whether the fault is DNS, VPN, proxy, the gateway, or the ISP. Most people can't tell which one it is.",
+          solutionTitle: "What NetDoctor does",
+          solutionPoint1: "Starts from your symptom, not a technical menu.",
+          solutionPoint2: "Gives a clear internal-vs-international verdict.",
+          solutionPoint3: "Compares your DNS against multiple resolvers, including Iranian ones.",
+          solutionPoint4: "Proposes a one-click fix you can always undo.",
+          featuresKicker: "Features",
+          featuresTitle: "What you get",
+          feature1Title: "Problem-first flow",
+          feature1Body: "Start from your symptom, not from technical menus.",
+          feature2Title: "Internal vs. international",
+          feature2Body: "A clear verdict on what works and what doesn't, separated by scope.",
+          feature3Title: "Multi-resolver DNS diagnosis",
+          feature3Body: "Compares your system DNS against multiple public resolvers, including Shecan, Electro, and Begzar.",
+          feature4Title: "Full checks",
+          feature4Body: "Adapter, gateway, DNS, latency and packet loss, TCP port reachability, VPN adapters, and Windows proxy.",
+          feature5Title: "Fix safely",
+          feature5Body: "Switch DNS, reset a stale proxy, or refresh the network — always saving the previous setting first, with Undo.",
+          feature6Title: "Advanced repair",
+          feature6Body: "A full Winsock / TCP-IP stack reset behind a clear warning, for the toughest cases.",
+          shotsKicker: "Screenshots",
+          shotsTitle: "Inside NetDoctor",
+          editionsKicker: "Editions",
+          editionsTitle: "Two editions, one engine",
+          edition1Title: "NetDoctor",
+          edition1Body: "English interface, country auto-detected, built for users anywhere in the world.",
+          edition2Title: "NetDoctor — Iran Edition",
+          edition2Body: "Persian (فارسی) right-to-left interface, tuned for Iranian sites, ISPs, and DNS resolvers.",
+          howKicker: "How licensing works",
+          howTitle: "From request to activation",
+          step1Title: "Message me on Telegram",
+          step1Body: "Send the Machine ID shown on the app's activation screen and tell me which edition you need.",
+          step2Title: "Receive your license key",
+          step2Body: "A personal key is issued for that one computer, bound to its edition.",
+          step3Title: "Activate and renew",
+          step3Body: "Paste the key on first launch. The app stays active for the licensed period; renew monthly to continue.",
+          stackKicker: "Tech stack",
+          stackTitle: "Built with",
+          ctaBannerTitle: "Ready to find out what's actually wrong?",
+          ctaBannerBody: "Message me on Telegram for a license, or check the releases page for installers.",
+          relatedKicker: "Related projects",
+          relatedTitle: "More from this site"
         },
         fa: {
-          dir: "rtl",
-          title: "نت دکتر | عیب یابی شبکه توسط AT8",
-          brandSub: "ساخته میلاد Ateight / AT8",
-          navHome: "خانه",
-          navAbout: "درباره من",
-          navProjects: "پروژه ها",
-          navContact: "تماس با من",
-          navMenuTitle: "پروژه‌ها",
-          navMenuLead: "صفحه‌های فعال پروژه‌ها و ریپازیتوری‌های اصلی.",
-          navMenuKeyfix: "ابزار ویندوز با تمرکز بر حریم خصوصی",
-          navMenuNetdoctor: "تشخیص شبکه و ترمیم امن",
-          navMenuHwmi: "مطالعه موردی عملیاتی",
-          navMenuDownloader: "اتوماسیون تلگرام",
-          navFeatures: "قابلیت ها",
-          navFlow: "روند عیب یابی",
-          navDownload: "دانلود",
-          heroKicker: "عیب یابی شبکه در ویندوز",
-          heroTitle: "قبل از تغییر تنظیمات، خطای شبکه را پیدا کن.",
-          heroLead: "NetDoctor یک ابزار راهنما برای ویندوز است که DNS، Gateway، Proxy، تاخیر، Packet Loss، آداپتورهای شبیه VPN، دسترسی داخلی، دسترسی بین المللی و مسیرهای تعمیر امن را بررسی می کند؛ بدون این که کاربر را زیر اصطلاحات پیچیده شبکه دفن کند.",
-          downloadButton: "دانلود نصب‌کننده ایران v0.3.0",
-          releaseButton: "یادداشت انتشار",
-          homeButton: "خانه AT8",
-          deviceStatus: "وضعیت: در حال بررسی",
-          deviceAdapter: "آداپتور",
-          deviceAdapterLine: "اترنت / گیت وی / DNS / پروکسی",
-          deviceConnectivity: "اتصال",
-          deviceConnectivityLine: "مسیر داخلی سالم / مسیر بین المللی در حال تست",
-          deviceFix: "تعمیر امن",
-          deviceFixLine: "مسیر تعمیر قابل برگشت آماده است",
-          chipDns: "بررسی DNS",
-          chipLoss: "Packet Loss",
-          chipProxy: "وضعیت پروکسی",
-          chipUndo: "پشتیبانی Undo",
-          featuresKicker: "چه چیزهایی بررسی می شود",
-          featuresTitle: "عیب یابی شفاف برای مشکل های شلوغ شبکه.",
-          featuresLead: "NetDoctor از مشکلی شروع می کند که کاربر واقعاً می بیند و بعد از لایه های معمول خرابی شبکه یک گزارش قابل فهم می سازد.",
-          feature1Title: "آداپتور و گیت وی",
-          feature1Body: "وضعیت آداپتور فعال، دسترسی گیت وی، تنظیمات DNS و نشانه های رایج مسیر شبکه را می خواند.",
-          feature2Title: "DNS و دسترسی",
-          feature2Body: "Resolving DNS، دسترسی داخلی، دسترسی بین المللی، پورت های TCP، تاخیر، Packet Loss و دستکاری فایل Hosts را تست می کند.",
-          feature3Title: "نشانه های پروکسی و VPN",
-          feature3Body: "وضعیت پروکسی ویندوز و آداپتورهای شبیه VPN را تشخیص می دهد؛ همان چیزهایی که گاهی مسیر اینترنت را بی صدا عوض می کنند.",
-          feature4Title: "تشخیص قابل فهم",
-          feature4Body: "خروجی خام را به خلاصه ای تبدیل می کند که توضیح می دهد احتمالاً کدام بخش خراب شده و قدم بعدی چیست.",
-          feature5Title: "تعمیر امن",
-          feature5Body: "قبل از اعمال تعمیر، تنظیم قبلی ذخیره می شود و هرجا تعمیر قابل برگشت باشد مسیر Undo وجود دارد.",
-          feature6Title: "بسته ویندوز",
-          feature6Body: "نسخه منتشرشده به شکل فایل Setup ویندوز ارائه شده تا کاربر بدون build کردن سورس بتواند برنامه را نصب کند.",
-          flowKicker: "روند کار",
-          flowTitle: "اول مشکل، بعد تعمیر.",
-          step1: "مرحله ۱",
-          flow1Title: "پرسیدن مشکل واقعی",
-          flow1Body: "برنامه از همان نشانه ای شروع می کند که کاربر می بیند، نه از یک چک لیست خشک فنی.",
-          step2: "مرحله ۲",
-          flow2Title: "بررسی لایه ای",
-          flow2Body: "آداپتور، مسیر، DNS، تاخیر، پورت ها، پروکسی، آداپتورهای شبیه VPN و مسیرهای دسترسی بررسی می شوند.",
-          step3: "مرحله ۳",
-          flow3Title: "توضیح نتیجه",
-          flow3Body: "خروجی برای کاربر عادی قابل فهم است و در عین حال سیگنال های لازم را برای اپراتور فنی نگه می دارد.",
-          step4: "مرحله ۴",
-          flow4Title: "پیشنهاد تعمیر امن",
-          flow4Body: "اگر یک تعمیر قابل برگشت وجود داشته باشد، NetDoctor آن را با وضعیت قبلی ذخیره شده و مسیر Undo آماده می کند.",
-          downloadKicker: "دانلود",
-          downloadLead: "نصب‌کننده‌های ویندوز برای نسخه ایران و گلوبال آماده‌اند. فایل نصب را از GitHub Releases دانلود کنید، در صورت نیاز checksum را بررسی کنید و آپدیت‌های بعدی را از همین ریپو دنبال کنید.",
-          installerButton: "دانلود نصب‌کننده ایران",
-          sourceButton: "دانلود نسخه گلوبال",
-          metricVersion: "نسخه",
-          metricPlatform: "پلتفرم",
-          metricWindows: "ویندوز",
-          metricRuntime: "ران تایم",
-          metricInstaller: "بسته",
-          downloadNote: "تعمیرهای امن در موارد قابل برگشت، Undo دارند.",
-          licenseKicker: "تهیه‌ی لایسنس",
-          licenseTitle: "خرید لایسنس در تلگرام.",
-          licenseLead: "برای گرفتن قیمت نسخه‌ی مورد نظرت و دریافت کلید لایسنس شخصی‌ات، در تلگرام به @MiladAteight پیام بده. سریع‌ترین راه تماس با من همین است.",
-          licenseButton: "پیام به @MiladAteight در تلگرام",
-          licenseContactLabel: "تماس",
-          licenseEmailLabel: "ایمیل",
-          licenseNote: "هر لایسنس شخصی، مخصوص یک نسخه و ماهانه قابل تمدید است.",
-          footerLeft: "NetDoctor ساخته میلاد Ateight",
-          footerRight: "صفحه پروژه: ateight.xyz/NetDoctor",
-          projNetDoctor: "نت‌دکتر",
-          projKeyFix: "کی‌فیکس",
-          projHwmi: "وب و ایمیل ترکیبی",
-          projDownloader: "دانلودر تلگرام"
+          heroKicker: "NetDoctor · پروژه AT8",
+          heroTitle: "دقیقاً بدانید چرا اینترنتتان کار نمی‌کند",
+          heroLead:
+            "اپلیکیشن ویندوزی برای کسانی که فقط می‌خواهند بدانند «چرا اینترنتم کار نمی‌کند؟» — بدون نیاز به فهم DNS، گیت‌وی، پراکسی یا آداپتور VPN. مشکل را انتخاب کنید، تشخیص هدایت‌شده بگیرید و یک ترمیم امن و قابل‌بازگشت دریافت کنید.",
+          statusWin: "ویندوز ۱۰ / ۱۱",
+          statusLicense: "لایسنس ماهانه، نسخه‌های ایران و جهانی",
+          statusVersion: "آخرین نسخه: v0.3.0",
+          ctaLicense: "دریافت لایسنس در تلگرام",
+          ctaReleases: "مشاهده نسخه‌ها",
+          problemTitle: "مشکل",
+          problemBody:
+            "«آیا اینترنت وصل است؟» اغلب سؤال اشتباهی است — به‌خصوص در ایران. سؤال‌های واقعی این‌هاست: آیا دسترسی داخلی کار می‌کند؟ آیا دسترسی بین‌المللی کار می‌کند؟ و آیا مشکل از DNS، VPN، پراکسی، گیت‌وی یا ISP است؟ اکثر افراد نمی‌توانند تشخیص دهند کدام است.",
+          solutionTitle: "NetDoctor چه می‌کند",
+          solutionPoint1: "از علائمی که می‌بینید شروع می‌کند، نه یک منوی فنی.",
+          solutionPoint2: "یک نتیجه‌ی روشن از وضعیت داخلی در مقابل بین‌المللی می‌دهد.",
+          solutionPoint3: "DNS شما را با چند resolver از جمله گزینه‌های ایرانی مقایسه می‌کند.",
+          solutionPoint4: "یک ترمیم یک‌کلیکی پیشنهاد می‌دهد که همیشه قابل بازگشت است.",
+          featuresKicker: "امکانات",
+          featuresTitle: "چه چیزی به‌دست می‌آورید",
+          feature1Title: "جریان مبتنی بر مشکل",
+          feature1Body: "شروع از علائمی که می‌بینید، نه از منوهای فنی.",
+          feature2Title: "داخلی در مقابل بین‌المللی",
+          feature2Body: "نتیجه‌ای روشن از آنچه کار می‌کند و آنچه کار نمی‌کند، به‌تفکیک دامنه.",
+          feature3Title: "تشخیص DNS با چند resolver",
+          feature3Body: "DNS سیستم شما را با چند resolver عمومی از جمله شکن، الکترو و بگزار مقایسه می‌کند.",
+          feature4Title: "بررسی کامل",
+          feature4Body: "آداپتور، گیت‌وی، DNS، تاخیر و افت بسته، دسترسی پورت TCP، آداپتورهای VPN و پراکسی ویندوز.",
+          feature5Title: "ترمیم امن",
+          feature5Body: "تغییر DNS، ریست پراکسی قدیمی یا تازه‌سازی شبکه — همیشه با ذخیره‌ی تنظیم قبلی و قابلیت Undo.",
+          feature6Title: "ترمیم پیشرفته",
+          feature6Body: "ریست کامل پشته‌ی Winsock / TCP-IP پشت یک هشدار روشن، برای سخت‌ترین موارد.",
+          shotsKicker: "تصاویر",
+          shotsTitle: "نگاهی به داخل NetDoctor",
+          editionsKicker: "نسخه‌ها",
+          editionsTitle: "دو نسخه، یک موتور",
+          edition1Title: "NetDoctor",
+          edition1Body: "رابط انگلیسی، تشخیص خودکار کشور، برای کاربران در سراسر جهان.",
+          edition2Title: "NetDoctor — نسخه ایران",
+          edition2Body: "رابط فارسی راست‌به‌چپ، تنظیم‌شده برای سایت‌ها، ISPها و resolverهای DNS ایرانی.",
+          howKicker: "نحوه‌ی لایسنس‌گیری",
+          howTitle: "از درخواست تا فعال‌سازی",
+          step1Title: "پیام در تلگرام",
+          step1Body: "Machine ID نمایش‌داده‌شده در صفحه‌ی فعال‌سازی اپ را بفرستید و بگویید کدام نسخه را می‌خواهید.",
+          step2Title: "دریافت کلید لایسنس",
+          step2Body: "یک کلید شخصی برای همان یک کامپیوتر و همان نسخه صادر می‌شود.",
+          step3Title: "فعال‌سازی و تمدید",
+          step3Body: "کلید را در اولین اجرا وارد کنید. اپ تا پایان دوره فعال می‌ماند؛ برای ادامه ماهانه تمدید کنید.",
+          stackKicker: "پشته‌ی فنی",
+          stackTitle: "ساخته‌شده با",
+          ctaBannerTitle: "آماده‌اید بفهمید واقعاً مشکل چیست؟",
+          ctaBannerBody: "برای لایسنس در تلگرام پیام دهید، یا صفحه‌ی نسخه‌ها را برای نصب‌کننده‌ها ببینید.",
+          relatedKicker: "پروژه‌های مرتبط",
+          relatedTitle: "بیشتر از این سایت"
         },
         ar: {
-          dir: "rtl",
-          title: "NetDoctor | تشخيص الشبكة بواسطة AT8",
-          brandSub: "بواسطة Milad Ateight / AT8",
-          navHome: "الرئيسية",
-          navAbout: "من أنا",
-          navProjects: "المشاريع",
-          navContact: "تواصل معي",
-          navMenuTitle: "المشاريع",
-          navMenuLead: "صفحات المشاريع المباشرة والمستودعات الأساسية.",
-          navMenuKeyfix: "أداة Windows تركز على الخصوصية",
-          navMenuNetdoctor: "تشخيص الشبكة وإصلاح آمن",
-          navMenuHwmi: "دراسة حالة تشغيلية",
-          navMenuDownloader: "أتمتة Telegram",
-          navFeatures: "الميزات",
-          navFlow: "مسار التشخيص",
-          navDownload: "تحميل",
-          heroKicker: "تشخيص الشبكة في ويندوز",
-          heroTitle: "اعرف عطل الشبكة قبل تغيير الإعدادات.",
-          heroLead: "NetDoctor أداة إرشادية لويندوز تفحص DNS والبوابة والوكيل والتأخير وفقدان الحزم والمحولات الشبيهة ب VPN والوصول المحلي والدولي وخيارات الإصلاح الآمن، من دون إغراق المستخدم بمصطلحات الشبكات.",
-          downloadButton: "تحميل مثبت إيران v0.3.0",
-          releaseButton: "ملاحظات الإصدار",
-          homeButton: "صفحة AT8",
-          deviceStatus: "الحالة: فحص",
-          deviceAdapter: "المحول",
-          deviceAdapterLine: "Ethernet / البوابة / DNS / الوكيل",
-          deviceConnectivity: "الاتصال",
-          deviceConnectivityLine: "المسار المحلي جيد / اختبار المسار الدولي",
-          deviceFix: "إصلاح آمن",
-          deviceFixLine: "مسار إصلاح قابل للتراجع جاهز",
-          chipDns: "حل DNS",
-          chipLoss: "فقدان الحزم",
-          chipProxy: "حالة الوكيل",
-          chipUndo: "دعم التراجع",
-          featuresKicker: "ماذا يفحص",
-          featuresTitle: "تشخيص واضح لمشكلات الشبكة المعقدة.",
-          featuresLead: "يبدأ NetDoctor من المشكلة التي يراها المستخدم ثم يبني تقريرا مفهوما من طبقات الشبكة التي تتعطل غالبا.",
-          feature1Title: "المحول والبوابة",
-          feature1Body: "يقرأ حالة المحول النشط وتوفر البوابة وإعدادات DNS وأعراض المسار الشائعة.",
-          feature2Title: "DNS والوصول",
-          feature2Body: "يفحص حل DNS والوصول المحلي والدولي ومنافذ TCP والتأخير وفقدان الحزم والتلاعب في ملف Hosts.",
-          feature3Title: "دلائل الوكيل و VPN",
-          feature3Body: "يكشف حالة وكيل ويندوز والمحولات الشبيهة ب VPN التي قد تغير مسار الإنترنت بهدوء.",
-          feature4Title: "تشخيص مفهوم",
-          feature4Body: "يحول الفحوصات الخام إلى ملخص يشرح الجزء المحتمل تعطله والخطوة التالية.",
+          heroKicker: "NetDoctor · مشروع AT8",
+          heroTitle: "اعرف بالضبط سبب تعطّل اتصالك بالإنترنت",
+          heroLead:
+            "تطبيق Windows لمن يريد فقط معرفة \"لماذا لا يعمل الإنترنت لدي؟\" — دون فهم DNS أو الجواز أو الوكيل أو محولات VPN. اختر المشكلة، واحصل على تشخيص موجَّه، وإصلاح آمن وقابل للتراجع.",
+          statusWin: "Windows 10 / 11",
+          statusLicense: "ترخيص شهري، إصداران: إيران والعالمي",
+          statusVersion: "أحدث إصدار: v0.3.0",
+          ctaLicense: "الحصول على ترخيص عبر Telegram",
+          ctaReleases: "عرض الإصدارات",
+          problemTitle: "المشكلة",
+          problemBody:
+            "\"هل الإنترنت متصل؟\" غالباً سؤال خاطئ — خصوصاً في إيران. الأسئلة الحقيقية هي: هل الوصول المحلي يعمل؟ هل الوصول الدولي يعمل؟ وهل الخلل في DNS أو VPN أو الوكيل أو الجواز أو مزوّد الخدمة؟ معظم الناس لا يستطيعون تحديد ذلك.",
+          solutionTitle: "ما الذي يفعله NetDoctor",
+          solutionPoint1: "يبدأ من العارض الذي تراه، لا من قائمة تقنية.",
+          solutionPoint2: "يقدّم حكماً واضحاً بين الوصول المحلي والدولي.",
+          solutionPoint3: "يقارن DNS الخاص بك بعدة خوادم، من ضمنها خوادم إيرانية.",
+          solutionPoint4: "يقترح إصلاحاً بضغطة واحدة قابلاً للتراجع دائماً.",
+          featuresKicker: "الميزات",
+          featuresTitle: "ما الذي تحصل عليه",
+          feature1Title: "تدفّق يبدأ من المشكلة",
+          feature1Body: "البدء من العارض الذي تراه، لا من قوائم تقنية.",
+          feature2Title: "محلي مقابل دولي",
+          feature2Body: "حكم واضح حول ما يعمل وما لا يعمل، مفصولاً حسب النطاق.",
+          feature3Title: "تشخيص DNS متعدد الخوادم",
+          feature3Body: "يقارن DNS النظام بعدة خوادم عامة، من ضمنها خوادم إيرانية معروفة.",
+          feature4Title: "فحوصات شاملة",
+          feature4Body: "المحول، الجواز، DNS، الكمون وفقد الحزم، الوصول إلى منافذ TCP، محولات VPN، ووكيل Windows.",
           feature5Title: "إصلاح آمن",
-          feature5Body: "تحفظ إجراءات الإصلاح الإعداد السابق أولا وتعرض التراجع عندما يكون الإصلاح قابلا للعكس.",
-          feature6Title: "مثبت ويندوز",
-          feature6Body: "يأتي الإصدار كملف إعداد لويندوز حتى يستطيع المستخدم تثبيت التطبيق من دون بناء المصدر.",
-          flowKicker: "المسار",
-          flowTitle: "المشكلة أولا، ثم الإصلاح.",
-          step1: "الخطوة 1",
-          flow1Title: "اسأل ما الذي تعطل",
-          flow1Body: "يبدأ التطبيق من العرض الذي يراه المستخدم بدلا من عرض قائمة تقنية جافة.",
-          step2: "الخطوة 2",
-          flow2Title: "إجراء فحوصات طبقية",
-          flow2Body: "يفحص المحول والمسار وDNS والتأخير والمنافذ والوكيل والمحولات الشبيهة ب VPN ومسارات الوصول.",
-          step3: "الخطوة 3",
-          flow3Title: "شرح النتيجة",
-          flow3Body: "النتيجة مكتوبة للمستخدم العادي مع الحفاظ على إشارات مفيدة للمشغل التقني.",
-          step4: "الخطوة 4",
-          flow4Title: "اقتراح إصلاح آمن",
-          flow4Body: "عندما يوجد إصلاح قابل للتراجع، يجهزه NetDoctor مع حفظ الحالة السابقة ومسار التراجع.",
-          downloadKicker: "تحميل",
-          downloadLead: "مثبتا ويندوز لنسخة إيران والنسخة العالمية جاهزان. حمّل المثبت من GitHub Releases وتحقق من checksum عند الحاجة وتابع التحديثات القادمة من نفس المستودع.",
-          installerButton: "تحميل مثبت إيران",
-          sourceButton: "تحميل النسخة العالمية",
-          metricVersion: "الإصدار",
-          metricPlatform: "النظام",
-          metricWindows: "ويندوز",
-          metricRuntime: "بيئة التشغيل",
-          metricInstaller: "الحزمة",
-          downloadNote: "إجراءات الإصلاح الآمن تتضمن التراجع عندما يكون ذلك ممكنا.",
-          licenseKicker: "الحصول على ترخيص",
-          licenseTitle: "اشترِ ترخيصا عبر تيليجرام.",
-          licenseLead: "راسل @MiladAteight على تيليجرام للحصول على سعر النسخة التي تريدها واستلام مفتاح ترخيصك الشخصي. هذه أسرع طريقة للتواصل معي.",
-          licenseButton: "راسل @MiladAteight على تيليجرام",
-          licenseContactLabel: "تواصل",
-          licenseEmailLabel: "البريد الإلكتروني",
-          licenseNote: "كل ترخيص شخصي، مرتبط بنسخة واحدة، ويتم تجديده شهريا.",
-          footerLeft: "NetDoctor بواسطة Milad Ateight",
-          footerRight: "صفحة المشروع: ateight.xyz/NetDoctor",
-          projNetDoctor: "نت دكتور",
-          projKeyFix: "كي فيكس",
-          projHwmi: "البنية الهجينة للويب والبريد",
-          projDownloader: "بوت تيليجرام للتحميل"
+          feature5Body: "تبديل DNS أو إعادة ضبط وكيل قديم أو تحديث الشبكة — مع حفظ الإعداد السابق دائماً وإمكانية التراجع.",
+          feature6Title: "إصلاح متقدّم",
+          feature6Body: "إعادة ضبط كاملة لمكدّس Winsock / TCP-IP خلف تحذير واضح، للحالات الأصعب.",
+          shotsKicker: "لقطات الشاشة",
+          shotsTitle: "نظرة داخل NetDoctor",
+          editionsKicker: "الإصدارات",
+          editionsTitle: "إصداران، محرّك واحد",
+          edition1Title: "NetDoctor",
+          edition1Body: "واجهة إنجليزية، اكتشاف تلقائي للدولة، مصمم للمستخدمين حول العالم.",
+          edition2Title: "NetDoctor — إصدار إيران",
+          edition2Body: "واجهة فارسية من اليمين إلى اليسار، مضبوطة لمواقع إيران ومزوّدي الخدمة وخوادم DNS المحلية.",
+          howKicker: "كيف يعمل الترخيص",
+          howTitle: "من الطلب إلى التفعيل",
+          step1Title: "راسلني على Telegram",
+          step1Body: "أرسل Machine ID الظاهر في شاشة تفعيل التطبيق، وحدّد الإصدار الذي تحتاجه.",
+          step2Title: "استلام مفتاح الترخيص",
+          step2Body: "يصدر مفتاح شخصي لهذا الجهاز فقط، مرتبط بإصداره.",
+          step3Title: "التفعيل والتجديد",
+          step3Body: "ألصق المفتاح عند أول تشغيل. يبقى التطبيق نشطاً طوال فترة الترخيص؛ جدّده شهرياً للاستمرار.",
+          stackKicker: "حزمة التقنيات",
+          stackTitle: "مبني باستخدام",
+          ctaBannerTitle: "مستعد لمعرفة الخلل الحقيقي؟",
+          ctaBannerBody: "راسلني على Telegram للحصول على ترخيص، أو راجع صفحة الإصدارات للمثبّتات.",
+          relatedKicker: "مشاريع ذات صلة",
+          relatedTitle: "المزيد من هذا الموقع"
         },
         de: {
-          dir: "ltr",
-          title: "NetDoctor | Netzwerkdiagnose von AT8",
-          brandSub: "von Milad Ateight / AT8",
-          navHome: "Home",
-          navAbout: "About Me",
-          navProjects: "Projects",
-          navContact: "Contact Me",
-          navMenuTitle: "Projekte",
-          navMenuLead: "Live-Projektseiten und die zugehörigen Repositories.",
-          navMenuKeyfix: "Datenschutzfreundliches Windows-Tool",
-          navMenuNetdoctor: "Netzwerkdiagnose und sichere Reparatur",
-          navMenuHwmi: "Praxisnaher Betriebsfall",
-          navMenuDownloader: "Telegram-Automation",
-          navFeatures: "Funktionen",
-          navFlow: "Diagnoseablauf",
-          navDownload: "Download",
-          heroKicker: "Windows Netzwerkdiagnose",
-          heroTitle: "Finde den Netzwerkfehler, bevor du Einstellungen änderst.",
-          heroLead: "NetDoctor ist ein geführtes Windows-Tool zur Diagnose von DNS, Gateway, Proxy, Latenz, Paketverlust, VPN-ähnlichen Adaptern, lokalem Zugriff, internationalem Zugriff und sicheren Reparaturwegen, ohne Nutzer mit Netzwerkjargon zu überladen.",
-          downloadButton: "Download Iran Setup v0.3.0",
-          releaseButton: "Release Notes",
-          homeButton: "AT8 Home",
-          deviceStatus: "status: scan läuft",
-          deviceAdapter: "Adapter",
-          deviceAdapterLine: "Ethernet / Gateway / DNS / Proxy",
-          deviceConnectivity: "Verbindung",
-          deviceConnectivityLine: "lokale Route ok / internationale Route im Test",
-          deviceFix: "Sichere Reparatur",
-          deviceFixLine: "umkehrbarer Reparaturpfad vorbereitet",
-          chipDns: "DNS-Auflösung",
-          chipLoss: "Paketverlust",
-          chipProxy: "Proxy-Status",
-          chipUndo: "Undo-Unterstützung",
-          featuresKicker: "Was geprüft wird",
-          featuresTitle: "Klare Diagnose für unübersichtliche Netzwerkprobleme.",
-          featuresLead: "NetDoctor beginnt beim sichtbaren Problem und erstellt aus den typischen Netzwerkschichten einen verständlichen Bericht.",
-          feature1Title: "Adapter und Gateway",
-          feature1Body: "Liest aktiven Adapterstatus, Gateway-Erreichbarkeit, DNS-Konfiguration und typische Routing-Symptome.",
-          feature2Title: "DNS und Erreichbarkeit",
-          feature2Body: "Prüft DNS-Auflösung, lokalen Zugriff, internationalen Zugriff, TCP-Ports, Latenz, Paketverlust und Manipulation der Hosts-Datei.",
-          feature3Title: "Proxy- und VPN-Hinweise",
-          feature3Body: "Erkennt Windows-Proxy-Zustand und VPN-ähnliche Adapter, die den Internetpfad unbemerkt verändern können.",
-          feature4Title: "Menschliche Diagnose",
-          feature4Body: "Wandelt Rohprüfungen in eine Zusammenfassung um, die erklärt, was wahrscheinlich defekt ist und wo man weiter sucht.",
-          feature5Title: "Sichere Reparatur",
-          feature5Body: "Reparaturen speichern zuerst die vorherige Einstellung und bieten Undo, wenn der Fix umkehrbar ist.",
-          feature6Title: "Windows-Installer",
-          feature6Body: "Das Release wird als Windows-Setup ausgeliefert, damit Nutzer die App ohne Build aus dem Quellcode installieren können.",
-          flowKicker: "Ablauf",
-          flowTitle: "Erst das Problem, dann die Reparatur.",
-          step1: "Schritt 1",
-          flow1Title: "Fragen, was kaputt ist",
-          flow1Body: "Die App startet mit dem Symptom, das der Nutzer wirklich sieht, statt eine technische Checkliste auszuspucken.",
-          step2: "Schritt 2",
-          flow2Title: "Schichtweise prüfen",
-          flow2Body: "Sie prüft Adapter, Route, DNS, Latenz, Ports, Proxy, VPN-ähnliche Adapter und Zugriffspfade.",
-          step3: "Schritt 3",
-          flow3Title: "Ergebnis erklären",
-          flow3Body: "Die Ausgabe ist für normale Nutzer verständlich und behält nützliche Signale für technische Betreiber.",
-          step4: "Schritt 4",
-          flow4Title: "Sichere Fixes anbieten",
-          flow4Body: "Wenn ein umkehrbarer Fix existiert, bereitet NetDoctor ihn mit gespeichertem Vorzustand und Undo-Pfad vor.",
-          downloadKicker: "Download",
-          downloadLead: "Windows-Setup-Dateien für die Iran Edition und die internationale Edition sind bereit. Lade den Installer aus GitHub Releases herunter, prüfe bei Bedarf die Prüfsumme und folge kommenden Updates im selben Repository.",
-          installerButton: "Iran Setup herunterladen",
-          sourceButton: "Global Setup herunterladen",
-          metricVersion: "Version",
-          metricPlatform: "Plattform",
-          metricWindows: "Windows",
-          metricRuntime: "Runtime",
-          metricInstaller: "Package",
-          downloadNote: "Sichere Reparaturen enthalten Undo, wenn sie umkehrbar sind.",
-          licenseKicker: "Lizenz erhalten",
-          licenseTitle: "Lizenz über Telegram kaufen.",
-          licenseLead: "Schreib @MiladAteight auf Telegram, um den Preis für deine Edition zu erfahren und deinen persönlichen Lizenzschlüssel zu erhalten. Das ist der schnellste Weg, mich zu erreichen.",
-          licenseButton: "@MiladAteight auf Telegram schreiben",
-          licenseContactLabel: "Kontakt",
-          licenseEmailLabel: "E-Mail",
-          licenseNote: "Jede Lizenz ist persönlich, an eine Edition gebunden und wird monatlich erneuert.",
-          footerLeft: "NetDoctor von Milad Ateight",
-          footerRight: "Projektseite: ateight.xyz/NetDoctor",
-          projNetDoctor: "NetDoctor",
-          projKeyFix: "KeyFix",
-          projHwmi: "Hybrid Web & Mail",
-          projDownloader: "Telegram-Downloader"
+          heroKicker: "NetDoctor · AT8-Projekt",
+          heroTitle: "Wissen, warum Ihr Internet wirklich nicht funktioniert",
+          heroLead:
+            "Eine Windows-App für alle, die einfach wissen wollen, \"warum funktioniert mein Internet nicht?\" — ohne DNS, Gateways, Proxys oder VPN-Adapter verstehen zu müssen. Problem wählen, geführte Diagnose erhalten, sichere und rückgängig machbare Lösung bekommen.",
+          statusWin: "Windows 10 / 11",
+          statusLicense: "Monatslizenz, Editionen für Iran + weltweit",
+          statusVersion: "Neueste Version: v0.3.0",
+          ctaLicense: "Lizenz über Telegram erhalten",
+          ctaReleases: "Releases ansehen",
+          problemTitle: "Das Problem",
+          problemBody:
+            "\"Ist das Internet erreichbar?\" ist oft die falsche Frage — besonders im Iran. Die eigentlichen Fragen sind: Funktioniert der lokale/interne Zugriff? Funktioniert der internationale Zugriff? Und liegt der Fehler bei DNS, VPN, Proxy, dem Gateway oder dem Provider? Die meisten Menschen können das nicht unterscheiden.",
+          solutionTitle: "Was NetDoctor macht",
+          solutionPoint1: "Startet bei Ihrem Symptom, nicht bei einem technischen Menü.",
+          solutionPoint2: "Liefert ein klares Urteil: intern vs. international.",
+          solutionPoint3: "Vergleicht Ihr DNS mit mehreren Resolvern, darunter iranische.",
+          solutionPoint4: "Schlägt eine Ein-Klick-Lösung vor, die immer rückgängig gemacht werden kann.",
+          featuresKicker: "Funktionen",
+          featuresTitle: "Das bekommen Sie",
+          feature1Title: "Problemorientierter Ablauf",
+          feature1Body: "Start bei Ihrem Symptom, nicht bei technischen Menüs.",
+          feature2Title: "Intern vs. international",
+          feature2Body: "Ein klares Urteil darüber, was funktioniert und was nicht, getrennt nach Reichweite.",
+          feature3Title: "DNS-Diagnose mit mehreren Resolvern",
+          feature3Body: "Vergleicht Ihr System-DNS mit mehreren öffentlichen Resolvern, darunter bekannte iranische Anbieter.",
+          feature4Title: "Vollständige Prüfungen",
+          feature4Body: "Adapter, Gateway, DNS, Latenz und Paketverlust, TCP-Port-Erreichbarkeit, VPN-Adapter und Windows-Proxy.",
+          feature5Title: "Sicher reparieren",
+          feature5Body: "DNS wechseln, einen veralteten Proxy zurücksetzen oder das Netzwerk erneuern — immer mit vorheriger Sicherung und Undo.",
+          feature6Title: "Erweiterte Reparatur",
+          feature6Body: "Ein vollständiger Winsock-/TCP-IP-Stack-Reset hinter einer klaren Warnung, für die schwierigsten Fälle.",
+          shotsKicker: "Screenshots",
+          shotsTitle: "Ein Blick in NetDoctor",
+          editionsKicker: "Editionen",
+          editionsTitle: "Zwei Editionen, eine Engine",
+          edition1Title: "NetDoctor",
+          edition1Body: "Englische Oberfläche, automatische Ländererkennung, für Nutzer weltweit.",
+          edition2Title: "NetDoctor — Iran Edition",
+          edition2Body: "Persische (فارسی) Oberfläche von rechts nach links, abgestimmt auf iranische Seiten, Provider und DNS-Resolver.",
+          howKicker: "So funktioniert die Lizenzierung",
+          howTitle: "Von der Anfrage zur Aktivierung",
+          step1Title: "Schreiben Sie mir auf Telegram",
+          step1Body: "Senden Sie die Machine-ID vom Aktivierungsbildschirm der App und sagen Sie mir, welche Edition Sie brauchen.",
+          step2Title: "Lizenzschlüssel erhalten",
+          step2Body: "Ein persönlicher Schlüssel wird für genau diesen Computer und diese Edition ausgestellt.",
+          step3Title: "Aktivieren und verlängern",
+          step3Body: "Schlüssel beim ersten Start einfügen. Die App bleibt für den Lizenzzeitraum aktiv; monatlich verlängern, um weiterzumachen.",
+          stackKicker: "Tech-Stack",
+          stackTitle: "Gebaut mit",
+          ctaBannerTitle: "Bereit zu erfahren, was wirklich nicht stimmt?",
+          ctaBannerBody: "Schreiben Sie mir auf Telegram für eine Lizenz oder sehen Sie sich die Releases für Installer an.",
+          relatedKicker: "Verwandte Projekte",
+          relatedTitle: "Mehr von dieser Seite"
         }
       };
-
-      const languageButtons = document.querySelectorAll("[data-lang]");
-      const translatedNodes = document.querySelectorAll("[data-i18n]");
-
-      function setLanguage(language) {
-        const dictionary = copy[language] || copy.en;
-        document.documentElement.lang = language;
-        document.documentElement.dir = dictionary.dir;
-        document.body.classList.toggle("rtl", dictionary.dir === "rtl");
-        document.title = dictionary.title;
-        translatedNodes.forEach((node) => {
-          const key = node.dataset.i18n;
-          if (dictionary[key]) node.textContent = dictionary[key];
-        });
-        languageButtons.forEach((button) => {
-          button.classList.toggle("active", button.dataset.lang === language);
-        });
-      }
-
-      languageButtons.forEach((button) => {
-        button.addEventListener("click", () => setLanguage(button.dataset.lang));
-      });
-
-      function syncLanguageButtonLabels() {
-        const short = window.matchMedia("(max-width: 680px)").matches;
-        languageButtons.forEach((button) => {
-          button.textContent = short ? button.dataset.short : button.dataset.full;
-        });
-      }
-
-      const initialLanguage = new URLSearchParams(window.location.search).get("lang") || "en";
-      syncLanguageButtonLabels();
-      setLanguage(initialLanguage);
-      window.addEventListener("resize", syncLanguageButtonLabels);
     </script>
+    <script src="https://ateight.xyz/at8-kit.js" defer></script>
   </body>
 </html>

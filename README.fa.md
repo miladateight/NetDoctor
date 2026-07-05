@@ -1,16 +1,16 @@
-<div align="center">
+﻿<div align="center">
 
-<img src="assets/netdoctor-icon-512.png" alt="نِت‌دکتر" width="120" />
+<img src="assets/netdoctor-icon-512.png" alt="Net Doctor" width="120" />
 
-# نِت‌دکتر (Net Doctor)
+# نت دکتر (Net Doctor)
 
-**دکتر شبکه‌ی ویندوز که به زبان ساده می‌گوید چرا اینترنتت قطع است و آن را امن تعمیر می‌کند.**
+**مرکز فرماندهی مدرن ویندوز برای عیب‌یابی شبکه، تعمیر امن، مانیتورینگ، تاریخچه و گزارش‌گیری.**
 
-[English](README.md) · [فارسی](README.fa.md)
+[English](README.md) - [فارسی](README.fa.md)
 
-[![پلتفرم](https://img.shields.io/badge/%D9%88%DB%8C%D9%86%D8%AF%D9%88%D8%B2-10%20%2F%2011-0a1622)](#پیشنیازها)
-[![نسخه](https://img.shields.io/badge/%D9%86%D8%B3%D8%AE%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%20%2B%20%D8%A8%DB%8C%D9%86%E2%80%8C%D8%A7%D9%84%D9%85%D9%84%D9%84-1fa49a)](#نسخهها)
-[![لایسنس](https://img.shields.io/badge/%D9%84%D8%A7%DB%8C%D8%B3%D9%86%D8%B3-%D8%AA%D8%AC%D8%A7%D8%B1%DB%8C-c83645)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0a1622)](#پیشنیازها)
+[![Version](https://img.shields.io/badge/version-0.5.0-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.5.0)
+[![License](https://img.shields.io/badge/license-Commercial-c83645)](LICENSE)
 
 </div>
 
@@ -18,77 +18,125 @@
 
 <div dir="rtl">
 
-نِت‌دکتر یک برنامه‌ی تجاری ویندوز برای کاربران عادی است؛ کسانی که فقط می‌خواهند بدانند **«چرا اینترنتم کار نمی‌کند؟»** — بدون اینکه لازم باشد DNS، گیت‌وی، مسیر، پروکسی، کارت VPN یا تست پورت را بفهمند.
+نت دکتر یک اپلیکیشن دسکتاپ ویندوز برای تشخیص مشکلات رایج شبکه و اینترنت است. برنامه مشکل را با زبان قابل فهم توضیح می‌دهد و فقط بعد از تایید کاربر، تعمیرهای کنترل‌شده را اجرا می‌کند.
 
-تو مشکلت را انتخاب می‌کنی؛ نِت‌دکتر یک عیب‌یابی هدایت‌شده اجرا می‌کند، به زبان روشن می‌گوید **مشکل از کجاست**، و **تعمیرهای امن و قابل بازگشت** پیشنهاد می‌دهد.
+نسخه `0.5.0` یک بازطراحی جدی برای خود اپلیکیشن است: shell جدید، انتخاب زبان و منطقه در زمان اجرا، تم‌های روشن/تاریک/سیستمی، مدل امن‌تر برای fixها، متن دقیق‌تر برای Undo، خروجی گزارش، تاریخچه، مانیتور، تست سرعت و یک installer واحد.
 
-> نِت‌دکتر نرم‌افزار پولی با **لایسنس ماهانه** است. این مخزن فقط شامل معرفی و تصاویر محصول است، نه کد منبع.
+## دانلود
 
-## تصاویر
+- نصب‌کننده آخرین نسخه: [NetDoctorSetup-0.5.0.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.5.0/NetDoctorSetup-0.5.0.exe)
+- SHA256: [NetDoctorSetup-0.5.0.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.5.0/NetDoctorSetup-0.5.0.exe.sha256)
+- همه نسخه‌ها: [GitHub Releases](https://github.com/miladateight/NetDoctor/releases)
 
-</div>
+برای استفاده از برنامه، لایسنس معتبر لازم است.
 
-<div align="center">
-<img src="assets/screenshots/start-iran.png" alt="انتخاب مشکل" width="49%" />
-<img src="assets/screenshots/dashboard-iran.png" alt="داشبورد عیب‌یابی" width="49%" />
-</div>
+## نکات مهم نسخه 0.5.0
 
-<div dir="rtl">
+- UI جدید با سبک `Soft Command Center` شامل TopBar، Sidebar، Dashboard، StatusBar و tray.
+- تم‌های `System`، `Light` و `Dark` همراه با تغییر سریع از TopBar.
+- انتخاب زبان در زمان اجرا: `en`، `de`، `fa`، `ar`.
+- پشتیبانی RTL برای فارسی و عربی.
+- انتخاب منطقه در زمان اجرا: `World` و `Iran` در یک build واحد.
+- First Run Wizard برای انتخاب زبان، منطقه و تم.
+- Diagnose view با حالت Manual و Easy.
+- Dashboard با KPI برای Local، International، DNS و Quality.
+- کارت وضعیت برای adapter، gateway، internet، DNS، packet loss، port، VPN، proxy و hosts file.
+- Safe Reset و Deep Reset با توضیح دقیق ریسک.
+- Speed test با latency، jitter، download، cancel و fallback endpoint.
+- Monitor view با latency sparkline و refresh اطلاعات adapter.
+- History view برای ذخیره sessionها، حذف و export.
+- Logs view برای مشاهده log روز.
+- خروجی گزارش در قالب‌های `TXT`، `JSON` و `HTML`.
+- سرویس notification آپدیت بدون نصب خودکار.
 
-## چرا نِت‌دکتر؟
+## مدل امنیتی
 
-در خیلی از شبکه‌ها — به‌خصوص در ایران — سؤال «اینترنت وصل است؟» سؤال درستی نیست. سؤال‌های واقعی این‌ها هستند:
+برنامه به صورت پیش‌فرض administrator اجرا نمی‌شود. manifest روی `asInvoker` باقی مانده و UAC فقط برای repairهایی درخواست می‌شود که `RequiresAdmin=true` دارند.
 
-- آیا اینترنت **داخلی** در دسترس است؟
-- آیا اینترنت **بین‌الملل** در دسترس است؟
-- مشکل از **DNS** است، **VPN**، **پروکسی**، **مودم/گیت‌وی**، یا **اپراتور**؟
+Undo فقط برای repairهایی فعال است که rollback واقعی دارند. عملیات‌هایی مثل Winsock reset، TCP/IP reset و reset کامل stack شبکه، undo مستقیم وعده نمی‌دهند؛ snapshot آن‌ها فقط برای گزارش و audit نگه‌داری می‌شود.
 
-نِت‌دکتر دقیقاً به همین‌ها جواب می‌دهد و یک راه‌حل تک‌کلیکی و قابل بازگشت پیشنهاد می‌کند.
+## checkهای اصلی
 
-## امکانات کلیدی
+در نسخه 0.5.0 این checkها به صورت صریح پیاده یا wrap شده‌اند:
 
-- 🩺 **شروع از روی مشکل** — از علامت مشکل شروع کن، نه از منوهای فنی.
-- 🌐 **حکم داخلی/بین‌الملل** — روشن می‌گوید چه چیزی کار می‌کند و چه چیزی نه.
-- 🔎 **تشخیص DNS چندمنبعه** — DNS سیستم تو را با چند DNS عمومی (از جمله DNSهای ایرانی مثل **شکن، الکترو و بگذر**) مقایسه می‌کند تا مشخص کند واقعاً مشکل از DNS است یا نه.
-- 📶 **بررسی کامل** — کارت شبکه، گیت‌وی، DNS، کیفیت اتصال (تأخیر و اتلاف بسته)، دسترسی پورت TCP، کارت‌های VPN و پروکسی ویندوز.
-- 🛠️ **تعمیر امن** — تغییر DNS (با preset)، ریست پروکسی قدیمی، یا بازآوری شبکه — همیشه اول تنظیم قبلی ذخیره می‌شود و **بازگردانی** درون برنامه هست.
-- ⚙️ **تعمیر پیشرفته** — ریست کامل پشته‌ی شبکه (Winsock / TCP-IP) پشت یک هشدار روشن، برای سخت‌ترین موارد.
-- 🧾 **گزارش به زبان ساده** — یک خلاصه‌ی قابل فهم به‌علاوه‌ی یک لاگ فنی برای کاربران حرفه‌ای.
+- `DnsCheck`
+- `GatewayCheck`
+- `InternetCheck`
+- `AdapterCheck`
+- `ProxyCheck`
+- `PacketLossCheck`
+- `VpnCheck`
+- `HostsFileCheck`
+- `PortCheck`
 
-## نسخه‌ها
+`CaptivePortalCheck` و `IpConflictCheck` فعلا deferred هستند تا سیاست endpoint، کنترل false-positive و اعتبارسنجی ARP قابل اعتمادتر شود.
 
-| | نِت‌دکتر | نِت‌دکتر — نسخه ایران |
-|---|---|---|
-| زبان | انگلیسی | فارسی، راست‌به‌چپ |
-| هدف‌های داخلی | تشخیص خودکار کشور | تنظیم‌شده برای سایت‌ها و DNSهای ایران |
-| مناسب برای | کاربران سراسر دنیا | کاربران داخل ایران |
+## لایسنس
 
-## لایسنس چطور کار می‌کند؟
+مسیر لایسنس:
 
-نِت‌دکتر به‌صورت **ماهانه** لایسنس می‌شود:
+```text
+%PROGRAMDATA%\NetDoctor\license.json
+```
 
-۱. لایسنس را تهیه کن (تماس در پایین) و شناسه‌ی دستگاه (Machine ID) که در صفحه‌ی فعال‌سازی برنامه نشان داده می‌شود را ارسال کن.
-۲. یک کلید لایسنس شخصی، مخصوص همان یک کامپیوتر، دریافت می‌کنی.
-۳. آن را در صفحه‌ی فعال‌سازی هنگام اولین اجرا وارد کن.
-۴. برنامه تا پایان دوره فعال می‌ماند؛ برای ادامه، ماهانه تمدید کن.
+اعتبارسنجی شامل signature، machine match، expiration و clock rollback است. tokenهای قدیمی که edition دارند همچنان برای سازگاری validate می‌شوند، اما edition دیگر باعث رد شدن activation نمی‌شود.
 
-هر لایسنس مخصوص نسخه‌ی خودش و یک کامپیوتر مشخص، شخصی و غیرقابل‌انتقال است.
+ابزار صدور لایسنس:
 
-## پیش‌نیازها
+```text
+tools\NetDoctor.LicenseTool\bin\Release\net8.0\netdoctor-license.exe
+```
 
-- ویندوز ۱۰ یا ۱۱ (۶۴ بیتی)
-- دسترسی Administrator فقط هنگام اعمال یک تعمیر درخواست می‌شود
+گزینه `--edition` deprecated است، هنوز پذیرفته می‌شود و فقط warning می‌دهد.
 
-## تهیه‌ی لایسنس / تماس
+## ساخت و تست
 
-برای خرید لایسنس، در تلگرام به **[@MiladAteight](https://t.me/MiladAteight)** پیام بده — سریع‌ترین راه تماس با من است؛ قیمت نسخه‌ی مورد نظرت را می‌گویم و کلید لایسنس شخصی‌ات را برایت صادر می‌کنم.
+پیش‌نیازها:
 
-- 💬 **تلگرام:** [@MiladAteight](https://t.me/MiladAteight)
-- 📧 **ateight088@gmail.com**
-- دانلود و نسخه‌ها: **[نصب‌کننده ایران v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorIranSetup-0.3.0.exe)**، **[نصب‌کننده گلوبال v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorSetup-0.3.0.exe)** و صفحه‌ی **[Releases](https://github.com/miladateight/NetDoctor/releases)**
+- ویندوز 10 یا 11، نسخه 64 بیت
+- .NET 8 SDK
+- Inno Setup 6 برای ساخت installer
 
-## کپی‌رایت
+دستورهای رایج:
 
-© ۲۰۲۶ Milad AT8 — تمام حقوق محفوظ است. نِت‌دکتر نرم‌افزار تجاری و اختصاصی است. فایل [LICENSE](LICENSE) را ببین.
+```powershell
+dotnet build src\NetDoctor.App\NetDoctor.App.csproj -c Debug
+dotnet build src\NetDoctor.App\NetDoctor.App.csproj -c Release
+dotnet run --project tests\NetDoctor.Tests\NetDoctor.Tests.csproj -c Release
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-win-x64.ps1
+```
+
+## خروجی‌های release
+
+```text
+artifacts\publish\NetDoctor.exe
+artifacts\installer\NetDoctorSetup-0.5.0.exe
+artifacts\installer\NetDoctorSetup-0.5.0.exe.sha256
+tools\NetDoctor.LicenseTool\bin\Release\net8.0\netdoctor-license.exe
+tools\NetDoctor.LicenseTool\issue-license.cmd
+```
+
+## وضعیت اعتبارسنجی
+
+پکیج v0.5.0 با این موارد بررسی شد:
+
+- Debug build: pass
+- Release build: pass
+- Test runner: pass
+- App publish: pass
+- License tool publish: pass
+- Satellite assembly validation برای `de`، `fa`، `ar`: pass
+- توضیح neutral resource برای English: pass
+- ساخت installer با Inno Setup: pass
+- تولید SHA256: pass
+
+## تماس
+
+- تلگرام: [@MiladAteight](https://t.me/MiladAteight)
+- ایمیل: ateight088@gmail.com
+
+## لایسنس
+
+تمام حقوق برای Milad AT8 محفوظ است. Net Doctor نرم‌افزار تجاری و اختصاصی است. فایل [LICENSE](LICENSE) را ببینید.
 
 </div>

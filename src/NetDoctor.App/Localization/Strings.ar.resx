@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="About.Deferred" xml:space="preserve"><value>Deferred checks: CaptivePortalCheck and IpConflictCheck are documented in the build report.</value></data>
+  <data name="About.Title" xml:space="preserve"><value>About</value></data>
+  <data name="About.Version" xml:space="preserve"><value>Version {0}</value></data>
+  <data name="App.Subtitle" xml:space="preserve"><value>مركز تحكم ناعم لتشخيص شبكة ويندوز والإصلاح الآمن</value></data>
+  <data name="App.Title" xml:space="preserve"><value>Net Doctor</value></data>
+  <data name="Check.Adapter.Title" xml:space="preserve"><value>Adapter</value></data>
+  <data name="Check.Dns.Title" xml:space="preserve"><value>DNS</value></data>
+  <data name="Check.Gateway.Title" xml:space="preserve"><value>Gateway</value></data>
+  <data name="Check.HostsFile.Title" xml:space="preserve"><value>Hosts file</value></data>
+  <data name="Check.Internet.Title" xml:space="preserve"><value>Internet</value></data>
+  <data name="Check.PacketLoss.Title" xml:space="preserve"><value>Packet loss</value></data>
+  <data name="Check.Port.Title" xml:space="preserve"><value>Port</value></data>
+  <data name="Check.Proxy.Title" xml:space="preserve"><value>Proxy</value></data>
+  <data name="Check.Vpn.Title" xml:space="preserve"><value>VPN</value></data>
+  <data name="Common.Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Common.Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="Common.Export" xml:space="preserve"><value>Export</value></data>
+  <data name="Common.Open" xml:space="preserve"><value>Open</value></data>
+  <data name="Common.Refresh" xml:space="preserve"><value>Refresh</value></data>
+  <data name="Common.Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Common.Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Common.Stop" xml:space="preserve"><value>Stop</value></data>
+  <data name="Dashboard.Details" xml:space="preserve"><value>Details</value></data>
+  <data name="Dashboard.FixSafely" xml:space="preserve"><value>Fix Safely</value></data>
+  <data name="Dashboard.KpiDns" xml:space="preserve"><value>DNS</value></data>
+  <data name="Dashboard.KpiInternational" xml:space="preserve"><value>International</value></data>
+  <data name="Dashboard.KpiLocal" xml:space="preserve"><value>Local</value></data>
+  <data name="Dashboard.KpiQuality" xml:space="preserve"><value>Quality</value></data>
+  <data name="Dashboard.NetworkReset" xml:space="preserve"><value>Network Reset</value></data>
+  <data name="Dashboard.RunAgain" xml:space="preserve"><value>Run Again</value></data>
+  <data name="Dashboard.Subtitle" xml:space="preserve"><value>حالة الشبكة المباشرة والإجراءات المقترحة والأدلة لكل نتيجة.</value></data>
+  <data name="Dashboard.Title" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Dashboard.Undo" xml:space="preserve"><value>Undo</value></data>
+  <data name="Diagnose.Advanced" xml:space="preserve"><value>Advanced target</value></data>
+  <data name="Diagnose.EasyRun" xml:space="preserve"><value>Diagnose and apply safest fix</value></data>
+  <data name="Diagnose.Host" xml:space="preserve"><value>Host</value></data>
+  <data name="Diagnose.ModeEasy" xml:space="preserve"><value>Easy</value></data>
+  <data name="Diagnose.ModeManual" xml:space="preserve"><value>Manual</value></data>
+  <data name="Diagnose.Port" xml:space="preserve"><value>Port</value></data>
+  <data name="Diagnose.Problem" xml:space="preserve"><value>Problem</value></data>
+  <data name="Diagnose.Run" xml:space="preserve"><value>Run diagnosis</value></data>
+  <data name="Diagnose.Title" xml:space="preserve"><value>Diagnosis</value></data>
+  <data name="FirstRun.Body" xml:space="preserve"><value>اختر اللغة والمنطقة والسمة قبل أول تشخيص.</value></data>
+  <data name="FirstRun.Finish" xml:space="preserve"><value>بدء Net Doctor</value></data>
+  <data name="FirstRun.Language" xml:space="preserve"><value>Language</value></data>
+  <data name="FirstRun.Region" xml:space="preserve"><value>Region</value></data>
+  <data name="FirstRun.Theme" xml:space="preserve"><value>Theme</value></data>
+  <data name="FirstRun.Title" xml:space="preserve"><value>مرحباً بك في Net Doctor</value></data>
+  <data name="History.Empty" xml:space="preserve"><value>No saved sessions yet.</value></data>
+  <data name="History.ExportHtml" xml:space="preserve"><value>HTML</value></data>
+  <data name="History.ExportJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="History.ExportTxt" xml:space="preserve"><value>TXT</value></data>
+  <data name="History.Open" xml:space="preserve"><value>Open session</value></data>
+  <data name="History.Title" xml:space="preserve"><value>History</value></data>
+  <data name="Logs.OpenFolder" xml:space="preserve"><value>Open logs folder</value></data>
+  <data name="Logs.Title" xml:space="preserve"><value>Logs</value></data>
+  <data name="Logs.Today" xml:space="preserve"><value>Today&apos;s log</value></data>
+  <data name="Monitor.Adapter" xml:space="preserve"><value>Adapter info</value></data>
+  <data name="Monitor.Latency" xml:space="preserve"><value>Latency</value></data>
+  <data name="Monitor.NetworkChanged" xml:space="preserve"><value>Network changed</value></data>
+  <data name="Monitor.Title" xml:space="preserve"><value>Monitor</value></data>
+  <data name="Nav.About" xml:space="preserve"><value>حول</value></data>
+  <data name="Nav.Dashboard" xml:space="preserve"><value>لوحة</value></data>
+  <data name="Nav.Diagnose" xml:space="preserve"><value>تشخيص</value></data>
+  <data name="Nav.History" xml:space="preserve"><value>السجل</value></data>
+  <data name="Nav.Logs" xml:space="preserve"><value>السجلات</value></data>
+  <data name="Nav.Monitor" xml:space="preserve"><value>مراقبة</value></data>
+  <data name="Nav.Reset" xml:space="preserve"><value>إعادة ضبط الشبكة</value></data>
+  <data name="Nav.Settings" xml:space="preserve"><value>الإعدادات</value></data>
+  <data name="Nav.SpeedTest" xml:space="preserve"><value>اختبار السرعة</value></data>
+  <data name="Reset.Deep" xml:space="preserve"><value>Deep Reset</value></data>
+  <data name="Reset.DeepBody" xml:space="preserve"><value>Winsock/TCP reset requires admin and may need manual restart. It cannot be directly undone.</value></data>
+  <data name="Reset.Safe" xml:space="preserve"><value>Safe Reset</value></data>
+  <data name="Reset.SafeBody" xml:space="preserve"><value>Flush DNS, renew adapter information, and keep rollback promises honest.</value></data>
+  <data name="Reset.Title" xml:space="preserve"><value>Network reset</value></data>
+  <data name="Settings.AutoStart" xml:space="preserve"><value>البدء مع ويندوز</value></data>
+  <data name="Settings.Language" xml:space="preserve"><value>Language</value></data>
+  <data name="Settings.MinimizeToTray" xml:space="preserve"><value>زر الإغلاق يصغر إلى صينية النظام</value></data>
+  <data name="Settings.ReducedMotion" xml:space="preserve"><value>تقليل الحركة</value></data>
+  <data name="Settings.Region" xml:space="preserve"><value>Region</value></data>
+  <data name="Settings.Theme" xml:space="preserve"><value>Theme</value></data>
+  <data name="Settings.Title" xml:space="preserve"><value>Settings</value></data>
+  <data name="Severity.Critical" xml:space="preserve"><value>Critical</value></data>
+  <data name="Severity.Error" xml:space="preserve"><value>Error</value></data>
+  <data name="Severity.Healthy" xml:space="preserve"><value>Healthy</value></data>
+  <data name="Severity.Info" xml:space="preserve"><value>Info</value></data>
+  <data name="Severity.Warning" xml:space="preserve"><value>Warning</value></data>
+  <data name="Speed.Download" xml:space="preserve"><value>Download</value></data>
+  <data name="Speed.Fallback" xml:space="preserve"><value>Use fallback endpoint</value></data>
+  <data name="Speed.Jitter" xml:space="preserve"><value>Jitter</value></data>
+  <data name="Speed.Latency" xml:space="preserve"><value>Latency</value></data>
+  <data name="Speed.Title" xml:space="preserve"><value>Speed test</value></data>
+  <data name="TopBar.Language" xml:space="preserve"><value>Language</value></data>
+  <data name="TopBar.LicenseActive" xml:space="preserve"><value>Licensed</value></data>
+  <data name="TopBar.LicenseExpired" xml:space="preserve"><value>Expired</value></data>
+  <data name="TopBar.LicenseExpiring" xml:space="preserve"><value>Expiring</value></data>
+  <data name="TopBar.LicenseMissing" xml:space="preserve"><value>No license</value></data>
+  <data name="TopBar.QuickCheck" xml:space="preserve"><value>Quick check</value></data>
+  <data name="TopBar.Theme" xml:space="preserve"><value>Theme</value></data>
+  <data name="Undo.NotAvailable.Body" xml:space="preserve"><value>هذه العملية لا تملك rollback مباشراً. يتم حفظ snapshot للتقرير والتدقيق فقط.</value></data>
+  <data name="Undo.NotAvailable.Title" xml:space="preserve"><value>التراجع غير متاح</value></data>
+
+</root>

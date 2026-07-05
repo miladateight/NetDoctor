@@ -1,88 +1,140 @@
-<div align="center">
+﻿<div align="center">
 
 <img src="assets/netdoctor-icon-512.png" alt="Net Doctor" width="120" />
 
 # Net Doctor
 
-**A smart Windows network doctor that tells you — in plain language — why your internet is broken, and fixes it safely.**
+**A modern Windows command center for network diagnosis, safe repair, monitoring, history and reports.**
 
-[English](README.md) · [فارسی](README.fa.md)
+[English](README.md) - [فارسی](README.fa.md)
 
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0a1622)](#system-requirements)
-[![Edition](https://img.shields.io/badge/edition-Iran%20%2B%20International-1fa49a)](#editions)
+[![Version](https://img.shields.io/badge/version-0.5.0-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.5.0)
 [![License](https://img.shields.io/badge/license-Commercial-c83645)](LICENSE)
 
 </div>
 
 ---
 
-Net Doctor is a commercial Windows app for everyday users who just want to know **"why isn't my internet working?"** — without understanding DNS, gateways, routes, proxies, VPN adapters or port tests.
+Net Doctor is a Windows desktop application for diagnosing common network and internet problems in plain language, then applying controlled repairs only when the user confirms them.
 
-You pick the problem you're facing; Net Doctor runs a guided diagnosis, tells you in clear language **where the fault is**, and offers **safe, reversible repairs**.
+Version `0.5.0` introduces a redesigned desktop shell, runtime language and region selection, Light/Dark/System themes, safer fix metadata, better undo wording, report export, session history, monitor tools, speed testing and a single unified installer.
 
-> Net Doctor is paid software with a monthly license. This repository contains the product description and screenshots only — not the source code.
+## Download
 
-🌐 **Project page:** [ateight.xyz/NetDoctor](https://ateight.xyz/NetDoctor/) · 📦 **Downloads:** [Iran installer v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorIranSetup-0.3.0.exe) · [Global installer v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorSetup-0.3.0.exe) · [All releases](https://github.com/miladateight/NetDoctor/releases) (a valid license is required to use the app)
+- Latest installer: [NetDoctorSetup-0.5.0.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.5.0/NetDoctorSetup-0.5.0.exe)
+- SHA256: [NetDoctorSetup-0.5.0.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.5.0/NetDoctorSetup-0.5.0.exe.sha256)
+- All releases: [GitHub Releases](https://github.com/miladateight/NetDoctor/releases)
 
-## Screenshots
+A valid license is required to use the app.
 
-<div align="center">
-<img src="assets/screenshots/start.png" alt="Choose your problem" width="49%" />
-<img src="assets/screenshots/dashboard.png" alt="Diagnosis dashboard" width="49%" />
-</div>
+## Highlights
 
-## Why Net Doctor
+- Modern `Soft Command Center` UI with TopBar, Sidebar, Dashboard, StatusBar and tray behavior.
+- Theme support: `System`, `Light`, `Dark` with a quick TopBar toggle.
+- Runtime language selection: `en`, `de`, `fa`, `ar`.
+- RTL layout support for Persian and Arabic.
+- Runtime region selection: `World` and `Iran` in one app build.
+- First Run Wizard for language, region and theme.
+- Diagnose view with Manual and Easy modes.
+- Dashboard KPI strip for Local, International, DNS and Quality status.
+- Status cards for adapter, gateway, internet, DNS, packet loss, port, VPN, proxy and hosts file checks.
+- Safe Reset and Deep Reset flows with clear risk wording.
+- Speed test with latency, jitter, download, cancel and fallback endpoint.
+- Monitor view with latency sparkline and adapter refresh.
+- History view for saved sessions, delete and export.
+- Logs view with daily log access.
+- Report export to `TXT`, `JSON` and `HTML`.
+- Update notification service without automatic install.
 
-In many networks — especially in Iran — "is the internet up?" is the wrong question. The real questions are:
+## Safety Model
 
-- Is **local/internal** internet reachable?
-- Is **international** internet reachable?
-- Is the fault in **DNS**, **VPN**, **proxy**, the **gateway/modem**, or the **ISP**?
+Net Doctor does not run as administrator by default. The app manifest remains `asInvoker`; UAC is requested only for repairs marked `RequiresAdmin=true`.
 
-Net Doctor answers exactly these, then proposes a one-click fix you can undo.
+Undo is available only for repairs with real rollback data. Operations such as Winsock reset, TCP/IP reset and full network-stack reset do not promise direct rollback; their snapshots are kept for audit and reporting.
 
-## Key features
+## Core Checks
 
-- 🩺 **Problem-first flow** — start from your symptom, not from technical menus.
-- 🌐 **Internal vs international verdict** — clearly says what works and what doesn't.
-- 🔎 **Multi-resolver DNS diagnosis** — compares your system DNS against multiple public resolvers (including Iranian DNS such as Shecan, Electro and Begzar) to pinpoint whether DNS is really the problem.
-- 📶 **Full checks** — adapter, gateway, DNS, connection quality (latency & packet loss), TCP port reachability, VPN adapters and Windows proxy.
-- 🛠️ **Fix Safely** — switch DNS (with presets), reset a stale proxy, or refresh the network — always saving the previous setting first, with **Undo** built in.
-- ⚙️ **Advanced repair** — full network-stack reset (Winsock / TCP-IP) behind a clear warning, for the toughest cases.
-- 🧾 **Plain-language report** — a human summary plus a technical log for advanced users.
+The v0.5.0 core explicitly includes or wraps these checks:
 
-## Editions
+- `DnsCheck`
+- `GatewayCheck`
+- `InternetCheck`
+- `AdapterCheck`
+- `ProxyCheck`
+- `PacketLossCheck`
+- `VpnCheck`
+- `HostsFileCheck`
+- `PortCheck`
 
-| | Net Doctor | Net Doctor — Iran Edition |
-|---|---|---|
-| Language | English | Persian (فارسی), right-to-left |
-| Local targets | Country auto-detected | Tuned for Iranian sites & DNS |
-| Best for | Worldwide users | Users in Iran |
+`CaptivePortalCheck` and `IpConflictCheck` are deferred until endpoint policy, false-positive handling and ARP validation are reliable enough for production use.
 
-## How licensing works
+## Licensing
 
-Net Doctor is licensed on a **monthly** basis:
+The license is stored at:
 
-1. Purchase a license (contact below) and send the **Machine ID** shown on the app's activation screen.
-2. You receive a personal license key, issued for that one computer.
-3. Paste it into the activation screen on first launch.
-4. The app stays active for the licensed period; renew monthly to continue.
+```text
+%PROGRAMDATA%\NetDoctor\license.json
+```
 
-Each license is bound to its edition and to a single computer, and is personal & non-transferable.
+Licenses validate signature, machine match, expiration and clock rollback. Older tokens that include an edition still validate for compatibility, but edition is no longer used to block activation.
 
-## System requirements
+The private issuer tool is kept under:
 
-- Windows 10 or Windows 11 (64-bit)
-- Administrator permission is requested only when applying a repair
+```text
+tools\NetDoctor.LicenseTool\bin\Release\net8.0\netdoctor-license.exe
+```
 
-## Get a license / contact
+The `--edition` option is deprecated, still accepted, and ignored with a warning.
 
-To buy a license, message **[@MiladAteight](https://t.me/MiladAteight) on Telegram** — that's the fastest way to reach me, get your price for the edition you need, and receive your personal license key.
+## Build
 
-- 💬 **Telegram:** [@MiladAteight](https://t.me/MiladAteight)
-- 📧 **ateight088@gmail.com**
-- Releases & downloads: **[Iran installer v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorIranSetup-0.3.0.exe)**, **[Global installer v0.3.0](https://github.com/miladateight/NetDoctor/releases/download/v0.3.0/NetDoctorSetup-0.3.0.exe)** and the **[Releases](https://github.com/miladateight/NetDoctor/releases)** page
+Requirements:
+
+- Windows 10 or Windows 11, 64-bit
+- .NET 8 SDK
+- Inno Setup 6 for installer packaging
+
+Common commands:
+
+```powershell
+dotnet build src\NetDoctor.App\NetDoctor.App.csproj -c Debug
+dotnet build src\NetDoctor.App\NetDoctor.App.csproj -c Release
+dotnet run --project tests\NetDoctor.Tests\NetDoctor.Tests.csproj -c Release
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-win-x64.ps1
+```
+
+## Release Artifacts
+
+Expected local outputs:
+
+```text
+artifacts\publish\NetDoctor.exe
+artifacts\installer\NetDoctorSetup-0.5.0.exe
+artifacts\installer\NetDoctorSetup-0.5.0.exe.sha256
+tools\NetDoctor.LicenseTool\bin\Release\net8.0\netdoctor-license.exe
+tools\NetDoctor.LicenseTool\issue-license.cmd
+```
+
+## Validation Status
+
+The v0.5.0 package was verified with:
+
+- Debug build: pass
+- Release build: pass
+- Test runner: pass
+- App publish: pass
+- License tool publish: pass
+- Satellite assembly validation for `de`, `fa`, `ar`: pass
+- English neutral resource explanation: pass
+- Inno Setup installer compile: pass
+- SHA256 file generation: pass
+
+## Contact
+
+- Telegram: [@MiladAteight](https://t.me/MiladAteight)
+- Email: ateight088@gmail.com
 
 ## License
 
-© 2026 Milad AT8 — All rights reserved. Net Doctor is proprietary, commercial software. See [LICENSE](LICENSE).
+Copyright (c) 2026 Milad AT8. Net Doctor is proprietary commercial software. See [LICENSE](LICENSE).

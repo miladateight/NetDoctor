@@ -1,0 +1,45 @@
+# This folder is intended to become a public release-only repository.
+# Keep source, build output, private licensing material, and local config out.
+
+src/
+tests/
+tools/
+scripts/
+installer/
+licensing-keys/
+artifacts/
+bin/
+obj/
+build/
+dist/
+.vs/
+.vscode/
+.idea/
+.claude/
+.codex/
+.graphify-cache/
+graphify-out/
+
+*.sln
+*.cs
+*.csproj
+*.props
+*.targets
+*.pdb
+*.key
+*.pem
+*.pfx
+*.sqlite3
+*.db
+*.env
+.env
+.env.local
+*.graphify.tmp
+*.graphify.log
+
+NetDoctor.LicenseTool*
+LicenseTool*
+NetDoctorSetup-*.exe
+
+# Local helper for preparing the release-only branch. Do not publish it.
+prepare-release-only-push.ps1

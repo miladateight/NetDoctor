@@ -17,6 +17,7 @@ dist/
 .idea/
 .claude/
 .codex/
+.agents/
 .graphify-cache/
 graphify-out/
 

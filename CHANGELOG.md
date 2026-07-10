@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.1
+
+- Fixed the sidebar navigation transition: switching between sections no longer shows the new page rendering in visible stages; page switches are now an instant, smooth cross-fade.
+- Updated the public release pointers to the `0.6.1` installer.
+
 ## 0.6.0
 
 - Updated the public release pointers to the `0.6.0` installer.

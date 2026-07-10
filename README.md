@@ -9,14 +9,14 @@
 [English](README.md) - [فارسی](README.fa.md)
 
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0a1622)](#requirements)
-[![Version](https://img.shields.io/badge/version-0.6.0-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.6.0)
+[![Version](https://img.shields.io/badge/version-0.6.1-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.6.1)
 [![License](https://img.shields.io/badge/license-Commercial-c83645)](LICENSE)
 
 </div>
 
 ---
 
-Net Doctor is a Windows desktop application that diagnoses common network and internet problems in plain language, then applies controlled repairs only when the user confirms them. Version `0.6.0` focuses on a polished desktop UI and clear daily workflows: simple/pro dashboard modes, symptom-first diagnosis, stronger reset guidance and the same single unified installer.
+Net Doctor is a Windows desktop application that diagnoses common network and internet problems in plain language, then applies controlled repairs only when the user confirms them. Version `0.6.1` polishes the desktop UI and daily workflows: simple/pro dashboard modes, symptom-first diagnosis, stronger reset guidance, a smoother sidebar navigation transition and the same single unified installer.
 
 > This repository is intentionally **release-only**. It does not contain source code, tests, build scripts, private licensing keys, or the local license issuer tool. The installer is distributed through GitHub Releases.
 
@@ -33,8 +33,8 @@ Net Doctor is a Windows desktop application that diagnoses common network and in
 
 ## Download
 
-- Latest installer: [NetDoctorSetup-0.6.0.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.6.0/NetDoctorSetup-0.6.0.exe)
-- SHA256: [NetDoctorSetup-0.6.0.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.6.0/NetDoctorSetup-0.6.0.exe.sha256)
+- Latest installer: [NetDoctorSetup-0.6.1.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.6.1/NetDoctorSetup-0.6.1.exe)
+- SHA256: [NetDoctorSetup-0.6.1.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.6.1/NetDoctorSetup-0.6.1.exe.sha256)
 - All releases: [GitHub Releases](https://github.com/miladateight/NetDoctor/releases)
 
 A valid license is required to use the app.

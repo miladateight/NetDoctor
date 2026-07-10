@@ -9,7 +9,7 @@
 [English](README.md) - [فارسی](README.fa.md)
 
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0a1622)](#پیش‌نیازها)
-[![Version](https://img.shields.io/badge/version-0.6.0-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.6.0)
+[![Version](https://img.shields.io/badge/version-0.6.1-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.6.1)
 [![License](https://img.shields.io/badge/license-Commercial-c83645)](LICENSE)
 
 </div>
@@ -18,7 +18,7 @@
 
 <div dir="rtl">
 
-نت دکتر یک اپلیکیشن دسکتاپ ویندوز است که مشکلات رایج شبکه و اینترنت را با زبان قابل فهم تشخیص می‌دهد و فقط بعد از تایید کاربر، تعمیرهای کنترل‌شده را اجرا می‌کند. نسخه‌ی `0.6.0` روی تجربه‌ی کاربری بهتر تمرکز دارد: داشبورد ساده و حرفه‌ای، عیب‌یابی بر اساس نشانه‌ی مشکل، راهنمای ریست واضح‌تر و همان installer واحد.
+نت دکتر یک اپلیکیشن دسکتاپ ویندوز است که مشکلات رایج شبکه و اینترنت را با زبان قابل فهم تشخیص می‌دهد و فقط بعد از تایید کاربر، تعمیرهای کنترل‌شده را اجرا می‌کند. نسخه‌ی `0.6.1` روی تجربه‌ی کاربری بهتر تمرکز دارد: داشبورد ساده و حرفه‌ای، عیب‌یابی بر اساس نشانه‌ی مشکل، راهنمای ریست واضح‌تر، جابه‌جایی نرم‌تر بین منوهای کناری و همان installer واحد.
 
 > این مخزن به‌صورت **release-only** طراحی شده است. شامل سورس کد، تست‌ها، اسکریپت‌های build، کلیدهای خصوصی لایسنس یا ابزار صدور لایسنس محلی نیست. نصب‌کننده از طریق GitHub Releases توزیع می‌شود.
 
@@ -35,8 +35,8 @@
 
 ## دانلود
 
-- نصب‌کننده‌ی آخرین نسخه: [NetDoctorSetup-0.6.0.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.6.0/NetDoctorSetup-0.6.0.exe)
-- SHA256: [NetDoctorSetup-0.6.0.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.6.0/NetDoctorSetup-0.6.0.exe.sha256)
+- نصب‌کننده‌ی آخرین نسخه: [NetDoctorSetup-0.6.1.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.6.1/NetDoctorSetup-0.6.1.exe)
+- SHA256: [NetDoctorSetup-0.6.1.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.6.1/NetDoctorSetup-0.6.1.exe.sha256)
 - همه‌ی نسخه‌ها: [GitHub Releases](https://github.com/miladateight/NetDoctor/releases)
 
 برای استفاده از برنامه، لایسنس معتبر لازم است.

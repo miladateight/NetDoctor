@@ -9,14 +9,14 @@
 [English](README.md) - [فارسی](README.fa.md)
 
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0a1622)](#requirements)
-[![Version](https://img.shields.io/badge/version-0.6.1-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.6.1)
+[![Version](https://img.shields.io/badge/version-0.7.0-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.7.0)
 [![License](https://img.shields.io/badge/license-Commercial-c83645)](LICENSE)
 
 </div>
 
 ---
 
-Net Doctor is a Windows desktop application that diagnoses common network and internet problems in plain language, then applies controlled repairs only when the user confirms them. Version `0.6.1` polishes the desktop UI and daily workflows: simple/pro dashboard modes, symptom-first diagnosis, stronger reset guidance, a smoother sidebar navigation transition and the same single unified installer.
+Net Doctor is a Windows desktop application that diagnoses common network and internet problems in plain language, then applies controlled repairs only when the user confirms them. Version `0.7.0` makes the app noticeably faster (diagnosis checks now run in parallel), adds a step-by-step **Initial Setup** wizard, a **bottleneck analyzer** that pinpoints the first broken link in the connection chain, and a DNS chooser that **live-pings** each resolver and pre-selects the fastest healthy one. It also introduces **Free and Premium** tiers in one build — the app runs for free with a base feature set, and a license unlocks everything.
 
 > This repository is intentionally **release-only**. It does not contain source code, tests, build scripts, private licensing keys, or the local license issuer tool. The installer is distributed through GitHub Releases.
 
@@ -33,11 +33,29 @@ Net Doctor is a Windows desktop application that diagnoses common network and in
 
 ## Download
 
-- Latest installer: [NetDoctorSetup-0.6.1.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.6.1/NetDoctorSetup-0.6.1.exe)
-- SHA256: [NetDoctorSetup-0.6.1.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.6.1/NetDoctorSetup-0.6.1.exe.sha256)
+- Latest installer: [NetDoctorSetup-0.7.0.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.7.0/NetDoctorSetup-0.7.0.exe)
+- SHA256: [NetDoctorSetup-0.7.0.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.7.0/NetDoctorSetup-0.7.0.exe.sha256)
 - All releases: [GitHub Releases](https://github.com/miladateight/NetDoctor/releases)
 
-A valid license is required to use the app.
+The app installs and runs without a license in **Free** mode. A valid license unlocks **Premium**.
+
+## Free vs Premium
+
+One build, two access levels — no separate installer, no trial and no time limit. Without a license
+(or with an expired one) the app runs in **Free**; a valid license unlocks **Premium**. Premium
+features stay visible in the UI with a lock; clicking one opens activation. Your data (history,
+snapshots, settings) is never deleted when a license expires — access is simply locked until you
+re-activate.
+
+| Free | Premium (everything in Free, plus…) |
+| --- | --- |
+| Adapter & Gateway checks | Professional dashboard |
+| Simple Internet & DNS check | VPN, Proxy, Port & Hosts checks and repairs |
+| Active adapter & IP display | Safe Reset, Deep Reset, Winsock & TCP/IP reset |
+| Simple ping test | Full Speed Test & Live Monitor |
+| Flush DNS repair | History, Logs & TXT/JSON/HTML export |
+| Simple dashboard (current result) | DNS change (live-ping chooser) + Initial Setup wizard |
+|  | Snapshots & Undo |
 
 ## Highlights
 
@@ -47,6 +65,10 @@ A valid license is required to use the app.
 - RTL layout support for Persian and Arabic.
 - Runtime region selection: `World` and `Iran` in one app build.
 - First Run Wizard for language, region and theme.
+- Guided **Initial Setup** that runs diagnose → bottleneck → DNS → apply → verify in-place.
+- **Bottleneck analyzer** that names the first broken link in the connection chain in plain language.
+- Parallel diagnosis (roughly the time of the single slowest check instead of the sum).
+- DNS chooser that live-pings each resolver and pre-selects the fastest healthy one (domestic and global for Iran).
 - Simple and Professional dashboard modes for normal users and power users.
 - Dashboard KPI strip for Local, International, DNS and Quality status.
 - Status cards for adapter, gateway, internet, DNS, packet loss, port, VPN, proxy and hosts file checks.

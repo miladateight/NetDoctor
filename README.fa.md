@@ -25,12 +25,8 @@
 ## اسکرین‌شات‌ها
 
 <p float="right">
-  <img src="assets/screenshots/start.png" width="45%" alt="شروع" />
-  <img src="assets/screenshots/dashboard.png" width="45%" alt="داشبورد" />
-</p>
-<p float="right">
-  <img src="assets/screenshots/start-iran.png" width="45%" alt="شروع (منطقه ایران)" />
-  <img src="assets/screenshots/dashboard-iran.png" width="45%" alt="داشبورد (منطقه ایران)" />
+  <img src="assets/screenshots/dashboard.png" width="49%" alt="داشبورد با آنالیز گلوگاه" />
+  <img src="assets/screenshots/setup.png" width="49%" alt="ویزارد راه‌اندازی اولیه" />
 </p>
 
 ## دانلود

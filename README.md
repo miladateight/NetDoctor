@@ -23,12 +23,8 @@ Net Doctor is a Windows desktop application that diagnoses common network and in
 ## Screenshots
 
 <p float="left">
-  <img src="assets/screenshots/start.png" width="45%" alt="Start" />
-  <img src="assets/screenshots/dashboard.png" width="45%" alt="Dashboard" />
-</p>
-<p float="left">
-  <img src="assets/screenshots/start-iran.png" width="45%" alt="Start (Iran region)" />
-  <img src="assets/screenshots/dashboard-iran.png" width="45%" alt="Dashboard (Iran region)" />
+  <img src="assets/screenshots/dashboard.png" width="49%" alt="Dashboard with bottleneck analysis" />
+  <img src="assets/screenshots/setup.png" width="49%" alt="Guided Initial Setup wizard" />
 </p>
 
 ## Download

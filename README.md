@@ -9,14 +9,14 @@
 [English](README.md) - [فارسی](README.fa.md)
 
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0a1622)](#requirements)
-[![Version](https://img.shields.io/badge/version-0.7.0-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.7.0)
+[![Version](https://img.shields.io/badge/version-0.8.0-7855ff)](https://github.com/miladateight/NetDoctor/releases/tag/v0.8.0)
 [![License](https://img.shields.io/badge/license-Commercial-c83645)](LICENSE)
 
 </div>
 
 ---
 
-Net Doctor is a Windows desktop application that diagnoses common network and internet problems in plain language, then applies controlled repairs only when the user confirms them. Version `0.7.0` makes the app noticeably faster (diagnosis checks now run in parallel), adds a step-by-step **Initial Setup** wizard, a **bottleneck analyzer** that pinpoints the first broken link in the connection chain, and a DNS chooser that **live-pings** each resolver and pre-selects the fastest healthy one. It also introduces **Free and Premium** tiers in one build — the app runs for free with a base feature set, and a license unlocks everything.
+Net Doctor is a Windows desktop application that diagnoses common network and internet problems in plain language, then applies controlled repairs only when the user confirms them. Version `0.8.0` focuses on speed and polish: the whole app now renders in a **single frame** — it opens, and switches between sections, appearing complete instead of assembling itself in visible stages — and adds a **subscription status** card that shows exactly how many days remain on a Premium license and when it expires. It builds on `0.7.0`, which introduced parallel diagnosis, the step-by-step **Initial Setup** wizard, the **bottleneck analyzer**, the live-ping DNS chooser, and **Free and Premium** tiers in one build.
 
 > This repository is intentionally **release-only**. It does not contain source code, tests, build scripts, private licensing keys, or the local license issuer tool. The installer is distributed through GitHub Releases.
 
@@ -29,8 +29,8 @@ Net Doctor is a Windows desktop application that diagnoses common network and in
 
 ## Download
 
-- Latest installer: [NetDoctorSetup-0.7.0.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.7.0/NetDoctorSetup-0.7.0.exe)
-- SHA256: [NetDoctorSetup-0.7.0.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.7.0/NetDoctorSetup-0.7.0.exe.sha256)
+- Latest installer: [NetDoctorSetup-0.8.0.exe](https://github.com/miladateight/NetDoctor/releases/download/v0.8.0/NetDoctorSetup-0.8.0.exe)
+- SHA256: [NetDoctorSetup-0.8.0.exe.sha256](https://github.com/miladateight/NetDoctor/releases/download/v0.8.0/NetDoctorSetup-0.8.0.exe.sha256)
 - All releases: [GitHub Releases](https://github.com/miladateight/NetDoctor/releases)
 
 The app installs and runs without a license in **Free** mode. A valid license unlocks **Premium**.
@@ -55,6 +55,9 @@ re-activate.
 
 ## Highlights
 
+- Single-frame rendering: the app opens and switches sections in one frame, with no visible stage-by-stage assembly and instant navigation.
+- Subscription status card on the Premium badge: exact days remaining and expiry date (Jalali in the Persian UI), with one-click renew.
+- Single running instance: relaunching restores the existing window instead of opening another copy.
 - Modern `Soft Command Center` UI with TopBar, Sidebar, Dashboard, StatusBar and tray behavior.
 - Theme support: `System`, `Light`, `Dark` with a quick TopBar toggle.
 - Runtime language selection: `en`, `de`, `fa`, `ar`.
